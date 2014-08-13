@@ -7,43 +7,37 @@
 //
 
 #import "KTPTabBarController.h"
+#import "KTPViewController.h"
+#import "KTPRequirementsViewController.h"
 
 @interface KTPTabBarController ()
+
+@property (nonatomic) KTPViewController *mainVC;
+@property (nonatomic) KTPRequirementsViewController *requirementsVC;
 
 @end
 
 @implementation KTPTabBarController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
 
-- (void)viewDidLoad
+-(void)loadView
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [super loadView];
+    self.mainVC = [KTPViewController new];
+    self.requirementsVC = [KTPRequirementsViewController new];
+    NSArray *VCs = @[self.mainVC, self.requirementsVC];
+    [self setViewControllers:VCs];
+    self.mainVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Home" image:nil tag:1];
+    self.requirementsVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Reuirements" image:nil tag:2];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "KTPAppDelegate.h"
+#import "KTPTabBarController.h"
 
 @implementation KTPAppDelegate
 
@@ -15,6 +16,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.tabBarVC = [KTPTabBarController new];
+    self.window.rootViewController = self.tabBarVC;
     [self.window makeKeyAndVisible];
     return YES;
 }

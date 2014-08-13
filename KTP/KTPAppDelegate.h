@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class KTPTabBarController;
+
 @interface KTPAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic) UIWindow *window;
+@property (nonatomic) KTPTabBarController *tabBarVC;
 
 @end
