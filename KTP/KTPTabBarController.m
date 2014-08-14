@@ -43,6 +43,7 @@
     self.requirementsVC = [KTPRequirementsViewController new];
     self.requirementsNavigationVC = [[UINavigationController alloc] initWithRootViewController:self.requirementsVC];
     self.requirementsNavigationVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Requirements" image:nil tag:2];
+    [self.requirementsNavigationVC.navigationBar setTintColor:[UIColor KTPBlue136]];
 }
 
 -(void)loadMainVC
