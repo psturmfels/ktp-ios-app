@@ -14,6 +14,7 @@
 
 @property (nonatomic) KTPViewController *mainVC;
 @property (nonatomic) KTPRequirementsViewController *requirementsVC;
+@property (nonatomic) UINavigationController *requirementsNavigationVC;
 
 @end
 
@@ -31,12 +32,23 @@
 -(void)loadView
 {
     [super loadView];
-    self.mainVC = [KTPViewController new];
-    self.requirementsVC = [KTPRequirementsViewController new];
-    NSArray *VCs = @[self.mainVC, self.requirementsVC];
+    [self loadRequirementsVC];
+    [self loadMainVC];
+    NSArray *VCs = @[self.mainVC, self.requirementsNavigationVC];
     [self setViewControllers:VCs];
-    self.mainVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Home" image:nil tag:1];
-    self.requirementsVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Reuirements" image:nil tag:2];
+}
+
+-(void)loadRequirementsVC
+{
+    self.requirementsVC = [KTPRequirementsViewController new];
+    self.requirementsNavigationVC = [[UINavigationController alloc] initWithRootViewController:self.requirementsVC];
+    self.requirementsNavigationVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Requirements" image:nil tag:2];
+}
+
+-(void)loadMainVC
+{
+    self.mainVC = [KTPViewController new];
+    self.mainVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Home" image:nil tag:1];
 }
 
 

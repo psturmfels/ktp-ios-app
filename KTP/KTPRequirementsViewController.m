@@ -7,43 +7,45 @@
 //
 
 #import "KTPRequirementsViewController.h"
+#import "KTPRequirementsDataSource.h"
 
-@interface KTPRequirementsViewController ()
+
+@interface KTPRequirementsViewController () <UITableViewDelegate>
+
+@property (nonatomic) UITableView *checklist;
+@property (nonatomic) KTPRequirementsDataSource *dataSource;
 
 @end
 
 @implementation KTPRequirementsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
 
-- (void)viewDidLoad
+-(void)loadView
+{
+    [super loadView];
+    self.dataSource = [KTPRequirementsDataSource new];
+    self.checklist = [UITableView new];
+    [self.checklist registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [self.checklist setFrame:self.view.frame];
+    [self.checklist setDelegate:self];
+    [self.checklist setDataSource:self.dataSource];
+    [self.view addSubview:self.checklist];
+}
+
+-(void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.checklist reloadData];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - TABLE VIEW DELEGATE
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

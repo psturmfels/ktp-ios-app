@@ -28,12 +28,12 @@
 {
     [super loadView];
     self.scrollView = [UIScrollView new];
-    self.scrollView.frame = self.view.frame;
-    self.scrollView.alwaysBounceVertical = YES;
+    [self.scrollView setFrame:self.view.frame];
+    [self.scrollView setAlwaysBounceHorizontal:YES];
+    [self.scrollView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.scrollView];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.ktpBlockView = [[KTPBlockView alloc]initWithFrame:CGRectMake(10, 100, 310, 150)];
+    self.ktpBlockView = [[KTPBlockView alloc] initWithFrame:CGRectMake(10, 100, 310, 150)];
     [self.scrollView addSubview:self.ktpBlockView];
 
     
