@@ -40,7 +40,10 @@
 {
     CAShapeLayer *block = [CAShapeLayer layer];
     block.frame = CGRectMake(column*(side+space), row*(side+space), side, side);
-    block.fillColor = [UIColor KTPBlue25F].CGColor;
+    block.fillColor = [UIColor KTPOpenGreen].CGColor;
+    block.strokeColor = [UIColor whiteColor].CGColor;
+    block.lineWidth = 0.5;
+
     block.path = path.CGPath;
     return block;
 }

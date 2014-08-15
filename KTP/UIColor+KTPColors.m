@@ -14,6 +14,7 @@
 {
     return [UIColor colorWithRed:0.3 green:0.6 blue:0.3 alpha:0.5];
 }
+
 +(UIColor *)KTPGreen1F1
 {
     return [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:1.0];
@@ -29,9 +30,24 @@
     return [UIColor colorWithRed:0.2 green:0.5 blue:1.0 alpha:1.0];
 }
 
++(UIColor *)KTPOpenGreen
+{
+    return [UIColor colorWithRed:0.5 green:0.8 blue:0.6 alpha:1.0];
+}
+
 +(UIColor *)KTPBlue136
 {
     return [UIColor colorWithRed:0.1 green:0.3 blue:0.6 alpha:1.0];
+}
+
++(UIColor *)KTPDarkGray
+{
+    return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
+}
+
++(UIColor *)KTPLightGray
+{
+    return [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
 }
 
 @end

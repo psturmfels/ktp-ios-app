@@ -19,41 +19,57 @@
 
 @implementation KTPViewController
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+
 -(void)loadView
 {
     [super loadView];
     self.scrollView = [UIScrollView new];
     [self.scrollView setFrame:self.view.frame];
     [self.scrollView setAlwaysBounceVertical:YES];
-    [self.scrollView setBackgroundColor:[UIColor whiteColor]];
+    [self.scrollView setBackgroundColor:[UIColor KTPDarkGray]];
     [self.view addSubview:self.scrollView];
     
-    self.ktpBlockView = [[KTPBlockView alloc] initWithFrame:CGRectMake(10, 50, self.view.frame.size.width-20, self.view.frame.size.height/2)];
+    self.ktpBlockView = [[KTPBlockView alloc] initWithFrame:CGRectMake(25, 100, self.view.frame.size.width-40, self.view.frame.size.height/2)];
     [self.scrollView addSubview:self.ktpBlockView];
     
     CGRect textRect = CGRectMake(0, 0, self.view.frame.size.width-100, 50);
     
     self.usernameInput = [UITextField new];
     [self.usernameInput setFrame:textRect];
-    [self.usernameInput setCenter:CGPointMake(self.scrollView.center.x, 200)];
-    [self.usernameInput setPlaceholder:@"Username"];
-    [self.usernameInput setBackgroundColor:[UIColor KTPGreen363]];
+    [self.usernameInput setCenter:CGPointMake(self.scrollView.center.x, 300)];
+    [self.usernameInput setPlaceholder:@" Username"];
+    [self.usernameInput setBackgroundColor:[UIColor whiteColor]];
     [self.usernameInput setDelegate:self];
     [self.scrollView addSubview:self.usernameInput];
-    
+    self.usernameInput.layer.cornerRadius = 5;
+
     self.passwordInput = [UITextField new];
     [self.passwordInput setFrame:textRect];
-    [self.passwordInput setCenter:CGPointMake(self.scrollView.center.x, 300)];
-    [self.passwordInput setPlaceholder:@"Password"];
-    [self.passwordInput setBackgroundColor:[UIColor KTPGreen1F1]];
+    [self.passwordInput setCenter:CGPointMake(self.scrollView.center.x, 360)];
+    [self.passwordInput setPlaceholder:@" Password"];
+    [self.passwordInput setBackgroundColor:[UIColor whiteColor]];
     [self.passwordInput setDelegate:self];
     [self.scrollView addSubview:self.passwordInput];
     
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.passwordInput.bounds];
+    self.passwordInput.layer.masksToBounds = NO;
+    self.passwordInput.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.passwordInput.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+    self.passwordInput.layer.shadowOpacity = 0.1f;
+    self.passwordInput.layer.shadowPath = shadowPath.CGPath;
+    self.passwordInput.layer.cornerRadius = 5;
+    
+    
     self.logInButton = [UIButton new];
     [self.logInButton setFrame:textRect];
-    [self.logInButton setCenter:CGPointMake(self.scrollView.center.x, 400)];
+    [self.logInButton setCenter:CGPointMake(self.scrollView.center.x, 420)];
     [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
-    [self.logInButton setTitleColor:[UIColor KTPBlue25F] forState:UIControlStateNormal];
+    [self.logInButton setTitleColor:[UIColor KTPOpenGreen] forState:UIControlStateNormal];
     [self.scrollView addSubview:self.logInButton];
 //    [self setAutoLayoutConstraints];
 }

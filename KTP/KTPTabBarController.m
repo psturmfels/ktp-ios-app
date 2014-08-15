@@ -29,6 +29,7 @@
     return self;
 }
 
+
 -(void)loadView
 {
     [super loadView];
@@ -36,6 +37,7 @@
     [self loadMainVC];
     NSArray *VCs = @[self.mainVC, self.requirementsNavigationVC];
     [self setViewControllers:VCs];
+    [self.view setTintColor:[UIColor KTPDarkGray]];
 }
 
 -(void)loadRequirementsVC
