@@ -62,14 +62,6 @@
     }
 }
 
-//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    CGPoint location = [[touches anyObject] locationInView:self];
-//    location = [self.layer convertPoint:location toLayer:self.layer.superlayer];
-//    NSLog(@"location: %f %f", location.x, location.y);
-//    [self waveAnimationFromPoint:location];
-//}
-
 -(void)waveAnimationFromPoint:(CGPoint)point
 {
     [self.layer.sublayers enumerateObjectsUsingBlock:^(CALayer *block, NSUInteger idx, BOOL *stop) {
