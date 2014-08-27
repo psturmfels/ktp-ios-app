@@ -7,35 +7,29 @@
 //
 
 #import "KTPTabBarController.h"
-#import "KTPViewController.h"
+//views
+#import "KTPAnnouncementsViewController.h"
 #import "KTPRequirementsViewController.h"
+#import "KTPLoginViewController.h"
 
 @interface KTPTabBarController ()
 
-@property (nonatomic) KTPViewController *mainVC;
+@property (nonatomic) KTPLoginViewController *loginVC;
+@property (nonatomic) KTPAnnouncementsViewController *announcementsVC;
 @property (nonatomic) KTPRequirementsViewController *requirementsVC;
 @property (nonatomic) UINavigationController *requirementsNavigationVC;
 
 @end
 
+
 @implementation KTPTabBarController
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
 
 -(void)loadView
 {
     [super loadView];
     [self loadRequirementsVC];
     [self loadMainVC];
-    NSArray *VCs = @[self.mainVC, self.requirementsNavigationVC];
+    NSArray *VCs = @[self.announcementsVC, self.requirementsNavigationVC];
     [self setViewControllers:VCs];
     [self.view setTintColor:[UIColor KTPDarkGray]];
 }
@@ -50,9 +44,20 @@
 
 -(void)loadMainVC
 {
-    self.mainVC = [KTPViewController new];
-    self.mainVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Home" image:nil tag:1];
+    self.announcementsVC = [KTPAnnouncementsViewController new];
+    self.announcementsVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Announcements" image:nil tag:1];
 }
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.loginVC = [KTPLoginViewController new];
+    [self presentViewController:self.loginVC animated:YES completion:nil];
+}
 
 @end

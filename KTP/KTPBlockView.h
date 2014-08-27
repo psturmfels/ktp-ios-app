@@ -10,4 +10,6 @@
 
 @interface KTPBlockView : UIView
 
+-(void)waveAnimationFromPoint:(CGPoint)point;
+
 @end

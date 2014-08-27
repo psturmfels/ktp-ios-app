@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		89581F5B199B2D330033B5A4 /* KTPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F5A199B2D330033B5A4 /* KTPTabBarController.m */; };
-		89581F6A199B2E230033B5A4 /* KTPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F5D199B2E230033B5A4 /* KTPViewController.m */; };
 		89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F67199B2E230033B5A4 /* KTPBlockView.m */; };
 		89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */; };
 		89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F72199B33100033B5A4 /* KTPRequirementsViewController.m */; };
 		89581FB2199C65B90033B5A4 /* KTPRequirementsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581FB1199C65B90033B5A4 /* KTPRequirementsDataSource.m */; };
+		897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F0919AE477C001C849F /* KTPTextField.m */; };
+		897E8F1019AE4D3D001C849F /* KTPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F0F19AE4D3D001C849F /* KTPLoginViewController.m */; };
+		897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F1519AE51FB001C849F /* KTPAnnouncementsViewController.m */; };
+		897E8F1919AE544F001C849F /* KTPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F1819AE544F001C849F /* KTPUser.m */; };
 		89855F0A199B2BC2006E5A14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F09199B2BC2006E5A14 /* Foundation.framework */; };
 		89855F0C199B2BC2006E5A14 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F0B199B2BC2006E5A14 /* CoreGraphics.framework */; };
 		89855F0E199B2BC2006E5A14 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F0D199B2BC2006E5A14 /* UIKit.framework */; };
@@ -40,8 +43,6 @@
 /* Begin PBXFileReference section */
 		89581F59199B2D330033B5A4 /* KTPTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPTabBarController.h; sourceTree = "<group>"; };
 		89581F5A199B2D330033B5A4 /* KTPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPTabBarController.m; sourceTree = "<group>"; };
-		89581F5C199B2E230033B5A4 /* KTPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPViewController.h; sourceTree = "<group>"; };
-		89581F5D199B2E230033B5A4 /* KTPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPViewController.m; sourceTree = "<group>"; };
 		89581F66199B2E230033B5A4 /* KTPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPBlockView.h; sourceTree = "<group>"; };
 		89581F67199B2E230033B5A4 /* KTPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPBlockView.m; sourceTree = "<group>"; };
 		89581F68199B2E230033B5A4 /* UIColor+KTPColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KTPColors.h"; sourceTree = "<group>"; };
@@ -50,6 +51,14 @@
 		89581F72199B33100033B5A4 /* KTPRequirementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPRequirementsViewController.m; sourceTree = "<group>"; };
 		89581FB0199C65B90033B5A4 /* KTPRequirementsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPRequirementsDataSource.h; sourceTree = "<group>"; };
 		89581FB1199C65B90033B5A4 /* KTPRequirementsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPRequirementsDataSource.m; sourceTree = "<group>"; };
+		897E8F0819AE477C001C849F /* KTPTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPTextField.h; sourceTree = "<group>"; };
+		897E8F0919AE477C001C849F /* KTPTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPTextField.m; sourceTree = "<group>"; };
+		897E8F0E19AE4D3D001C849F /* KTPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPLoginViewController.h; sourceTree = "<group>"; };
+		897E8F0F19AE4D3D001C849F /* KTPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPLoginViewController.m; sourceTree = "<group>"; };
+		897E8F1419AE51FB001C849F /* KTPAnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPAnnouncementsViewController.h; sourceTree = "<group>"; };
+		897E8F1519AE51FB001C849F /* KTPAnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPAnnouncementsViewController.m; sourceTree = "<group>"; };
+		897E8F1719AE544F001C849F /* KTPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPUser.h; sourceTree = "<group>"; };
+		897E8F1819AE544F001C849F /* KTPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPUser.m; sourceTree = "<group>"; };
 		89855F06199B2BC2006E5A14 /* KTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89855F09199B2BC2006E5A14 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89855F0B199B2BC2006E5A14 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -106,6 +115,8 @@
 			children = (
 				89581F66199B2E230033B5A4 /* KTPBlockView.h */,
 				89581F67199B2E230033B5A4 /* KTPBlockView.m */,
+				897E8F0819AE477C001C849F /* KTPTextField.h */,
+				897E8F0919AE477C001C849F /* KTPTextField.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -115,6 +126,8 @@
 			children = (
 				89581FB0199C65B90033B5A4 /* KTPRequirementsDataSource.h */,
 				89581FB1199C65B90033B5A4 /* KTPRequirementsDataSource.m */,
+				897E8F1719AE544F001C849F /* KTPUser.h */,
+				897E8F1819AE544F001C849F /* KTPUser.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -124,10 +137,12 @@
 			children = (
 				89581F59199B2D330033B5A4 /* KTPTabBarController.h */,
 				89581F5A199B2D330033B5A4 /* KTPTabBarController.m */,
-				89581F5C199B2E230033B5A4 /* KTPViewController.h */,
-				89581F5D199B2E230033B5A4 /* KTPViewController.m */,
+				897E8F0E19AE4D3D001C849F /* KTPLoginViewController.h */,
+				897E8F0F19AE4D3D001C849F /* KTPLoginViewController.m */,
 				89581F71199B33100033B5A4 /* KTPRequirementsViewController.h */,
 				89581F72199B33100033B5A4 /* KTPRequirementsViewController.m */,
+				897E8F1419AE51FB001C849F /* KTPAnnouncementsViewController.h */,
+				897E8F1519AE51FB001C849F /* KTPAnnouncementsViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -302,11 +317,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89581F6A199B2E230033B5A4 /* KTPViewController.m in Sources */,
+				897E8F1019AE4D3D001C849F /* KTPLoginViewController.m in Sources */,
 				89855F1A199B2BC2006E5A14 /* KTPAppDelegate.m in Sources */,
+				897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */,
 				89581F5B199B2D330033B5A4 /* KTPTabBarController.m in Sources */,
 				89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */,
+				897E8F1919AE544F001C849F /* KTPUser.m in Sources */,
 				89581FB2199C65B90033B5A4 /* KTPRequirementsDataSource.m in Sources */,
+				897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */,
 				89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */,
 				89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */,
 				89855F16199B2BC2006E5A14 /* main.m in Sources */,

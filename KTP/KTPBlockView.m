@@ -28,10 +28,10 @@
     if (self) {
         side = frame.size.width/16;
         space = side/5;
-        
         [self kappaLetter];
         [self thetaLetter];
         [self piLetter];
+        [self animateAllBlocks];
     }
     return self;
 }
@@ -43,9 +43,50 @@
     block.fillColor = [UIColor KTPOpenGreen].CGColor;
     block.strokeColor = [UIColor whiteColor].CGColor;
     block.lineWidth = 0.5;
-
     block.path = path.CGPath;
     return block;
+}
+
+-(void)animateAllBlocks
+{
+    for (CALayer *block in self.layer.sublayers) {
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        CGFloat randNum = arc4random() % 100;
+        CGFloat randPercent = (randNum)/100;
+        NSLog(@"rand num %f percent %f", randNum, randPercent);
+        animation.toValue =  [NSNumber numberWithFloat:randPercent];
+        animation.duration = randPercent;
+        animation.autoreverses = YES;
+        animation.repeatCount = 2;
+        [block addAnimation:animation forKey:@"disco"];
+    }
+}
+
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    CGPoint location = [[touches anyObject] locationInView:self];
+//    location = [self.layer convertPoint:location toLayer:self.layer.superlayer];
+//    NSLog(@"location: %f %f", location.x, location.y);
+//    [self waveAnimationFromPoint:location];
+//}
+
+-(void)waveAnimationFromPoint:(CGPoint)point
+{
+    [self.layer.sublayers enumerateObjectsUsingBlock:^(CALayer *block, NSUInteger idx, BOOL *stop) {
+        CGRect frame =[self.layer convertRect:block.frame toLayer:self.layer.superlayer];
+        CGFloat xDist = fabsf(frame.origin.x - point.x);
+        CGFloat yDist = fabsf(frame.origin.y - point.y);
+        CGFloat dist = sqrtf(xDist*xDist + yDist*yDist);
+        NSNumber *percent = [NSNumber numberWithFloat:dist/self.frame.size.height];
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        animation.toValue = @0;
+        animation.duration = [percent floatValue];
+        animation.autoreverses = YES;
+        animation.repeatCount = 1;
+        [block addAnimation:animation forKey:@"wave"];
+        NSLog(@"percent: %@ duration: %f alpha %@", percent, animation.duration, animation.toValue);
+    }];
+
 }
 
 -(UIBezierPath *)trTriangle
