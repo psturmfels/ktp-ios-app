@@ -69,6 +69,7 @@
     [self.passwordInput setCenter:CGPointMake(self.scrollView.center.x, 300)];
     [self.passwordInput setPlaceholder:@"Password"];
     [self.passwordInput setDelegate:self];
+    [self.passwordInput setSecureTextEntry:YES];
     [self.scrollView addSubview:self.passwordInput];
     
     UIButton *left = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -149,8 +150,18 @@
 
 -(void)tappedLogIn
 {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [[KTPUser currentUser] loginWithUsername:self.usernameInput.text password:self.passwordInput.text block:^(BOOL successful) {
+        if (successful) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
+                                                            message:@"Invalid username and/or password"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
 }
 
 @end

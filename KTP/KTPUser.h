@@ -10,7 +10,8 @@
 
 @interface KTPUser : NSObject
 
-+(KTPUser *)currentUser;
++ (KTPUser *)currentUser;
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(void (^)(BOOL successful))block;
 
 @property (nonatomic, getter = isLoggedIn) BOOL loggedIn;
 

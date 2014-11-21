@@ -1,1422 +1,622 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>070C952FC1DD49D884C9EADF</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-KTP.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>89581F59199B2D330033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPTabBarController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F5A199B2D330033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPTabBarController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F5B199B2D330033B5A4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89581F5A199B2D330033B5A4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89581F66199B2E230033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPBlockView.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F67199B2E230033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPBlockView.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F68199B2E230033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>UIColor+KTPColors.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F69199B2E230033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>UIColor+KTPColors.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F6F199B2E230033B5A4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89581F67199B2E230033B5A4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89581F70199B2E230033B5A4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89581F69199B2E230033B5A4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89581F71199B33100033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPRequirementsViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F72199B33100033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPRequirementsViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581F73199B33100033B5A4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89581F72199B33100033B5A4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89581FB0199C65B90033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPRequirementsDataSource.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581FB1199C65B90033B5A4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPRequirementsDataSource.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581FB2199C65B90033B5A4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89581FB1199C65B90033B5A4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89581FB6199C6EA20033B5A4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89581F68199B2E230033B5A4</string>
-				<string>89581F69199B2E230033B5A4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Categories</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581FB7199C6EB10033B5A4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89581F66199B2E230033B5A4</string>
-				<string>89581F67199B2E230033B5A4</string>
-				<string>897E8F0819AE477C001C849F</string>
-				<string>897E8F0919AE477C001C849F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Views</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581FB8199C6EB80033B5A4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>897E8F1719AE544F001C849F</string>
-				<string>897E8F1819AE544F001C849F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Data</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89581FB9199C6EC30033B5A4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>897E8F1419AE51FB001C849F</string>
-				<string>897E8F1519AE51FB001C849F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Announements</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F0819AE477C001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPTextField.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F0919AE477C001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPTextField.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F0A19AE477C001C849F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>897E8F0919AE477C001C849F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>897E8F0E19AE4D3D001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPLoginViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F0F19AE4D3D001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPLoginViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F1019AE4D3D001C849F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>897E8F0F19AE4D3D001C849F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>897E8F1419AE51FB001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPAnnouncementsViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F1519AE51FB001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPAnnouncementsViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F1619AE51FB001C849F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>897E8F1519AE51FB001C849F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>897E8F1719AE544F001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPUser.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F1819AE544F001C849F</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPUser.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>897E8F1919AE544F001C849F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>897E8F1819AE544F001C849F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855EFD199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F0F199B2BC2006E5A14</string>
-				<string>89855F28199B2BC2006E5A14</string>
-				<string>89855F08199B2BC2006E5A14</string>
-				<string>89855F07199B2BC2006E5A14</string>
-				<string>D07C37503065402DB75F3851</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855EFE199B2BC2006E5A14</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>CLASSPREFIX</key>
-				<string>KTP</string>
-				<key>LastUpgradeCheck</key>
-				<string>0510</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>Kappa Theta Pi</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>89855F20199B2BC2006E5A14</key>
-					<dict>
-						<key>TestTargetID</key>
-						<string>89855F05199B2BC2006E5A14</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>89855F01199B2BC2006E5A14</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>89855EFD199B2BC2006E5A14</string>
-			<key>productRefGroup</key>
-			<string>89855F07199B2BC2006E5A14</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>89855F05199B2BC2006E5A14</string>
-				<string>89855F20199B2BC2006E5A14</string>
-			</array>
-		</dict>
-		<key>89855F01199B2BC2006E5A14</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>89855F30199B2BC2006E5A14</string>
-				<string>89855F31199B2BC2006E5A14</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>89855F02199B2BC2006E5A14</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>897E8F1019AE4D3D001C849F</string>
-				<string>89855F1A199B2BC2006E5A14</string>
-				<string>897E8F1619AE51FB001C849F</string>
-				<string>89581F5B199B2D330033B5A4</string>
-				<string>89581F70199B2E230033B5A4</string>
-				<string>897E8F1919AE544F001C849F</string>
-				<string>89581FB2199C65B90033B5A4</string>
-				<string>897E8F0A19AE477C001C849F</string>
-				<string>89581F73199B33100033B5A4</string>
-				<string>89581F6F199B2E230033B5A4</string>
-				<string>89855F16199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>89855F03199B2BC2006E5A14</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>89855F0C199B2BC2006E5A14</string>
-				<string>89855F0E199B2BC2006E5A14</string>
-				<string>89855F0A199B2BC2006E5A14</string>
-				<string>E43CAC71F7DE4C8DBC019B4F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>89855F04199B2BC2006E5A14</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>89855F14199B2BC2006E5A14</string>
-				<string>89855F1C199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>89855F05199B2BC2006E5A14</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>89855F32199B2BC2006E5A14</string>
-			<key>buildPhases</key>
-			<array>
-				<string>9501C51C943D48B6A2FA5E4C</string>
-				<string>89855F02199B2BC2006E5A14</string>
-				<string>89855F03199B2BC2006E5A14</string>
-				<string>89855F04199B2BC2006E5A14</string>
-				<string>BF3F3E61442C4495A20E616E</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>KTP</string>
-			<key>productName</key>
-			<string>KTP</string>
-			<key>productReference</key>
-			<string>89855F06199B2BC2006E5A14</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>89855F06199B2BC2006E5A14</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>KTP.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>89855F07199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F06199B2BC2006E5A14</string>
-				<string>89855F21199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F08199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F09199B2BC2006E5A14</string>
-				<string>89855F0B199B2BC2006E5A14</string>
-				<string>89855F0D199B2BC2006E5A14</string>
-				<string>89855F22199B2BC2006E5A14</string>
-				<string>070C952FC1DD49D884C9EADF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F09199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>89855F0A199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F09199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F0B199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>CoreGraphics.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/CoreGraphics.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>89855F0C199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F0B199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F0D199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>UIKit.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/UIKit.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>89855F0E199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F0D199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F0F199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F18199B2BC2006E5A14</string>
-				<string>89855F19199B2BC2006E5A14</string>
-				<string>89581F59199B2D330033B5A4</string>
-				<string>89581F5A199B2D330033B5A4</string>
-				<string>89A1553B19AE598A00DE7346</string>
-				<string>89A1553C19AE599400DE7346</string>
-				<string>89581FB9199C6EC30033B5A4</string>
-				<string>89581FB8199C6EB80033B5A4</string>
-				<string>89581FB7199C6EB10033B5A4</string>
-				<string>89581FB6199C6EA20033B5A4</string>
-				<string>89855F1B199B2BC2006E5A14</string>
-				<string>89855F10199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>KTP</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F10199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F11199B2BC2006E5A14</string>
-				<string>89855F12199B2BC2006E5A14</string>
-				<string>89855F15199B2BC2006E5A14</string>
-				<string>89855F17199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F11199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>KTP-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F12199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F13199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F13199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F14199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F12199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F15199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F16199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F15199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F17199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTP-Prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F18199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>KTPAppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F19199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPAppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F1A199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F19199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F1B199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Images.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F1C199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F1B199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F1D199B2BC2006E5A14</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>89855F2F199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>89855F1E199B2BC2006E5A14</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>89855F23199B2BC2006E5A14</string>
-				<string>89855F25199B2BC2006E5A14</string>
-				<string>89855F24199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>89855F1F199B2BC2006E5A14</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>89855F2D199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>89855F20199B2BC2006E5A14</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>89855F35199B2BC2006E5A14</string>
-			<key>buildPhases</key>
-			<array>
-				<string>89855F1D199B2BC2006E5A14</string>
-				<string>89855F1E199B2BC2006E5A14</string>
-				<string>89855F1F199B2BC2006E5A14</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>89855F27199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>KTPTests</string>
-			<key>productName</key>
-			<string>KTPTests</string>
-			<key>productReference</key>
-			<string>89855F21199B2BC2006E5A14</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>89855F21199B2BC2006E5A14</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>KTPTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>89855F22199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>XCTest.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/XCTest.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>89855F23199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F22199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F24199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F09199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F25199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F0D199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F26199B2BC2006E5A14</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>89855EFE199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>89855F05199B2BC2006E5A14</string>
-			<key>remoteInfo</key>
-			<string>KTP</string>
-		</dict>
-		<key>89855F27199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>89855F05199B2BC2006E5A14</string>
-			<key>targetProxy</key>
-			<string>89855F26199B2BC2006E5A14</string>
-		</dict>
-		<key>89855F28199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F2E199B2BC2006E5A14</string>
-				<string>89855F29199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>KTPTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F29199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F2A199B2BC2006E5A14</string>
-				<string>89855F2B199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F2A199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>KTPTests-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F2B199B2BC2006E5A14</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89855F2C199B2BC2006E5A14</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F2C199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F2D199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F2B199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F2E199B2BC2006E5A14</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>KTPTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89855F2F199B2BC2006E5A14</key>
-		<dict>
-			<key>fileRef</key>
-			<string>89855F2E199B2BC2006E5A14</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>89855F30199B2BC2006E5A14</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>89855F31199B2BC2006E5A14</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>89855F32199B2BC2006E5A14</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>89855F33199B2BC2006E5A14</string>
-				<string>89855F34199B2BC2006E5A14</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>89855F33199B2BC2006E5A14</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>D07C37503065402DB75F3851</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>KTP/KTP-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>KTP/KTP-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>89855F34199B2BC2006E5A14</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>D07C37503065402DB75F3851</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>KTP/KTP-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>KTP/KTP-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>89855F35199B2BC2006E5A14</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>89855F36199B2BC2006E5A14</string>
-				<string>89855F37199B2BC2006E5A14</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>89855F36199B2BC2006E5A14</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/KTP.app/KTP</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>KTP/KTP-Prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>KTPTests/KTPTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>89855F37199B2BC2006E5A14</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/KTP.app/KTP</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>KTP/KTP-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>KTPTests/KTPTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>89A1553B19AE598A00DE7346</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>897E8F0E19AE4D3D001C849F</string>
-				<string>897E8F0F19AE4D3D001C849F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Login</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>89A1553C19AE599400DE7346</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>89581FB0199C65B90033B5A4</string>
-				<string>89581FB1199C65B90033B5A4</string>
-				<string>89581F71199B33100033B5A4</string>
-				<string>89581F72199B33100033B5A4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Requirements</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9501C51C943D48B6A2FA5E4C</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>BF3F3E61442C4495A20E616E</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Pods-KTP-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>D07C37503065402DB75F3851</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-KTP.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Pods-KTP.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E43CAC71F7DE4C8DBC019B4F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>070C952FC1DD49D884C9EADF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>89855EFE199B2BC2006E5A14</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		89581F5B199B2D330033B5A4 /* KTPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F5A199B2D330033B5A4 /* KTPTabBarController.m */; };
+		89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F67199B2E230033B5A4 /* KTPBlockView.m */; };
+		89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */; };
+		89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F72199B33100033B5A4 /* KTPRequirementsViewController.m */; };
+		89581FB2199C65B90033B5A4 /* KTPRequirementsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581FB1199C65B90033B5A4 /* KTPRequirementsDataSource.m */; };
+		897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F0919AE477C001C849F /* KTPTextField.m */; };
+		897E8F1019AE4D3D001C849F /* KTPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F0F19AE4D3D001C849F /* KTPLoginViewController.m */; };
+		897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F1519AE51FB001C849F /* KTPAnnouncementsViewController.m */; };
+		897E8F1919AE544F001C849F /* KTPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 897E8F1819AE544F001C849F /* KTPUser.m */; };
+		89855F0A199B2BC2006E5A14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F09199B2BC2006E5A14 /* Foundation.framework */; };
+		89855F0C199B2BC2006E5A14 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F0B199B2BC2006E5A14 /* CoreGraphics.framework */; };
+		89855F0E199B2BC2006E5A14 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F0D199B2BC2006E5A14 /* UIKit.framework */; };
+		89855F14199B2BC2006E5A14 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89855F12199B2BC2006E5A14 /* InfoPlist.strings */; };
+		89855F16199B2BC2006E5A14 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89855F15199B2BC2006E5A14 /* main.m */; };
+		89855F1A199B2BC2006E5A14 /* KTPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */; };
+		89855F1C199B2BC2006E5A14 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89855F1B199B2BC2006E5A14 /* Images.xcassets */; };
+		89855F23199B2BC2006E5A14 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F22199B2BC2006E5A14 /* XCTest.framework */; };
+		89855F24199B2BC2006E5A14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F09199B2BC2006E5A14 /* Foundation.framework */; };
+		89855F25199B2BC2006E5A14 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89855F0D199B2BC2006E5A14 /* UIKit.framework */; };
+		89855F2D199B2BC2006E5A14 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89855F2B199B2BC2006E5A14 /* InfoPlist.strings */; };
+		89855F2F199B2BC2006E5A14 /* KTPTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89855F2E199B2BC2006E5A14 /* KTPTests.m */; };
+		A8C1DAFE1A15ADA300298FF9 /* KTPMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C1DAFD1A15ADA300298FF9 /* KTPMembersViewController.m */; };
+		A8C1DB011A15ADF700298FF9 /* KTPMember.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C1DB001A15ADF700298FF9 /* KTPMember.m */; };
+		E43CAC71F7DE4C8DBC019B4F /* libPods-KTP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 070C952FC1DD49D884C9EADF /* libPods-KTP.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89855F26199B2BC2006E5A14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89855EFE199B2BC2006E5A14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89855F05199B2BC2006E5A14;
+			remoteInfo = KTP;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		070C952FC1DD49D884C9EADF /* libPods-KTP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KTP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89581F59199B2D330033B5A4 /* KTPTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPTabBarController.h; sourceTree = "<group>"; };
+		89581F5A199B2D330033B5A4 /* KTPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPTabBarController.m; sourceTree = "<group>"; };
+		89581F66199B2E230033B5A4 /* KTPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPBlockView.h; sourceTree = "<group>"; };
+		89581F67199B2E230033B5A4 /* KTPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPBlockView.m; sourceTree = "<group>"; };
+		89581F68199B2E230033B5A4 /* UIColor+KTPColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KTPColors.h"; sourceTree = "<group>"; };
+		89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+KTPColors.m"; sourceTree = "<group>"; };
+		89581F71199B33100033B5A4 /* KTPRequirementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPRequirementsViewController.h; sourceTree = "<group>"; };
+		89581F72199B33100033B5A4 /* KTPRequirementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPRequirementsViewController.m; sourceTree = "<group>"; };
+		89581FB0199C65B90033B5A4 /* KTPRequirementsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPRequirementsDataSource.h; sourceTree = "<group>"; };
+		89581FB1199C65B90033B5A4 /* KTPRequirementsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPRequirementsDataSource.m; sourceTree = "<group>"; };
+		897E8F0819AE477C001C849F /* KTPTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPTextField.h; sourceTree = "<group>"; };
+		897E8F0919AE477C001C849F /* KTPTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPTextField.m; sourceTree = "<group>"; };
+		897E8F0E19AE4D3D001C849F /* KTPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPLoginViewController.h; sourceTree = "<group>"; };
+		897E8F0F19AE4D3D001C849F /* KTPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPLoginViewController.m; sourceTree = "<group>"; };
+		897E8F1419AE51FB001C849F /* KTPAnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPAnnouncementsViewController.h; sourceTree = "<group>"; };
+		897E8F1519AE51FB001C849F /* KTPAnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPAnnouncementsViewController.m; sourceTree = "<group>"; };
+		897E8F1719AE544F001C849F /* KTPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPUser.h; sourceTree = "<group>"; };
+		897E8F1819AE544F001C849F /* KTPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPUser.m; sourceTree = "<group>"; };
+		89855F06199B2BC2006E5A14 /* KTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89855F09199B2BC2006E5A14 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		89855F0B199B2BC2006E5A14 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		89855F0D199B2BC2006E5A14 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		89855F11199B2BC2006E5A14 /* KTP-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KTP-Info.plist"; sourceTree = "<group>"; };
+		89855F13199B2BC2006E5A14 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		89855F15199B2BC2006E5A14 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		89855F17199B2BC2006E5A14 /* KTP-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KTP-Prefix.pch"; sourceTree = "<group>"; };
+		89855F18199B2BC2006E5A14 /* KTPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KTPAppDelegate.h; sourceTree = "<group>"; };
+		89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KTPAppDelegate.m; sourceTree = "<group>"; };
+		89855F1B199B2BC2006E5A14 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		89855F21199B2BC2006E5A14 /* KTPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KTPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89855F22199B2BC2006E5A14 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		89855F2A199B2BC2006E5A14 /* KTPTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KTPTests-Info.plist"; sourceTree = "<group>"; };
+		89855F2C199B2BC2006E5A14 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		89855F2E199B2BC2006E5A14 /* KTPTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KTPTests.m; sourceTree = "<group>"; };
+		A8C1DAFC1A15ADA300298FF9 /* KTPMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPMembersViewController.h; sourceTree = "<group>"; };
+		A8C1DAFD1A15ADA300298FF9 /* KTPMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPMembersViewController.m; sourceTree = "<group>"; };
+		A8C1DAFF1A15ADF700298FF9 /* KTPMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPMember.h; sourceTree = "<group>"; };
+		A8C1DB001A15ADF700298FF9 /* KTPMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPMember.m; sourceTree = "<group>"; };
+		D07C37503065402DB75F3851 /* Pods-KTP.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.xcconfig"; path = "Pods/Pods-KTP.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89855F03199B2BC2006E5A14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89855F0C199B2BC2006E5A14 /* CoreGraphics.framework in Frameworks */,
+				89855F0E199B2BC2006E5A14 /* UIKit.framework in Frameworks */,
+				89855F0A199B2BC2006E5A14 /* Foundation.framework in Frameworks */,
+				E43CAC71F7DE4C8DBC019B4F /* libPods-KTP.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89855F1E199B2BC2006E5A14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89855F23199B2BC2006E5A14 /* XCTest.framework in Frameworks */,
+				89855F25199B2BC2006E5A14 /* UIKit.framework in Frameworks */,
+				89855F24199B2BC2006E5A14 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		89581FB6199C6EA20033B5A4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				89581F68199B2E230033B5A4 /* UIColor+KTPColors.h */,
+				89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		89581FB7199C6EB10033B5A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89581F66199B2E230033B5A4 /* KTPBlockView.h */,
+				89581F67199B2E230033B5A4 /* KTPBlockView.m */,
+				897E8F0819AE477C001C849F /* KTPTextField.h */,
+				897E8F0919AE477C001C849F /* KTPTextField.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		89581FB8199C6EB80033B5A4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				897E8F1719AE544F001C849F /* KTPUser.h */,
+				897E8F1819AE544F001C849F /* KTPUser.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		89581FB9199C6EC30033B5A4 /* Announcements */ = {
+			isa = PBXGroup;
+			children = (
+				897E8F1419AE51FB001C849F /* KTPAnnouncementsViewController.h */,
+				897E8F1519AE51FB001C849F /* KTPAnnouncementsViewController.m */,
+			);
+			name = Announcements;
+			sourceTree = "<group>";
+		};
+		89855EFD199B2BC2006E5A14 = {
+			isa = PBXGroup;
+			children = (
+				89855F0F199B2BC2006E5A14 /* KTP */,
+				89855F28199B2BC2006E5A14 /* KTPTests */,
+				89855F08199B2BC2006E5A14 /* Frameworks */,
+				89855F07199B2BC2006E5A14 /* Products */,
+				D07C37503065402DB75F3851 /* Pods-KTP.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		89855F07199B2BC2006E5A14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89855F06199B2BC2006E5A14 /* KTP.app */,
+				89855F21199B2BC2006E5A14 /* KTPTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89855F08199B2BC2006E5A14 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89855F09199B2BC2006E5A14 /* Foundation.framework */,
+				89855F0B199B2BC2006E5A14 /* CoreGraphics.framework */,
+				89855F0D199B2BC2006E5A14 /* UIKit.framework */,
+				89855F22199B2BC2006E5A14 /* XCTest.framework */,
+				070C952FC1DD49D884C9EADF /* libPods-KTP.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		89855F0F199B2BC2006E5A14 /* KTP */ = {
+			isa = PBXGroup;
+			children = (
+				89855F18199B2BC2006E5A14 /* KTPAppDelegate.h */,
+				89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */,
+				89581F59199B2D330033B5A4 /* KTPTabBarController.h */,
+				89581F5A199B2D330033B5A4 /* KTPTabBarController.m */,
+				89A1553B19AE598A00DE7346 /* Login */,
+				A8C1DAF81A15AD5200298FF9 /* Members */,
+				89A1553C19AE599400DE7346 /* Requirements */,
+				89581FB9199C6EC30033B5A4 /* Announcements */,
+				89581FB8199C6EB80033B5A4 /* Data */,
+				89581FB7199C6EB10033B5A4 /* Views */,
+				89581FB6199C6EA20033B5A4 /* Categories */,
+				89855F1B199B2BC2006E5A14 /* Images.xcassets */,
+				89855F10199B2BC2006E5A14 /* Supporting Files */,
+			);
+			path = KTP;
+			sourceTree = "<group>";
+		};
+		89855F10199B2BC2006E5A14 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89855F11199B2BC2006E5A14 /* KTP-Info.plist */,
+				89855F12199B2BC2006E5A14 /* InfoPlist.strings */,
+				89855F15199B2BC2006E5A14 /* main.m */,
+				89855F17199B2BC2006E5A14 /* KTP-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89855F28199B2BC2006E5A14 /* KTPTests */ = {
+			isa = PBXGroup;
+			children = (
+				89855F2E199B2BC2006E5A14 /* KTPTests.m */,
+				89855F29199B2BC2006E5A14 /* Supporting Files */,
+			);
+			path = KTPTests;
+			sourceTree = "<group>";
+		};
+		89855F29199B2BC2006E5A14 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89855F2A199B2BC2006E5A14 /* KTPTests-Info.plist */,
+				89855F2B199B2BC2006E5A14 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89A1553B19AE598A00DE7346 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				897E8F0E19AE4D3D001C849F /* KTPLoginViewController.h */,
+				897E8F0F19AE4D3D001C849F /* KTPLoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		89A1553C19AE599400DE7346 /* Requirements */ = {
+			isa = PBXGroup;
+			children = (
+				89581FB0199C65B90033B5A4 /* KTPRequirementsDataSource.h */,
+				89581FB1199C65B90033B5A4 /* KTPRequirementsDataSource.m */,
+				89581F71199B33100033B5A4 /* KTPRequirementsViewController.h */,
+				89581F72199B33100033B5A4 /* KTPRequirementsViewController.m */,
+			);
+			name = Requirements;
+			sourceTree = "<group>";
+		};
+		A8C1DAF81A15AD5200298FF9 /* Members */ = {
+			isa = PBXGroup;
+			children = (
+				A8C1DAFC1A15ADA300298FF9 /* KTPMembersViewController.h */,
+				A8C1DAFD1A15ADA300298FF9 /* KTPMembersViewController.m */,
+				A8C1DAFF1A15ADF700298FF9 /* KTPMember.h */,
+				A8C1DB001A15ADF700298FF9 /* KTPMember.m */,
+			);
+			name = Members;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89855F05199B2BC2006E5A14 /* KTP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89855F32199B2BC2006E5A14 /* Build configuration list for PBXNativeTarget "KTP" */;
+			buildPhases = (
+				9501C51C943D48B6A2FA5E4C /* Check Pods Manifest.lock */,
+				89855F02199B2BC2006E5A14 /* Sources */,
+				89855F03199B2BC2006E5A14 /* Frameworks */,
+				89855F04199B2BC2006E5A14 /* Resources */,
+				BF3F3E61442C4495A20E616E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KTP;
+			productName = KTP;
+			productReference = 89855F06199B2BC2006E5A14 /* KTP.app */;
+			productType = "com.apple.product-type.application";
+		};
+		89855F20199B2BC2006E5A14 /* KTPTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89855F35199B2BC2006E5A14 /* Build configuration list for PBXNativeTarget "KTPTests" */;
+			buildPhases = (
+				89855F1D199B2BC2006E5A14 /* Sources */,
+				89855F1E199B2BC2006E5A14 /* Frameworks */,
+				89855F1F199B2BC2006E5A14 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89855F27199B2BC2006E5A14 /* PBXTargetDependency */,
+			);
+			name = KTPTests;
+			productName = KTPTests;
+			productReference = 89855F21199B2BC2006E5A14 /* KTPTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89855EFE199B2BC2006E5A14 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = KTP;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Kappa Theta Pi";
+				TargetAttributes = {
+					89855F20199B2BC2006E5A14 = {
+						TestTargetID = 89855F05199B2BC2006E5A14;
+					};
+				};
+			};
+			buildConfigurationList = 89855F01199B2BC2006E5A14 /* Build configuration list for PBXProject "KTP" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 89855EFD199B2BC2006E5A14;
+			productRefGroup = 89855F07199B2BC2006E5A14 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89855F05199B2BC2006E5A14 /* KTP */,
+				89855F20199B2BC2006E5A14 /* KTPTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89855F04199B2BC2006E5A14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89855F14199B2BC2006E5A14 /* InfoPlist.strings in Resources */,
+				89855F1C199B2BC2006E5A14 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89855F1F199B2BC2006E5A14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89855F2D199B2BC2006E5A14 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9501C51C943D48B6A2FA5E4C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BF3F3E61442C4495A20E616E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-KTP-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89855F02199B2BC2006E5A14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				897E8F1019AE4D3D001C849F /* KTPLoginViewController.m in Sources */,
+				89855F1A199B2BC2006E5A14 /* KTPAppDelegate.m in Sources */,
+				A8C1DAFE1A15ADA300298FF9 /* KTPMembersViewController.m in Sources */,
+				897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */,
+				A8C1DB011A15ADF700298FF9 /* KTPMember.m in Sources */,
+				89581F5B199B2D330033B5A4 /* KTPTabBarController.m in Sources */,
+				89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */,
+				897E8F1919AE544F001C849F /* KTPUser.m in Sources */,
+				89581FB2199C65B90033B5A4 /* KTPRequirementsDataSource.m in Sources */,
+				897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */,
+				89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */,
+				89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */,
+				89855F16199B2BC2006E5A14 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89855F1D199B2BC2006E5A14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89855F2F199B2BC2006E5A14 /* KTPTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89855F27199B2BC2006E5A14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89855F05199B2BC2006E5A14 /* KTP */;
+			targetProxy = 89855F26199B2BC2006E5A14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		89855F12199B2BC2006E5A14 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89855F13199B2BC2006E5A14 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		89855F2B199B2BC2006E5A14 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89855F2C199B2BC2006E5A14 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		89855F30199B2BC2006E5A14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		89855F31199B2BC2006E5A14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		89855F33199B2BC2006E5A14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D07C37503065402DB75F3851 /* Pods-KTP.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
+				INFOPLIST_FILE = "KTP/KTP-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		89855F34199B2BC2006E5A14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D07C37503065402DB75F3851 /* Pods-KTP.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
+				INFOPLIST_FILE = "KTP/KTP-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		89855F36199B2BC2006E5A14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KTP.app/KTP";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "KTPTests/KTPTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		89855F37199B2BC2006E5A14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KTP.app/KTP";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
+				INFOPLIST_FILE = "KTPTests/KTPTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89855F01199B2BC2006E5A14 /* Build configuration list for PBXProject "KTP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89855F30199B2BC2006E5A14 /* Debug */,
+				89855F31199B2BC2006E5A14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89855F32199B2BC2006E5A14 /* Build configuration list for PBXNativeTarget "KTP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89855F33199B2BC2006E5A14 /* Debug */,
+				89855F34199B2BC2006E5A14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89855F35199B2BC2006E5A14 /* Build configuration list for PBXNativeTarget "KTPTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89855F36199B2BC2006E5A14 /* Debug */,
+				89855F37199B2BC2006E5A14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89855EFE199B2BC2006E5A14 /* Project object */;
+}
