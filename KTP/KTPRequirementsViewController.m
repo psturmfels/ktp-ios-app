@@ -37,6 +37,8 @@
     [self.checklist setDelegate:self];
     [self.checklist setDataSource:self.dataSource];
     [self.view addSubview:self.checklist];
+    
+    self.navigationItem.title = @"Requirements";
 }
 
 -(void)viewDidLoad
