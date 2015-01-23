@@ -53,7 +53,7 @@
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
         CGFloat randNum = arc4random() % 100;
         CGFloat randPercent = (randNum)/100;
-        NSLog(@"rand num %f percent %f", randNum, randPercent);
+//        NSLog(@"rand num %f percent %f", randNum, randPercent);
         animation.toValue =  [NSNumber numberWithFloat:randPercent];
         animation.duration = randPercent;
         animation.autoreverses = YES;
@@ -76,7 +76,7 @@
         animation.autoreverses = YES;
         animation.repeatCount = 1;
         [block addAnimation:animation forKey:@"wave"];
-        NSLog(@"percent: %@ duration: %f alpha %@", percent, animation.duration, animation.toValue);
+//        NSLog(@"percent: %@ duration: %f alpha %@", percent, animation.duration, animation.toValue);
     }];
 
 }

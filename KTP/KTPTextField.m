@@ -24,7 +24,7 @@
 -(CGRect)textRectForBounds:(CGRect)bounds
 {
     CGRect expected = [super textRectForBounds:bounds];
-    NSLog(@"expected rect: %f %f %f %f", expected.origin.x, expected.origin.y, expected.size.width, expected.size.height);
+//    NSLog(@"expected rect: %f %f %f %f", expected.origin.x, expected.origin.y, expected.size.width, expected.size.height);
     return CGRectInset(bounds, 10, 5);
 }
 
