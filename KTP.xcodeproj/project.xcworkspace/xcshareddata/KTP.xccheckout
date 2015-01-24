@@ -10,29 +10,29 @@
 	<string>KTP</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>215C8340-54C3-45A9-811A-366412E920DC</key>
+		<key>B142532F118EC91E1AFAE4ADFA981E34DEFEA23C</key>
 		<string>https://github.com/ktp-dev/ktp-ios-app.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>KTP.xcodeproj/project.xcworkspace</string>
+	<string>KTP.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>215C8340-54C3-45A9-811A-366412E920DC</key>
+		<key>B142532F118EC91E1AFAE4ADFA981E34DEFEA23C</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/ktp-dev/ktp-ios-app.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>215C8340-54C3-45A9-811A-366412E920DC</string>
+	<string>B142532F118EC91E1AFAE4ADFA981E34DEFEA23C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>215C8340-54C3-45A9-811A-366412E920DC</string>
+			<string>B142532F118EC91E1AFAE4ADFA981E34DEFEA23C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ktp-ios-app</string>
 		</dict>

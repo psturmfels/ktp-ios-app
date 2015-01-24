@@ -2,7 +2,7 @@
 # platform :ios, "6.0"
 
 target "KTP" do
-pod 'socket.IO'
+
 end
 
 target "KTPTests" do
