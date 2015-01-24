@@ -18,7 +18,7 @@
 {
     self = [super init];
     if (self) {
-        
+        self.navigationItem.title = @"Announcements";
     }
     return self;
 }
@@ -26,6 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 

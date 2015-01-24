@@ -13,7 +13,15 @@
  @description   The KTPConstants class contains all global constants and is automatically included in every file.
  */
 @interface KTPConstants : NSObject
-
 @end
 
 #define KTPNotificationMembersUpdated   @"KTPNotificationMembersUpdated"
+
+#define kSlideMenuWidth                 [UIScreen mainScreen].bounds.size.width * 0.8
+#define kSlideAnimationDuration         0.2
+#define kMainViewShadowOpacity          0.8
+
+typedef NS_ENUM(NSInteger, KTPViewType) {
+    KTPViewTypeMembers,
+    KTPViewTypeAnnouncements
+};
