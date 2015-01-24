@@ -105,6 +105,8 @@
                                                                 __v:dict[@"__v"]];
         ++i;
     }
+    // Sort members by first name
+    [self.membersArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]]];
     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMembersUpdated object:self];
     
     // DEBUG
