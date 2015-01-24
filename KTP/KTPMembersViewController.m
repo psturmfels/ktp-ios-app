@@ -9,6 +9,7 @@
 #import "KTPMembersViewController.h"
 #import "KTPMembersDataSource.h"
 #import "KTPSMembers.h"
+#import "KTPProfileViewController.h"
 
 @interface KTPMembersViewController () <UITableViewDelegate>
 
@@ -44,7 +45,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     // Add members TableView as subview
     self.membersTableView.frame = self.view.frame;
@@ -53,6 +53,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    KTPProfileViewController *profileVC = [KTPProfileViewController new];
+    /*
+     
+     TODO: Set up profileVC with appropriate info for the selected member
+     
+     */
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 @end

@@ -23,6 +23,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MemberCell"];
     }
     
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",
                            [[KTPSMembers members].membersArray[indexPath.row] firstName],
                            [[KTPSMembers members].membersArray[indexPath.row] lastName]];
