@@ -10,6 +10,8 @@
 #import "KTPMembersDataSource.h"
 #import "KTPSMembers.h"
 #import "KTPProfileViewController.h"
+#import "KTPMembersCell.h"
+#import "KTPMember.h"
 
 @interface KTPMembersViewController () <UITableViewDelegate>
 
@@ -36,7 +38,7 @@
         
         self.dataSource = [KTPMembersDataSource new];
         self.membersTableView.dataSource = self.dataSource;
-        [self.membersTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MemberCell"];
+        [self.membersTableView registerClass:[KTPMembersCell class] forCellReuseIdentifier:@"MemberCell"];
         
         self.navigationItem.title = @"Members";
     }
@@ -54,12 +56,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    KTPProfileViewController *profileVC = [KTPProfileViewController new];
-    /*
-     
-     TODO: Set up profileVC with appropriate info for the selected member
-     
-     */
+    // Get the corresponding cell's member, and create a profile VC
+    KTPMembersCell *cell = (KTPMembersCell*)[tableView cellForRowAtIndexPath:indexPath];
+    KTPProfileViewController *profileVC = [[KTPProfileViewController alloc] initWithMember:cell.member];
+    
+    // Push profileVC onto the navigation stack
     [self.navigationController pushViewController:profileVC animated:YES];
 }
 

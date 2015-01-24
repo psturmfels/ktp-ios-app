@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class KTPMember;
 
 @interface KTPProfileViewController : UIViewController
 
+@property (nonatomic, strong) KTPMember *member;
+
+/*!
+ Initializes this class with a KTPMember.
+ 
+ @param         member
+ @returns       A KTPProfileViewController object
+ */
+- (instancetype)initWithMember:(KTPMember*)member;
 @end

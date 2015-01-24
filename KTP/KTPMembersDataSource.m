@@ -7,6 +7,7 @@
 //
 
 #import "KTPMembersDataSource.h"
+#import "KTPMembersCell.h"
 
 #import "KTPSMembers.h"
 #import "KTPMember.h"
@@ -18,15 +19,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberCell" forIndexPath:indexPath];
+    KTPMembersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberCell" forIndexPath:indexPath];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MemberCell"];
+        cell = [[KTPMembersCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MemberCell"];
     }
     
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",
-                           [[KTPSMembers members].membersArray[indexPath.row] firstName],
-                           [[KTPSMembers members].membersArray[indexPath.row] lastName]];
+    cell.member = [KTPSMembers members].membersArray[indexPath.row];
+    
     return cell;
 }
 
