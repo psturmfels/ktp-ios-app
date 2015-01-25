@@ -94,31 +94,49 @@
     // Use "MAJOR" as a default
 }
 
+/*!
+ Initializes and loads gradLabel, and adds it as a subview
+ */
 - (void)loadGradLabel {
     // IMPLEMENT
     // Use "0000" as a default
 }
 
+/*!
+ Initializes and loads hometownLabel, and adds it as a subview
+ */
 - (void)loadHometownLabel {
     // IMPLEMENT
     // Use "EARTH" as a default
 }
 
+/*!
+ Initializes and loads statusLabel, and adds it as a subview
+ */
 - (void)loadStatusLabel {
     // IMPLEMENT
     // Use "NONE" as a default
 }
 
+/*!
+ Initializes and loads roleLabel, and adds it as a subview
+ */
 - (void)loadRoleLabel {
     // IMPLEMENT
     // Use "NONE" as a default
 }
 
+/*!
+ Initializes and loads pledgeClassLabel, and adds it as a subview
+ */
 - (void)loadPledgeClassLabel {
     // IMPLEMENT
     // Use "NONE" as a default
 }
 
+/*!
+ Initializes and loads bioTextView, and adds it as a subview
+ */
 - (void)loadBioTextView {
     // IMPLEMENT
     // Use "BIO" as a default
