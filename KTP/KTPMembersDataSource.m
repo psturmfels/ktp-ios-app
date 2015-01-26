@@ -23,7 +23,7 @@
     if (!cell) {
         cell = [[KTPMembersCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MemberCell"];
     }
-    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.member = [KTPSMembers members].membersArray[indexPath.row];
     
     return cell;
