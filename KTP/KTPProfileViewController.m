@@ -84,6 +84,9 @@
 - (void)loadProfileImageView {
     // IMPLEMENT
     // Use the image named UserPlaceholder as a default
+    self.profileImageView = [UIImageView new];
+    self.profileImageView.image = [UIImage imageNamed:@"UserPlaceholder"];
+    [self.scrollView addSubview:self.profileImageView];
 }
 
 /*!
@@ -92,6 +95,13 @@
 - (void)loadMajorLabel {
     // IMPLEMENT
     // Use "MAJOR" as a default
+    if([self.member.major isEqualToString:@""]) {
+        self.majorLabel.text = @"Major: MAJOR";
+    }
+    self.majorLabel = [UILabel new];
+    self.majorLabel.text = [NSString stringWithFormat:@"Major: %@", self.member.major];
+    [self.scrollView addSubview:self.majorLabel];
+    
 }
 
 /*!
@@ -149,16 +159,33 @@
     // IMPLEMENT
     
     // Set translatesAutoresizingMaskIntoConstraints property to NO for all autolayout views
+    self.profileImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.majorLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
     // Label all views for autolayout
     NSDictionary *views = @{
+                            @"profileImageView" :   self.profileImageView,
+                            @"majorLabel"       :   self.majorLabel
                             // FORMAT:
                             // @"label"     :   view
                             };
     
     /* profileImageView */
+    NSArray *profileImageViewHorizPos = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[profileImageView]" options:0 metrics:nil views:views];
+    NSArray *profileImageViewVertPos = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[profileImageView]" options:0 metrics:nil views:views];
+    NSArray *profileImageViewHorizSize = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView(150)]" options:0 metrics:nil views:views];
+    NSArray *profileImageViewVertSize = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[profileImageView(150)]" options:0 metrics:nil views:views];
+    [self.scrollView addConstraints:profileImageViewHorizPos];
+    [self.scrollView addConstraints:profileImageViewVertPos];
+    [self.scrollView addConstraints:profileImageViewHorizSize];
+    [self.scrollView addConstraints:profileImageViewVertSize];
     
     /* majorLabel */
+    NSArray *majorLabelHorizPos = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[majorLabel]" options:0 metrics:nil views:views];
+    NSArray *majorLabelVertPos = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[majorLabel]" options:0 metrics:nil views:views];
+    [self.scrollView addConstraints:majorLabelHorizPos];
+    [self.scrollView addConstraints:majorLabelVertPos];
+    
 }
 
 
