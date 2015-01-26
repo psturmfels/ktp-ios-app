@@ -90,9 +90,9 @@
     self.membersArray = [NSMutableArray arrayWithCapacity:members.count];
     int i = 0;
     for (NSDictionary *dict in members) {
-        self.membersArray[i] = [[KTPMember alloc] initWithFirstName:dict[@"name"][@"first"]
-                                                           lastName:dict[@"name"][@"last"]
-                                                           uniqname:dict[@"name"][@"uniqname"]
+        self.membersArray[i] = [[KTPMember alloc] initWithFirstName:dict[@"first_name"]
+                                                           lastName:dict[@"last_name"]
+                                                           uniqname:dict[@"uniqname"]
                                                              gender:dict[@"gender"]
                                                               major:dict[@"major"]
                                                         pledgeClass:dict[@"pledge_class"]
