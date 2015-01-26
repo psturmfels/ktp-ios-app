@@ -90,16 +90,21 @@
     self.membersArray = [NSMutableArray arrayWithCapacity:members.count];
     int i = 0;
     for (NSDictionary *dict in members) {
-        self.membersArray[i] = [[KTPMember alloc] initWithFirstName:dict[@"name"][@"first"]
-                                                           lastName:dict[@"name"][@"last"]
-                                                           uniqname:dict[@"name"][@"uniqname"]
+        self.membersArray[i] = [[KTPMember alloc] initWithFirstName:dict[@"first_name"]
+                                                           lastName:dict[@"last_name"]
+                                                           uniqname:dict[@"uniqname"]
                                                              gender:dict[@"gender"]
                                                               major:dict[@"major"]
+                                                           hometown:dict[@"hometown"]
+                                                          biography:dict[@"biography"]
                                                         pledgeClass:dict[@"pledge_class"]
+                                                             status:dict[@"membership_status"]
+                                                               role:dict[@"role"]
                                                            gradYear:[(NSNumber*)dict[@"year"] integerValue]
                                                        proDevEvents:[(NSNumber*)dict[@"pro_dev_events"] integerValue]
                                                        comServHours:[(NSNumber*)dict[@"service_hours"] floatValue]
                                                          committees:dict[@"committees"]
+                                                        phoneNumber:dict[@"phone_number"]
                                                             account:dict[@"account"]
                                                                 _id:dict[@"_id"]
                                                                 __v:dict[@"__v"]];
