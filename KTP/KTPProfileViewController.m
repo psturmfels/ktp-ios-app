@@ -95,11 +95,14 @@
 - (void)loadMajorLabel {
     // IMPLEMENT
     // Use "MAJOR" as a default
-    if([self.member.major isEqualToString:@""]) {
-        self.majorLabel.text = @"Major: MAJOR";
-    }
     self.majorLabel = [UILabel new];
-    self.majorLabel.text = [NSString stringWithFormat:@"Major: %@", self.member.major];
+    if(!self.member.major) {
+        self.majorLabel.text = @"Major: MAJOR";
+    } else {
+        self.majorLabel.text = [NSString stringWithFormat:@"Major: %@", self.member.major];
+    }
+//    self.majorLabel.numberOfLines = 0;
+    self.majorLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.scrollView addSubview:self.majorLabel];
     
 }
@@ -110,6 +113,14 @@
 - (void)loadGradLabel {
     // IMPLEMENT
     // Use "0000" as a default
+    // fix this check!!
+    self.gradLabel = [UILabel new];
+    if(!self.member.gradYear) {
+        self.gradLabel.text = @"Graduation Year: 0000";
+    } else {
+        self.gradLabel.text = [NSString stringWithFormat:@"Graduation Year: %ld", self.member.gradYear];
+    }
+    [self.scrollView addSubview:self.gradLabel];
 }
 
 /*!
@@ -118,6 +129,13 @@
 - (void)loadHometownLabel {
     // IMPLEMENT
     // Use "EARTH" as a default
+    self.hometownLabel = [UILabel new];
+    if(!self.member.hometown){
+        self.hometownLabel.text = @"Hometown: EARTH";
+    } else {
+        self.hometownLabel.text = [NSString stringWithFormat:@"Hometown: %@", self.member.hometown];
+    }
+    [self.scrollView addSubview:self.hometownLabel];
 }
 
 /*!
@@ -161,11 +179,15 @@
     // Set translatesAutoresizingMaskIntoConstraints property to NO for all autolayout views
     self.profileImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.majorLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.gradLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.hometownLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
     // Label all views for autolayout
     NSDictionary *views = @{
                             @"profileImageView" :   self.profileImageView,
-                            @"majorLabel"       :   self.majorLabel
+                            @"majorLabel"       :   self.majorLabel,
+                            @"gradLabel"        :   self.gradLabel,
+                            @"hometownLabel"    :   self.hometownLabel
                             // FORMAT:
                             // @"label"     :   view
                             };
@@ -181,10 +203,21 @@
     [self.scrollView addConstraints:profileImageViewVertSize];
     
     /* majorLabel */
-    NSArray *majorLabelHorizPos = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[majorLabel]" options:0 metrics:nil views:views];
-    NSArray *majorLabelVertPos = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[majorLabel]" options:0 metrics:nil views:views];
+//    [self.majorLabel setBackgroundColor:[UIColor greenColor]];
+    NSArray *hometownLabelHorizPos = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[hometownLabel]-|" options:0 metrics:nil views:views];
+    NSArray *hometownLabelVertPos = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[hometownLabel]" options:0 metrics:nil views:views];
+    [self.scrollView addConstraints:hometownLabelHorizPos];
+    [self.scrollView addConstraints:hometownLabelVertPos];
+    
+    NSArray *majorLabelHorizPos = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[majorLabel]-|" options:0 metrics:nil views:views];
+    NSArray *majorLabelVertPos = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[hometownLabel]-5-[majorLabel]" options:0 metrics:nil views:views];
     [self.scrollView addConstraints:majorLabelHorizPos];
     [self.scrollView addConstraints:majorLabelVertPos];
+    
+    NSArray *gradLabelHorizPos = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[gradLabel]-|" options:0 metrics:nil views:views];
+    NSArray *gradLabelVertPos = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[majorLabel]-5-[gradLabel]" options:0 metrics:nil views:views];
+    [self.scrollView addConstraints:gradLabelHorizPos];
+    [self.scrollView addConstraints:gradLabelVertPos];
     
 }
 
