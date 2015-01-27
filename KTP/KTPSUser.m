@@ -12,6 +12,14 @@
 
 @implementation KTPSUser
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMember) name:KTPNotificationMembersUpdated object:nil];
+    }
+    return self;
+}
+
 + (KTPSUser *)currentUser {
     static KTPSUser *user;
     static dispatch_once_t userToken;
@@ -128,7 +136,7 @@
     /* This point reached only if session is valid */
     [defaults setObject:[NSDate date] forKey:@"lastLogin"];
     [defaults synchronize];
-    self.member = [KTPMember memberWithID:loggedInMemberId];
+    [self updateMember];
     
     self.loggedIn = YES;
     if (block) {
@@ -145,6 +153,13 @@
     
     // Send notification to app that user has logged out
     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationUserLogout object:self];
+}
+
+/*!
+ Updates the member associated with this user. Usually called when updates are made to the member data maintained in KTPSMembers.
+ */
+- (void)updateMember {
+    self.member = [KTPMember memberWithID:[[NSUserDefaults standardUserDefaults] stringForKey:@"loggedInMemberId"]];
 }
 
 @end
