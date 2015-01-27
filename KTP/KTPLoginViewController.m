@@ -11,7 +11,7 @@
 #import "KTPBlockView.h"
 #import "KTPTextField.h"
 //data
-#import "KTPUser.h"
+#import "KTPSUser.h"
 
 @interface KTPLoginViewController () <UITextFieldDelegate>
 
@@ -26,12 +26,12 @@
 
 @implementation KTPLoginViewController
 
--(UIStatusBarStyle)preferredStatusBarStyle
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
 }
 
--(void)loadView
+- (void)loadView
 {
     [super loadView];
     [self loadScrollView];
@@ -41,60 +41,59 @@
     //    [self setAutoLayoutConstraints];
 }
 
--(void)loadScrollView
+- (void)loadScrollView
 {
     self.scrollView = [UIScrollView new];
-    [self.scrollView setFrame:self.view.frame];
-    [self.scrollView setAlwaysBounceVertical:YES];
-    [self.scrollView setBackgroundColor:[UIColor KTPDarkGray]];
+    self.scrollView.frame = self.view.frame;
+    self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.backgroundColor = [UIColor KTPDarkGray];
     [self.view addSubview:self.scrollView];
 }
 
--(void)loadLogo
+- (void)loadLogo
 {
     self.ktpBlockView = [[KTPBlockView alloc] initWithFrame:CGRectMake(25, 100, self.view.frame.size.width-40, self.view.frame.size.height/2)];
     [self.scrollView addSubview:self.ktpBlockView];
 }
 
--(void)loadTextFields
+- (void)loadTextFields
 {
     CGRect textRect = CGRectMake(0, 0, self.view.frame.size.width-100, 40);
     self.usernameInput = [[KTPTextField alloc] initWithFrame:textRect];
-    [self.usernameInput setCenter:CGPointMake(self.scrollView.center.x, 250)];
-    [self.usernameInput setPlaceholder:@"Username"];
-    [self.usernameInput setDelegate:self];
+    self.usernameInput.center = CGPointMake(self.scrollView.center.x, 260);
+    self.usernameInput.placeholder = @"Username";
+    self.usernameInput.keyboardType = UIKeyboardTypeEmailAddress;
+    self.usernameInput.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.usernameInput.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.usernameInput.enablesReturnKeyAutomatically = YES;
+    self.usernameInput.delegate = self;
     [self.scrollView addSubview:self.usernameInput];
     
     self.passwordInput = [[KTPTextField alloc] initWithFrame:textRect];
-    [self.passwordInput setCenter:CGPointMake(self.scrollView.center.x, 300)];
-    [self.passwordInput setPlaceholder:@"Password"];
-    [self.passwordInput setDelegate:self];
-    [self.passwordInput setSecureTextEntry:YES];
+    self.passwordInput.center = CGPointMake(self.scrollView.center.x, 310);
+    self.passwordInput.placeholder = @"Password";
+    self.passwordInput.delegate = self;
+    self.passwordInput.secureTextEntry = YES;
     [self.scrollView addSubview:self.passwordInput];
-    
-    UIButton *left = [UIButton buttonWithType:UIButtonTypeSystem];
-    [left setTitle:@"meh" forState:UIControlStateNormal];
-    [self.passwordInput setLeftView:left];
-    [self.passwordInput setLeftViewMode:UITextFieldViewModeAlways];
 }
 
--(void)loadLoginButton
+- (void)loadLoginButton
 {
     CGRect textRect = CGRectMake(0, 0, self.view.frame.size.width-100, 50);
     self.logInButton = [UIButton new];
-    [self.logInButton setFrame:textRect];
-    [self.logInButton setCenter:CGPointMake(self.scrollView.center.x, 350)];
+    self.logInButton.frame = textRect;
+    self.logInButton.center = CGPointMake(self.scrollView.center.x, 360);
     [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
     [self.logInButton setTitleColor:[UIColor KTPOpenGreen] forState:UIControlStateNormal];
     [self.logInButton addTarget:self action:@selector(tappedLogIn) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.logInButton];
 }
 
--(void)setAutoLayoutConstraints
+- (void)setAutoLayoutConstraints
 {
-    [self.usernameInput setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.passwordInput setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.ktpBlockView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.usernameInput.translatesAutoresizingMaskIntoConstraints = NO;
+    self.passwordInput.translatesAutoresizingMaskIntoConstraints = NO;
+    self.ktpBlockView.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary *views = @{@"username": self.usernameInput, @"password":self.passwordInput};
     [self.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[logo]-|" options:0 metrics:nil views:views]];
     [self.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[username]-|" options:0 metrics:nil views:views]];
@@ -109,12 +108,12 @@
     [self.scrollView addGestureRecognizer:self.animationTap];
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self.ktpBlockView waveAnimationFromPoint:textField.frame.origin];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if ([textField isEqual:self.usernameInput]) {
         [self setFocusOnTextField:self.passwordInput];
@@ -124,7 +123,7 @@
     return YES;
 }
 
--(void)touchDownOnView:(UITapGestureRecognizer *)tap
+- (void)touchDownOnView:(UITapGestureRecognizer *)tap
 {
     if ([self.usernameInput isFirstResponder]) {
         [self removeFocusFromTextField:self.usernameInput];
@@ -136,26 +135,27 @@
     }
 }
 
--(void)removeFocusFromTextField:(UITextField *)textField
+- (void)removeFocusFromTextField:(UITextField *)textField
 {
     [textField resignFirstResponder];
     //    [self.scrollView setContentOffset:CGPointZero animated:YES];
 }
 
--(void)setFocusOnTextField:(UITextField *)textField
+- (void)setFocusOnTextField:(UITextField *)textField
 {
     [textField becomeFirstResponder];
     //    [self.scrollView setContentOffset:CGPointMake(0, 70) animated:YES];
 }
 
--(void)tappedLogIn
+- (void)tappedLogIn
 {
-    [[KTPUser currentUser] loginWithUsername:self.usernameInput.text password:self.passwordInput.text block:^(BOOL successful) {
+    [self.view endEditing:YES];
+    [[KTPSUser currentUser] loginWithUsername:self.usernameInput.text password:self.passwordInput.text block:^(BOOL successful, NSError *error) {
         if (successful) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
-                                                            message:@"Invalid username and/or password"
+                                                            message:@"Invalid login information"
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];

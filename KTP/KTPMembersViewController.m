@@ -12,6 +12,7 @@
 #import "KTPProfileViewController.h"
 #import "KTPMembersCell.h"
 #import "KTPMember.h"
+#import "KTPSUser.h"
 
 @interface KTPMembersViewController () <UITableViewDelegate>
 
@@ -41,6 +42,11 @@
         [self.membersTableView registerClass:[KTPMembersCell class] forCellReuseIdentifier:@"MemberCell"];
         
         self.navigationItem.title = @"Members";
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ProfileIcon"]
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(showUserProfile)];
     }
     return self;
 }
@@ -56,9 +62,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // Get the corresponding cell's member, and create a profile VC
+    // Get the corresponding cell's member
     KTPMembersCell *cell = (KTPMembersCell*)[tableView cellForRowAtIndexPath:indexPath];
-    KTPProfileViewController *profileVC = [[KTPProfileViewController alloc] initWithMember:cell.member];
+    [self showProfileWithMember:cell.member];
+}
+
+/*!
+ Shows the profile of the logged in user as maintained by KTPSUser
+ */
+- (void)showUserProfile {
+    [self showProfileWithMember:[KTPSUser currentUser].member];
+}
+
+/*!
+ Initializes a KTPProfileViewController with a member and pushes it onto the navigation stack
+ 
+ @param         member
+ */
+- (void)showProfileWithMember:(KTPMember*)member {
+    NSLog(@"name: %@\nid: %@", member.firstName, member._id);
+    
+    KTPProfileViewController *profileVC = [[KTPProfileViewController alloc] initWithMember:member];
     
     // Push profileVC onto the navigation stack
     [self.navigationController pushViewController:profileVC animated:YES];
