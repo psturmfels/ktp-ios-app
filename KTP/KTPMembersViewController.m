@@ -41,6 +41,11 @@
         [self.membersTableView registerClass:[KTPMembersCell class] forCellReuseIdentifier:@"MemberCell"];
         
         self.navigationItem.title = @"Members";
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ProfileIcon"]
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(showUserProfile)];
     }
     return self;
 }
@@ -62,6 +67,10 @@
     
     // Push profileVC onto the navigation stack
     [self.navigationController pushViewController:profileVC animated:YES];
+}
+
+- (void)showUserProfile {
+    NSLog(@"show user profile selected");
 }
 
 @end

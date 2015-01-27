@@ -101,6 +101,14 @@
 + (instancetype)memberWithUniqname:(NSString*)uniqname;
 
 /*!
+ Returns a KTPMember object with the given ID. If no such member exists, this method returns nil.
+ 
+ @param         ID
+ @returns       The KTPMember object with the given ID, or nil if not found.
+ */
++ (instancetype)memberWithID:(NSString*)ID;
+
+/*!
  Returns a KTPMember object with the given account string. If no such member exists, this method returns nil.
  
  @param         account

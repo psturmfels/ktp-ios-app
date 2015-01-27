@@ -11,12 +11,12 @@
 #import "KTPSlideMenuViewController.h"
 #import "KTPMembersViewController.h"
 
-#import "KTPRequirementsViewController.h"
+#import "KTPPledgeViewController.h"
 #import "KTPAnnouncementsViewController.h"
 
 #import "KTPSlideMenuCell.h"
 
-#import "KTPUser.h"
+#import "KTPSUser.h"
 
 @interface KTPRootViewController () <KTPSlideMenuDelegate, UIGestureRecognizerDelegate>
 
@@ -48,6 +48,12 @@
         self.navVC = [[UINavigationController alloc] initWithRootViewController:[KTPMembersViewController new]];
         [self addChildViewController:self.navVC];
         [self.navVC didMoveToParentViewController:self];
+        
+        // Observe logout notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(resetLogin)
+                                                     name:KTPNotificationUserLogout
+                                                   object:nil];
     }
     return self;
 }
@@ -69,13 +75,24 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (![KTPUser currentUser].isLoggedIn) {
-        self.loginVC = [KTPLoginViewController new];
-        [self presentViewController:self.loginVC animated:YES completion:^{
-            [self loadSubviews];
+    [self resetLogin];
+}
+
+/*!
+ Loads and presents the login view if there is no user logged in.
+ */
+- (void)resetLogin {
+    if (![KTPSUser currentUser].isLoggedIn) {
+        [[KTPSUser currentUser] loginWithSession:^(BOOL successful, NSError *error) {
+            if (!successful) {
+                self.loginVC = [KTPLoginViewController new];
+                [self presentViewController:self.loginVC animated:YES completion:^{
+                    [self loadSubviews];
+                }];
+            } else {
+                [self loadSubviews];
+            }
         }];
-    } else {
-        [self loadSubviews];
     }
 }
 
@@ -235,6 +252,12 @@
         case KTPViewTypeMembers:
             if (![baseVC isKindOfClass:[KTPMembersViewController class]]) {
                 [self.navVC setViewControllers:@[[KTPMembersViewController new]]];
+                [self loadSubviews];
+            }
+            break;
+        case KTPViewTypePledge:
+            if (![baseVC isKindOfClass:[KTPPledgeViewController class]]) {
+                [self.navVC setViewControllers:@[[KTPPledgeViewController new]]];
                 [self loadSubviews];
             }
             break;

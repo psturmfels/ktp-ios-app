@@ -73,6 +73,15 @@
     return nil;
 }
 
++ (instancetype)memberWithID:(NSString*)ID {
+    for (KTPMember *member in [KTPSMembers members].membersArray) {
+        if ([member._id isEqualToString:ID]) {
+            return member;
+        }
+    }
+    return nil;
+}
+
 + (instancetype)memberWithAccount:(NSString*)account {
     for (KTPMember *member in [KTPSMembers members].membersArray) {
         if ([member.account isEqualToString:account]) {

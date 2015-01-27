@@ -41,8 +41,11 @@
  */
 - (void)fetchMembers {
     self.membersData = [NSMutableData new];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://kappathetapi.com/api/members?t=%@", AUTHKEY]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    // Creates a URL that requests all members sorted by first_name in ascending order
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://kappathetapi.com/api/members?t=%@&sort=first_name", AUTHKEY]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.allHTTPHeaderFields = @{@"x-access-token" : AUTHKEY};
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         if (!connectionError) {
             NSError *error;
@@ -52,14 +55,6 @@
         } else {
             NSLog(@"member fetch failed with error:\n%@", connectionError.userInfo);
         }
-        
-        // DEBUG
-//        dispatch_async(dispatch_queue_create("test_queue", DISPATCH_QUEUE_SERIAL), ^{
-//            sleep(10);
-//            [self.membersArray[0] setFirstName:@"Asdf"];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMembersUpdated object:self];
-//            NSLog(@"notification sent");
-//        });
     }];
 }
 
@@ -110,8 +105,6 @@
                                                                 __v:dict[@"__v"]];
         ++i;
     }
-    // Sort members by first name
-    [self.membersArray sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]]];
     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMembersUpdated object:self];
     
     // DEBUG
