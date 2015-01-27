@@ -16,6 +16,7 @@
 @end
 
 #define KTPNotificationMembersUpdated   @"KTPNotificationMembersUpdated"
+#define KTPNotificationUserLogout       @"KTPNotificationUserLogout"
 
 #define kSlideMenuWidth                 [UIScreen mainScreen].bounds.size.width * 0.8
 #define kSlideAnimationDuration         0.2
@@ -23,5 +24,6 @@
 
 typedef NS_ENUM(NSInteger, KTPViewType) {
     KTPViewTypeMembers,
+    KTPViewTypePledge,
     KTPViewTypeAnnouncements
 };
