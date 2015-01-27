@@ -30,12 +30,12 @@ typedef NS_ENUM(NSInteger, KTPRequestRoute) {
 /*!
  Sends an asynchronous NSURLRequest of the specified KTPRequestType to the specified API route/append with parameters. Body should be a JSON object. The response parameters are forwarded by calling block.
  
- @param         type
- @param         route
- @param         append
- @param         parameters
- @param         body
- @param         block
+ @param         type        The type of request
+ @param         route       The route to send the request to
+ @param         append      A string to append to the route
+ @param         parameters  Any parameters to the request (separated by '&')
+ @param         body        The body of the request
+ @param         block       Block to forward response to
  */
 + (void)sendAsynchronousRequestType:(KTPRequestType)type
                             toRoute:(KTPRequestRoute)route

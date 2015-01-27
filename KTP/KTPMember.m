@@ -8,8 +8,11 @@
 
 #import "KTPMember.h"
 #import "KTPSMembers.h"
+#import "KTPNetworking.h"
 
 @implementation KTPMember
+
+#pragma mark - Initialization and Creation
 
 - (instancetype)initWithFirstName:(NSString*)firstName
                          lastName:(NSString*)lastName
@@ -26,6 +29,7 @@
                      comServHours:(CGFloat)comServHours
                        committees:(NSArray*)committees
                       phoneNumber:(NSString*)phoneNumber
+                            email:(NSString*)email
                           account:(NSString*)account
                               _id:(NSString*)_id
                               __v:(NSString*)__v
@@ -47,6 +51,7 @@
         self.comServHours = comServHours;
         self.committees = committees;
         self.phoneNumber = phoneNumber;
+        self.email = email;
         self.account = account;
         self._id = _id;
         self.__v = __v;
@@ -89,6 +94,48 @@
         }
     }
     return nil;
+}
+
+#pragma mark - Update
+
+- (void)update {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIMembers appending:self._id parameters:nil withBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Failed"
+                                                            message:@"Member information was not updated"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
+}
+
+/*!
+ Returns a JSON object with all editable properties of a KTPMember
+ 
+ @returns       The JSON object as an NSDictionary
+ */
+- (NSDictionary*)JSONObject {
+    // INCOMPLETE IMPLEMENTATION
+    // Need to add committees, main_committee
+    return @{
+             @"first_name"          :   self.firstName,
+             @"last_name"           :   self.lastName,
+             @"uniqname"            :   self.uniqname,
+             @"year"                :   [NSNumber numberWithInteger:self.gradYear],
+             @"gender"              :   self.gender,
+             @"major"               :   self.major,
+             @"hometown"            :   self.hometown,
+             @"biography"           :   self.biography,
+             @"pledge_class"        :   self.pledgeClass,
+             @"membership_status"   :   self.status,
+             @"role"                :   self.role,
+             @"pro_dev_events"      :   [NSNumber numberWithInteger:self.proDevEvents],
+             @"service_hours"       :   [NSNumber numberWithFloat:self.comServHours],
+             @"phone_number"        :   self.phoneNumber,
+             @"email"               :   self.email
+             };
 }
 
 @end

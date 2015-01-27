@@ -80,8 +80,6 @@
  @param         member
  */
 - (void)showProfileWithMember:(KTPMember*)member {
-    NSLog(@"name: %@\nid: %@", member.firstName, member._id);
-    
     KTPProfileViewController *profileVC = [[KTPProfileViewController alloc] initWithMember:member];
     
     // Push profileVC onto the navigation stack

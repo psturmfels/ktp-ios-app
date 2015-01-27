@@ -18,22 +18,23 @@
 @property (nonatomic, strong)   NSString    *firstName;
 @property (nonatomic, strong)   NSString    *lastName;
 @property (nonatomic, strong)   NSString    *uniqname;
+@property (nonatomic)           NSInteger   gradYear;
 @property (nonatomic, strong)   NSString    *gender;
 @property (nonatomic, strong)   NSString    *major;
-@property (nonatomic, strong)   NSString    *hometown; //
-@property (nonatomic, strong)   NSString    *biography;//
+@property (nonatomic, strong)   NSString    *hometown;
+@property (nonatomic, strong)   NSString    *biography;
 
 // Fraternity
 @property (nonatomic, strong)   NSString    *pledgeClass;
-@property (nonatomic, strong)   NSString    *status;//
-@property (nonatomic, strong)   NSString    *role;//
-@property (nonatomic)           NSInteger   gradYear;
+@property (nonatomic, strong)   NSString    *status;
+@property (nonatomic, strong)   NSString    *role;
 @property (nonatomic)           NSInteger   proDevEvents;
 @property (nonatomic)           CGFloat     comServHours;
 @property (nonatomic, strong)   NSArray     *committees;
 
 // Contact
-@property (nonatomic, strong)   NSString    *phoneNumber;//
+@property (nonatomic, strong)   NSString    *phoneNumber;
+@property (nonatomic, strong)   NSString    *email;
 
 // Account
 @property (nonatomic, strong)   NSString    *account;
@@ -79,6 +80,7 @@
                      comServHours:(CGFloat)comServHours
                        committees:(NSArray*)committees
                       phoneNumber:(NSString*)phoneNumber
+                            email:(NSString*)email
                           account:(NSString*)account
                               _id:(NSString*)_id
                               __v:(NSString*)__v;
@@ -115,6 +117,11 @@
  @returns       The KTPMember object with the given account, or nil if not found.
  */
 + (instancetype)memberWithAccount:(NSString*)account;
+
+/*!
+ Update's this member's information in the database.
+ */
+- (void)update;
 
 
 @end

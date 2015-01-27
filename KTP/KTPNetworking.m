@@ -30,7 +30,7 @@
         case KTPRequestRouteAPIMembers:
             return @"/api/members/";
         case KTPRequestRouteAPILogin:
-            return @"/api/login";
+            return @"/api/login/";
         case KTPRequestRouteAPIChangePassword:
             return @"/api/changePassword/";
     }
@@ -54,7 +54,9 @@
     request.HTTPMethod = requestType;
     
     NSError *error;
-    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
+    if (body) {
+        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
+    }
     
     if (!error) {
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
