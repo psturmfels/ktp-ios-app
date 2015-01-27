@@ -9,10 +9,11 @@
 #import "KTPRootViewController.h"
 #import "KTPLoginViewController.h"
 #import "KTPSlideMenuViewController.h"
-#import "KTPMembersViewController.h"
 
+#import "KTPMembersViewController.h"
 #import "KTPPledgeViewController.h"
 #import "KTPAnnouncementsViewController.h"
+#import "KTPSettingsViewController.h"
 
 #import "KTPSlideMenuCell.h"
 
@@ -264,6 +265,12 @@
         case KTPViewTypeAnnouncements:
             if (![baseVC isKindOfClass:[KTPAnnouncementsViewController class]]) {
                 [self.navVC setViewControllers:@[[KTPAnnouncementsViewController new]]];
+                [self loadSubviews];
+            }
+            break;
+        case KTPViewTypeSettings:
+            if (![baseVC isKindOfClass:[KTPSettingsViewController class]]) {
+                [self.navVC setViewControllers:@[[KTPSettingsViewController new]]];
                 [self loadSubviews];
             }
             break;

@@ -17,7 +17,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return 4;
     }
     return 0;
 }
@@ -42,6 +42,9 @@
                 cellTitle = @"Announcements";
                 cellViewType = KTPViewTypeAnnouncements;
                 break;
+            case 3:
+                cellTitle = @"Settings";
+                cellViewType = KTPViewTypeSettings;
             default:
                 break;
         }

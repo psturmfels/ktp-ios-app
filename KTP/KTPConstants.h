@@ -25,5 +25,6 @@
 typedef NS_ENUM(NSInteger, KTPViewType) {
     KTPViewTypeMembers,
     KTPViewTypePledge,
-    KTPViewTypeAnnouncements
+    KTPViewTypeAnnouncements,
+    KTPViewTypeSettings
 };
