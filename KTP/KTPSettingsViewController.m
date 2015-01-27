@@ -7,9 +7,13 @@
 //
 
 #import "KTPSettingsViewController.h"
+#import "KTPSUser.h"
 
 @interface KTPSettingsViewController ()
 
+//@property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) UIButton *logoutButton;
 @end
 
 @implementation KTPSettingsViewController
@@ -18,7 +22,40 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+//    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+//    self.scrollView.alwaysBounceVertical = YES;
+//    [self.view addSubview:self.scrollView];
+    
     self.navigationItem.title = @"Settings";
+    
+    [self loadSubviews];
+    [self autoLayoutSubviews];
+}
+
+- (void)loadSubviews {
+    [self loadLogoutButton];
+}
+
+- (void)loadLogoutButton {
+    self.logoutButton = [[UIButton alloc] init];
+    [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
+    [self.logoutButton addTarget:[KTPSUser currentUser] action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+    self.logoutButton.backgroundColor = [UIColor redColor];
+    self.logoutButton.titleLabel.textColor = [UIColor whiteColor];
+    
+    [self.view addSubview:self.logoutButton];
+}
+
+- (void)autoLayoutSubviews {
+    self.logoutButton.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSDictionary *views = @{
+                            @"logoutButton"     :   self.logoutButton
+                            };
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[logoutButton]-0-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[logoutButton(40)]-0-|" options:0 metrics:nil views:views]];
 }
 
 @end
