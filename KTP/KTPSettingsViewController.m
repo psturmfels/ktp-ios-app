@@ -41,7 +41,10 @@
     self.logoutButton = [[UIButton alloc] init];
     [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
     [self.logoutButton addTarget:[KTPSUser currentUser] action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-    self.logoutButton.backgroundColor = [UIColor redColor];
+    
+    UIColor *normalColor = [UIColor colorWithRed:0xff/255.0 green:0x69/255.0 blue:0x69/255.0 alpha:1];
+    [self.logoutButton setBackgroundImage:[UIImage imageWithColor:normalColor] forState:UIControlStateNormal];
+    [self.logoutButton setBackgroundImage:[UIImage imageWithColor:[normalColor colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
     self.logoutButton.titleLabel.textColor = [UIColor whiteColor];
     
     [self.view addSubview:self.logoutButton];
@@ -54,8 +57,8 @@
                             @"logoutButton"     :   self.logoutButton
                             };
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[logoutButton]-0-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[logoutButton(50)]-0-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[logoutButton]-20-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[logoutButton(50)]-20-|" options:0 metrics:nil views:views]];
 }
 
 @end

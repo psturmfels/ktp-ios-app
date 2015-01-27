@@ -37,6 +37,7 @@
 		A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A31A73AD200062B072 /* KTPProfileViewController.m */; };
 		A8B2D64F1A7799E100039724 /* KTPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B2D64E1A7799E100039724 /* KTPSettingsViewController.m */; };
 		A8B2D6531A77F62100039724 /* KTPNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B2D6521A77F62100039724 /* KTPNetworking.m */; };
+		A8B2D6591A78386600039724 /* UIImage+KTPImages.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B2D6581A78386600039724 /* UIImage+KTPImages.m */; };
 		A8C1DAFE1A15ADA300298FF9 /* KTPMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C1DAFD1A15ADA300298FF9 /* KTPMembersViewController.m */; };
 		A8C1DB011A15ADF700298FF9 /* KTPMember.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C1DB001A15ADF700298FF9 /* KTPMember.m */; };
 		A8C6D05D1A745C7000B7CAC0 /* KTPMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C6D05C1A745C7000B7CAC0 /* KTPMembersCell.m */; };
@@ -106,6 +107,8 @@
 		A8B2D64E1A7799E100039724 /* KTPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSettingsViewController.m; sourceTree = "<group>"; };
 		A8B2D6511A77F62100039724 /* KTPNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPNetworking.h; sourceTree = "<group>"; };
 		A8B2D6521A77F62100039724 /* KTPNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPNetworking.m; sourceTree = "<group>"; };
+		A8B2D6571A78386600039724 /* UIImage+KTPImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KTPImages.h"; sourceTree = "<group>"; };
+		A8B2D6581A78386600039724 /* UIImage+KTPImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KTPImages.m"; sourceTree = "<group>"; };
 		A8C1DAFC1A15ADA300298FF9 /* KTPMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPMembersViewController.h; sourceTree = "<group>"; };
 		A8C1DAFD1A15ADA300298FF9 /* KTPMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPMembersViewController.m; sourceTree = "<group>"; };
 		A8C1DAFF1A15ADF700298FF9 /* KTPMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPMember.h; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 			children = (
 				89581F68199B2E230033B5A4 /* UIColor+KTPColors.h */,
 				89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */,
+				A8B2D6571A78386600039724 /* UIImage+KTPImages.h */,
+				A8B2D6581A78386600039724 /* UIImage+KTPImages.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				A809436A1A6EF5CD00B03647 /* KTPSlideMenuDataSource.m in Sources */,
 				897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */,
 				A8C1DB011A15ADF700298FF9 /* KTPMember.m in Sources */,
+				A8B2D6591A78386600039724 /* UIImage+KTPImages.m in Sources */,
 				89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */,
 				897E8F1919AE544F001C849F /* KTPSUser.m in Sources */,
 				A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */,
