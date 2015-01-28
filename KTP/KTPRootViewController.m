@@ -42,6 +42,7 @@
         // Init and add menu as child VC
         self.slideMenuVC = [KTPSlideMenuViewController new];
         self.slideMenuVC.delegate = self;
+        self.slideMenuVC.menuTableView.scrollsToTop = NO;
         [self addChildViewController:self.slideMenuVC];
         [self.slideMenuVC didMoveToParentViewController:self];
         
@@ -220,6 +221,7 @@
     // after menu has been opened or closed
     self.tapRecognizer.enabled = self.menuIsShowing;
     self.navVC.topViewController.view.userInteractionEnabled = !self.menuIsShowing;
+    self.slideMenuVC.menuTableView.scrollsToTop = self.menuIsShowing;
 }
 
 - (void)moveMainViewRight {
