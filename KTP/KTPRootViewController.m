@@ -19,7 +19,7 @@
 
 #import "KTPSUser.h"
 
-@interface KTPRootViewController () <KTPSlideMenuDelegate, UIGestureRecognizerDelegate>
+@interface KTPRootViewController () <KTPSlideMenuDelegate, UIGestureRecognizerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) KTPLoginViewController *loginVC;
 @property (nonatomic, strong) KTPSlideMenuViewController *slideMenuVC;
@@ -47,6 +47,7 @@
         
         // Init and add main nav as child VC
         self.navVC = [[UINavigationController alloc] initWithRootViewController:[KTPMembersViewController new]];
+        self.navVC.delegate = self;
         [self addChildViewController:self.navVC];
         [self.navVC didMoveToParentViewController:self];
         
@@ -197,6 +198,11 @@
         default:
             break;
     }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // Only enable pan recognition if viewing bottom of navVC
+    self.panRecognizer.enabled = (viewController == self.navVC.viewControllers[0]);
 }
 
 #pragma mark - Slide Menu
