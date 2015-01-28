@@ -9,6 +9,7 @@
 #import "KTPSUser.h"
 #import "KTPSMembers.h"
 #import "KTPMember.h"
+#import "KTPNetworking.h"
 
 @implementation KTPSUser
 
@@ -79,39 +80,38 @@
         }
         
         /* Check if password is correct for this user */
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://kappathetapi.com/api/login"]];
-        request.HTTPMethod = @"POST";
-        request.allHTTPHeaderFields = @{@"x-access-token"   : @"5af9a24515589a73d0fa687e69cbaaa15918f833",
-                                        @"Content-Type"     : @"application/json"};
-        NSDictionary *body = @{@"account"     :   possibleMember.account,
-                               @"password"    :   password};
-        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:body options:0 error:nil];   // NEEDS TO HANDLE ERROR
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePOST
+                                           toRoute:KTPRequestRouteAPILogin
+                                         appending:nil
+                                        parameters:nil
+                                          withBody:@{@"account"     :   possibleMember.account,
+                                                     @"password"    :   password}
+                                             block:^(NSURLResponse *response, NSData *data, NSError *error)
+        {
             
             NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
             // Check if response was valid
-            if ([string isEqualToString:@"account not found\n"] || [string isEqualToString:@"invalid password\n"]) {
+            if ([string isEqualToString:@"success\n"]) {
+                /* This point reached only if username and password were both correct */
+                // Use NSUserDefaults as session management
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setObject:possibleMember._id forKey:@"loggedInMemberId"];
+                [defaults setObject:[NSDate date] forKey:@"lastLogin"];
+                [defaults synchronize];
+                self.member = [KTPMember memberWithUniqname:uniqname];
+                
+                self.loggedIn = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    block(YES, nil);
+                });
+            } else {
+                NSLog(@"%@", string);
+                
                 NSError *error = [[NSError alloc] initWithDomain:@"KTPInvalidPasswordError" code:-1 userInfo:errorUserInfo];
                 errorBlock(error);
                 return;
-            } else if (![string isEqualToString:@"success\n"]) {
-                // should never reach
-                NSLog(@"THIS SHOULD NOT HAVE PRINTED");
             }
-            
-            /* This point reached only if username and password were both correct */
-            // Use NSUserDefaults as session management
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setObject:possibleMember._id forKey:@"loggedInMemberId"];
-            [defaults setObject:[NSDate date] forKey:@"lastLogin"];
-            [defaults synchronize];
-            self.member = [KTPMember memberWithUniqname:uniqname];
-            
-            self.loggedIn = YES;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                block(YES, nil);
-            });
         }];
     });
 }
