@@ -9,14 +9,12 @@
 #import <Foundation/Foundation.h>
 
 /*!
- @class         KTPConstants
- @description   The KTPConstants class contains all global constants and is automatically included in every file.
+ KTPConstants contains all global constants and is automatically included in every file.
  */
-@interface KTPConstants : NSObject
-@end
 
-#define KTPNotificationMembersUpdated   @"KTPNotificationMembersUpdated"
-#define KTPNotificationUserLogout       @"KTPNotificationUserLogout"
+extern NSString *const KTPNotificationMembersUpdated;
+extern NSString *const KTPNotificationMemberUpdateFailed;
+extern NSString *const KTPNotificationUserLogout;
 
 #define kSlideMenuWidth                 [UIScreen mainScreen].bounds.size.width * 0.8
 #define kSlideAnimationDuration         0.2

@@ -57,6 +57,10 @@
                                                  selector:@selector(resetLogin)
                                                      name:KTPNotificationUserLogout
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(memberUpdateFailed)
+                                                     name:KTPNotificationMemberUpdateFailed
+                                                   object:nil];
     }
     return self;
 }
@@ -286,6 +290,14 @@
             break;
     }
     [self toggleMenu];
+}
+
+- (void)memberUpdateFailed {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Update Failed"
+                                                                   message:@"Member information was not updated"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

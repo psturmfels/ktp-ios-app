@@ -103,12 +103,7 @@
 - (void)update {
     [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIMembers appending:self._id parameters:nil withBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Failed"
-                                                            message:@"Member information was not updated"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberUpdateFailed object:self];
         }
     }];
 }

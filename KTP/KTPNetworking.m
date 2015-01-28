@@ -8,7 +8,7 @@
 
 #import "KTPNetworking.h"
 
-#define API_TOKEN   @"5af9a24515589a73d0fa687e69cbaaa15918f833"
+NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
 
 @implementation KTPNetworking
 
@@ -49,7 +49,7 @@
     }
     NSURL *requestURL = [NSURL URLWithString:requestURLString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
-    request.allHTTPHeaderFields = @{@"x-access-token"   : API_TOKEN,
+    request.allHTTPHeaderFields = @{@"x-access-token"   : KTP_API_TOKEN,
                                     @"Content-Type"     : @"application/json"};
     request.HTTPMethod = requestType;
     

@@ -8,6 +8,6 @@
 
 #import "KTPConstants.h"
 
-@implementation KTPConstants
-
-@end
+NSString *const KTPNotificationMembersUpdated = @"KTPNotificationMembersUpdated";
+NSString *const KTPNotificationMemberUpdateFailed = @"KTPNotificationMemberUpdateFailed";
+NSString *const KTPNotificationUserLogout = @"KTPNotificationUserLogout";

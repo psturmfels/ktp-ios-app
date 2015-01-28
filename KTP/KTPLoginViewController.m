@@ -154,12 +154,11 @@
         if (successful) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
-                                                            message:@"Invalid login information"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login Failed"
+                                                                           message:@"Invalid login information"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
 }
