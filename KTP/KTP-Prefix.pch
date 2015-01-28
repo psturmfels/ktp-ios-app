@@ -15,5 +15,6 @@
     #import <Foundation/Foundation.h>
     #import "UIColor+KTPColors.h"
     #import "UIImage+KTPImages.h"
+    #import "NSString+KTPStrings.h"
     #import "KTPConstants.h"
 #endif

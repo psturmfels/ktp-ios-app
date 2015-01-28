@@ -6,11 +6,13 @@
 //  Copyright (c) 2015 Kappa Theta Pi. All rights reserved.
 //
 
+#import <MobileCoreServices/MobileCoreServices.h>
+
 #import "KTPProfileViewController.h"
 #import "KTPMember.h"
 #import "KTPSUser.h"
 
-@interface KTPProfileViewController ()
+@interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
@@ -24,8 +26,11 @@
 @property (nonatomic, strong) UILabel *hometownLabel;
 @property (nonatomic, strong) UILabel *hometownDataLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
+@property (nonatomic, strong) UILabel *statusDataLabel;
 @property (nonatomic, strong) UILabel *roleLabel;
+@property (nonatomic, strong) UILabel *roleDataLabel;
 @property (nonatomic, strong) UILabel *pledgeClassLabel;
+@property (nonatomic, strong) UILabel *pledgeClassDataLabel;
 @property (nonatomic, strong) UITextView *bioTextView;
 
 // Private Member Info
@@ -100,18 +105,22 @@
     [self.scrollView addSubview:self.contentView];
 }
 
+#define PROFILE_IMAGE_RADIUS 10
+
 /*!
- Initializes and loads an image into profileImageView, and adds it as a subview
+ Initializes and loads an image into profileImageView, and adds as subviews
  */
 - (void)loadProfileImageView {
-    // Use the image named UserPlaceholder as a default
-    self.profileImageView = [UIImageView new];
-    self.profileImageView.image = [UIImage imageNamed:@"UserPlaceholder"];
+    self.profileImageView = [[UIImageView alloc] initWithImage:self.member.image];
+    self.profileImageView.layer.cornerRadius = PROFILE_IMAGE_RADIUS;
+    self.profileImageView.layer.masksToBounds = YES;
+    self.profileImageView.userInteractionEnabled = YES;
+    [self.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
     [self.contentView addSubview:self.profileImageView];
 }
 
 /*!
- Initializes and loads majorLabel and majorDataLabel, and adds it as a subview
+ Initializes and loads majorLabel and majorDataLabel, and adds as subviews
  */
 - (void)loadMajorLabel {
     // Use "MAJOR" as a default
@@ -120,16 +129,16 @@
     [self.contentView addSubview:self.majorLabel];
     
     self.majorDataLabel = [UILabel new];
-    self.majorDataLabel.text = @"MAJOR";
-    if (self.member.major) {
-        self.majorDataLabel.text = self.member.major;
+    self.majorDataLabel.text = self.member.major;
+    if ([self.member.major isEmpty]) {
+        self.majorDataLabel.text = @"MAJOR";
     }
     self.majorDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.majorDataLabel];
 }
 
 /*!
- Initializes and loads gradLabel and gradDataLabel, and adds it as a subview
+ Initializes and loads gradLabel and gradDataLabel, and adds as subviews
  */
 - (void)loadGradLabel {
     // IMPLEMENT
@@ -139,15 +148,15 @@
     [self.contentView addSubview:self.gradLabel];
     
     self.gradDataLabel = [UILabel new];
-    self.gradDataLabel.text = @"0000";
-    if (self.member.gradYear) {
-        self.gradDataLabel.text = [NSString stringWithFormat:@"%ld",(long)self.member.gradYear];
+    self.gradDataLabel.text = [NSString stringWithFormat:@"%ld",(long)self.member.gradYear];
+    if (self.member.gradYear == 0) {
+        self.gradDataLabel.text = @"0000";
     }
     [self.contentView addSubview:self.gradDataLabel];
 }
 
 /*!
- Initializes and loads hometownLabel and hometownDataLabel, and adds it as a subview
+ Initializes and loads hometownLabel and hometownDataLabel, and adds as subviews
  */
 - (void)loadHometownLabel {
     // Use "HOMETOWN" as a default
@@ -156,35 +165,62 @@
     [self.contentView addSubview:self.hometownLabel];
     
     self.hometownDataLabel = [UILabel new];
-    self.hometownDataLabel.text = @"HOMETOWN";
-    if (self.member.hometown) {
-        self.hometownDataLabel.text = self.member.hometown;
+    self.hometownDataLabel.text = self.member.hometown;
+    if ([self.member.hometown isEmpty]) {
+        self.hometownDataLabel.text = @"HOMETOWN";
     }
     [self.contentView addSubview:self.hometownDataLabel];
 }
 
 /*!
- Initializes and loads statusLabel, and adds it as a subview
+ Initializes and loads statusLabel and statusDataLabel, and adds as subviews
  */
 - (void)loadStatusLabel {
-    // IMPLEMENT
-    // Use "NONE" as a default
+    // Use "STATUS" as a default
+    self.statusLabel = [UILabel new];
+    self.statusLabel.text = @"Status:";
+    [self.contentView addSubview:self.statusLabel];
+    
+    self.statusDataLabel = [UILabel new];
+    self.statusDataLabel.text = self.member.status;
+    if ([self.member.status isEmpty]) {
+        self.statusDataLabel.text = @"STATUS";
+    }
+    [self.contentView addSubview:self.statusDataLabel];
 }
 
 /*!
- Initializes and loads roleLabel, and adds it as a subview
+ Initializes and loads roleLabel and roleDataLabel, and adds as subviews
  */
 - (void)loadRoleLabel {
-    // IMPLEMENT
-    // Use "NONE" as a default
+    // Use "ROLE" as a default
+    self.roleLabel = [UILabel new];
+    self.roleLabel.text = @"Role:";
+    [self.contentView addSubview:self.roleLabel];
+    
+    self.roleDataLabel = [UILabel new];
+    self.roleDataLabel.text = self.member.role;
+    if ([self.member.role isEmpty]) {
+        self.roleDataLabel.text = @"ROLE";
+    }
+    [self.contentView addSubview:self.roleDataLabel];
 }
 
 /*!
- Initializes and loads pledgeClassLabel, and adds it as a subview
+ Initializes and loads pledgeClassLabel and pledgeClassDataLabel, and adds as subviews
  */
 - (void)loadPledgeClassLabel {
-    // IMPLEMENT
-    // Use "NONE" as a default
+    // Use "PLEDGE_CLASS" as a default
+    self.pledgeClassLabel = [UILabel new];
+    self.pledgeClassLabel.text = @"Pledge Class:";
+    [self.contentView addSubview:self.pledgeClassLabel];
+    
+    self.pledgeClassDataLabel = [UILabel new];
+    self.pledgeClassDataLabel.text = self.member.pledgeClass;
+    if ([self.member.pledgeClass isEmpty]) {
+        self.pledgeClassDataLabel.text = @"PLEDGE_CLASS";
+    }
+    [self.contentView addSubview:self.pledgeClassDataLabel];
 }
 
 /*!
@@ -214,7 +250,13 @@
                             @"gradLabel"            :   self.gradLabel,
                             @"gradDataLabel"        :   self.gradDataLabel,
                             @"hometownLabel"        :   self.hometownLabel,
-                            @"hometownDataLabel"    :   self.hometownDataLabel
+                            @"hometownDataLabel"    :   self.hometownDataLabel,
+                            @"statusLabel"          :   self.statusLabel,
+                            @"statusDataLabel"      :   self.statusDataLabel,
+                            @"roleLabel"            :   self.roleLabel,
+                            @"roleDataLabel"        :   self.roleDataLabel,
+                            @"pledgeClassLabel"     :   self.pledgeClassLabel,
+                            @"pledgeClassDataLabel" :   self.pledgeClassDataLabel
                             };
     
     /* profileImageView */
@@ -241,14 +283,65 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.gradDataLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.hometownDataLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
     
-    /* vertical spacing */
+    /* major, grad, hometown label/data vertical spacing */
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[majorDataLabel]-5-[gradLabel]" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[gradDataLabel]-5-[hometownLabel]" options:0 metrics:nil views:views]];
-
+    
+    /* pledgeClass, role, status labels positions */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.profileImageView attribute:NSLayoutAttributeBottom multiplier:1 constant:10]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.hometownDataLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:10]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pledgeClassLabel]-5-[roleLabel]-5-[statusLabel]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
+    
+    /* pledgeClass, role, status label/data vertical alignment */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pledgeClassLabel]-10-[pledgeClassDataLabel]" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.roleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.roleDataLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.statusLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.statusDataLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    
+    /* pledgeClass, role, status data left alignment */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.roleDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.roleDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.statusDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
 }
 
 - (void)showEditView {
     
+}
+
+/*!
+ Method called when the profile image is tapped. Displays an actionsheet that allows the user to choose a photo from the library or take a new one.
+ */
+- (void)profileImageTapped {
+    UIImagePickerController *picker = [UIImagePickerController new];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.mediaTypes = @[(NSString*)kUTTypeImage]; // only allow images
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Choose Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:picker animated:YES completion:nil];
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    self.profileImageView.image = image;
+    self.member.image = image;
+    [self.member update];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

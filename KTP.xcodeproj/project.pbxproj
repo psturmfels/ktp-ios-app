@@ -35,6 +35,7 @@
 		A873039D1A7199560062B072 /* KTPSMembers.m in Sources */ = {isa = PBXBuildFile; fileRef = A873039C1A7199560062B072 /* KTPSMembers.m */; };
 		A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A01A72C2A80062B072 /* KTPConstants.m */; };
 		A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A31A73AD200062B072 /* KTPProfileViewController.m */; };
+		A883BE771A78E26300139232 /* NSString+KTPStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = A883BE761A78E26300139232 /* NSString+KTPStrings.m */; };
 		A8B2D64F1A7799E100039724 /* KTPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B2D64E1A7799E100039724 /* KTPSettingsViewController.m */; };
 		A8B2D6531A77F62100039724 /* KTPNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B2D6521A77F62100039724 /* KTPNetworking.m */; };
 		A8B2D6591A78386600039724 /* UIImage+KTPImages.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B2D6581A78386600039724 /* UIImage+KTPImages.m */; };
@@ -103,6 +104,8 @@
 		A87303A01A72C2A80062B072 /* KTPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPConstants.m; sourceTree = "<group>"; };
 		A87303A21A73AD200062B072 /* KTPProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileViewController.h; sourceTree = "<group>"; };
 		A87303A31A73AD200062B072 /* KTPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileViewController.m; sourceTree = "<group>"; };
+		A883BE751A78E26300139232 /* NSString+KTPStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KTPStrings.h"; sourceTree = "<group>"; };
+		A883BE761A78E26300139232 /* NSString+KTPStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KTPStrings.m"; sourceTree = "<group>"; };
 		A8B2D64D1A7799E100039724 /* KTPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSettingsViewController.h; sourceTree = "<group>"; };
 		A8B2D64E1A7799E100039724 /* KTPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSettingsViewController.m; sourceTree = "<group>"; };
 		A8B2D6511A77F62100039724 /* KTPNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPNetworking.h; sourceTree = "<group>"; };
@@ -150,6 +153,8 @@
 				89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */,
 				A8B2D6571A78386600039724 /* UIImage+KTPImages.h */,
 				A8B2D6581A78386600039724 /* UIImage+KTPImages.m */,
+				A883BE751A78E26300139232 /* NSString+KTPStrings.h */,
+				A883BE761A78E26300139232 /* NSString+KTPStrings.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 				897E8F1919AE544F001C849F /* KTPSUser.m in Sources */,
 				A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */,
 				A809436D1A6EF98600B03647 /* KTPSlideMenuCell.m in Sources */,
+				A883BE771A78E26300139232 /* NSString+KTPStrings.m in Sources */,
 				89581FB2199C65B90033B5A4 /* KTPRequirementsDataSource.m in Sources */,
 				897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */,
 				89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */,

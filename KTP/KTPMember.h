@@ -18,6 +18,7 @@
 @property (nonatomic, strong)   NSString    *firstName;
 @property (nonatomic, strong)   NSString    *lastName;
 @property (nonatomic, strong)   NSString    *uniqname;
+@property (nonatomic, strong)   UIImage     *image;
 @property (nonatomic)           NSInteger   gradYear;
 @property (nonatomic, strong)   NSString    *gender;
 @property (nonatomic, strong)   NSString    *major;
@@ -40,7 +41,6 @@
 @property (nonatomic, strong)   NSString    *account;
 @property (nonatomic, strong)   NSString    *_id;
 @property (nonatomic, strong)   NSString    *__v;
-//@property (nonatomic, strong)   UIImage     *image;
 
 /*!
  Creates a KTPMember object with all provided properties.
@@ -68,6 +68,7 @@
 - (instancetype)initWithFirstName:(NSString*)firstName
                          lastName:(NSString*)lastName
                          uniqname:(NSString*)uniqname
+                            image:(UIImage*)image
                            gender:(NSString*)gender
                             major:(NSString*)major
                          hometown:(NSString*)hometown

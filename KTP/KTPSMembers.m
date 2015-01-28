@@ -68,6 +68,7 @@
         self.membersArray[i] = [[KTPMember alloc] initWithFirstName:dict[@"first_name"]
                                                            lastName:dict[@"last_name"]
                                                            uniqname:dict[@"uniqname"]
+                                                              image:dict[@"image"]
                                                              gender:dict[@"gender"]
                                                               major:dict[@"major"]
                                                            hometown:dict[@"hometown"]

@@ -17,6 +17,7 @@
 - (instancetype)initWithFirstName:(NSString*)firstName
                          lastName:(NSString*)lastName
                          uniqname:(NSString*)uniqname
+                            image:(UIImage*)image
                            gender:(NSString*)gender
                             major:(NSString*)major
                          hometown:(NSString*)hometown
@@ -36,22 +37,23 @@
 {
     self = [super init];
     if (self) {
-        self.firstName = firstName;
-        self.lastName = lastName;
-        self.uniqname = uniqname;
-        self.gender = gender;
-        self.major = major;
-        self.hometown = hometown;
-        self.biography = biography;
-        self.pledgeClass = pledgeClass;
-        self.status = status;
-        self.role = role;
-        self.gradYear = gradYear;
-        self.proDevEvents = proDevEvents;
-        self.comServHours = comServHours;
-        self.committees = committees;
-        self.phoneNumber = phoneNumber;
-        self.email = email;
+        self.image = image                  ?   image       :   [UIImage imageNamed:@"UserPlaceholder"];
+        self.firstName = firstName          ?   firstName   :   @"";
+        self.lastName = lastName            ?   lastName    :   @"";
+        self.uniqname = uniqname            ?   uniqname    :   @"";
+        self.gender = gender                ?   gender      :   @"";
+        self.major = major                  ?   major       :   @"";
+        self.hometown = hometown            ?   hometown    :   @"";
+        self.biography = biography          ?   biography   :   @"";
+        self.pledgeClass = pledgeClass      ?   pledgeClass :   @"";
+        self.status = status                ?   status      :   @"";
+        self.role = role                    ?   role        :   @"";
+        self.gradYear = gradYear            ?   gradYear    :   0;
+        self.proDevEvents = proDevEvents    ?   proDevEvents:   0;
+        self.comServHours = comServHours    ?   comServHours:   0;
+        self.committees = committees        ?   committees  :   @[];
+        self.phoneNumber = phoneNumber      ?   phoneNumber :   @"";
+        self.email = email                  ?   email       :   @"";
         self.account = account;
         self._id = _id;
         self.__v = __v;
@@ -118,7 +120,7 @@
  */
 - (NSDictionary*)JSONObject {
     // INCOMPLETE IMPLEMENTATION
-    // Need to add committees, main_committee
+    // Need to add committees, main_committee, image
     return @{
              @"first_name"          :   self.firstName,
              @"last_name"           :   self.lastName,
