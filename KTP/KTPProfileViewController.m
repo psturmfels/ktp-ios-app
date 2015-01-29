@@ -123,16 +123,12 @@
  Initializes and loads majorLabel and majorDataLabel, and adds as subviews
  */
 - (void)loadMajorLabel {
-    // Use "MAJOR" as a default
     self.majorLabel = [UILabel new];
     self.majorLabel.text = @"Major:";
     [self.contentView addSubview:self.majorLabel];
     
     self.majorDataLabel = [UILabel new];
     self.majorDataLabel.text = self.member.major;
-    if ([self.member.major isEmpty]) {
-        self.majorDataLabel.text = @"MAJOR";
-    }
     self.majorDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.majorDataLabel];
 }
@@ -141,7 +137,6 @@
  Initializes and loads gradLabel and gradDataLabel, and adds as subviews
  */
 - (void)loadGradLabel {
-    // IMPLEMENT
     // Use "0000" as a default
     self.gradLabel = [UILabel new];
     self.gradLabel.text = @"Grad Year:";
@@ -159,16 +154,13 @@
  Initializes and loads hometownLabel and hometownDataLabel, and adds as subviews
  */
 - (void)loadHometownLabel {
-    // Use "HOMETOWN" as a default
     self.hometownLabel = [UILabel new];
     self.hometownLabel.text = @"Hometown:";
     [self.contentView addSubview:self.hometownLabel];
     
     self.hometownDataLabel = [UILabel new];
     self.hometownDataLabel.text = self.member.hometown;
-    if ([self.member.hometown isEmpty]) {
-        self.hometownDataLabel.text = @"HOMETOWN";
-    }
+    self.hometownDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.hometownDataLabel];
 }
 
@@ -176,16 +168,12 @@
  Initializes and loads statusLabel and statusDataLabel, and adds as subviews
  */
 - (void)loadStatusLabel {
-    // Use "STATUS" as a default
     self.statusLabel = [UILabel new];
     self.statusLabel.text = @"Status:";
     [self.contentView addSubview:self.statusLabel];
     
     self.statusDataLabel = [UILabel new];
     self.statusDataLabel.text = self.member.status;
-    if ([self.member.status isEmpty]) {
-        self.statusDataLabel.text = @"STATUS";
-    }
     [self.contentView addSubview:self.statusDataLabel];
 }
 
@@ -193,16 +181,12 @@
  Initializes and loads roleLabel and roleDataLabel, and adds as subviews
  */
 - (void)loadRoleLabel {
-    // Use "ROLE" as a default
     self.roleLabel = [UILabel new];
     self.roleLabel.text = @"Role:";
     [self.contentView addSubview:self.roleLabel];
     
     self.roleDataLabel = [UILabel new];
     self.roleDataLabel.text = self.member.role;
-    if ([self.member.role isEmpty]) {
-        self.roleDataLabel.text = @"ROLE";
-    }
     [self.contentView addSubview:self.roleDataLabel];
 }
 
@@ -210,16 +194,12 @@
  Initializes and loads pledgeClassLabel and pledgeClassDataLabel, and adds as subviews
  */
 - (void)loadPledgeClassLabel {
-    // Use "PLEDGE_CLASS" as a default
     self.pledgeClassLabel = [UILabel new];
     self.pledgeClassLabel.text = @"Pledge Class:";
     [self.contentView addSubview:self.pledgeClassLabel];
     
     self.pledgeClassDataLabel = [UILabel new];
     self.pledgeClassDataLabel.text = self.member.pledgeClass;
-    if ([self.member.pledgeClass isEmpty]) {
-        self.pledgeClassDataLabel.text = @"PLEDGE_CLASS";
-    }
     [self.contentView addSubview:self.pledgeClassDataLabel];
 }
 
@@ -228,7 +208,6 @@
  */
 - (void)loadBioTextView {
     // IMPLEMENT
-    // Use "BIO" as a default
 }
 
 /*!
@@ -260,8 +239,10 @@
                             };
     
     /* profileImageView */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[profileImageView(120)]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[profileImageView(120)]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:0.3 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[profileImageView]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[profileImageView]" options:0 metrics:nil views:views]];
     
     /* majorLabel, gradLabel, hometownLabel left alignment */
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[majorLabel]" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
@@ -304,7 +285,7 @@
 }
 
 - (void)showEditView {
-    
+//    [self.member update:nil];
 }
 
 /*!
@@ -337,7 +318,7 @@
     UIImage *image = info[UIImagePickerControllerEditedImage];
     self.profileImageView.image = image;
     self.member.image = image;
-    [self.member update];
+    [self.member update:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

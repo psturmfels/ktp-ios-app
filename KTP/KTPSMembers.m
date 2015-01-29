@@ -30,7 +30,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self fetchMembers];
+        [self reloadMembers];
     }
     return self;
 }
@@ -38,7 +38,7 @@
 /*!
  Sends a request for all member data. Calls loadMembers when request is complete.
  */
-- (void)fetchMembers {
+- (void)reloadMembers {
     self.membersData = [NSMutableData new];
     
     // Requests all members sorted by first_name in ascending order

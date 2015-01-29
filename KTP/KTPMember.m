@@ -37,26 +37,26 @@
 {
     self = [super init];
     if (self) {
-        self.image = image                  ?   image       :   [UIImage imageNamed:@"UserPlaceholder"];
-        self.firstName = firstName          ?   firstName   :   @"";
-        self.lastName = lastName            ?   lastName    :   @"";
-        self.uniqname = uniqname            ?   uniqname    :   @"";
-        self.gender = gender                ?   gender      :   @"";
-        self.major = major                  ?   major       :   @"";
-        self.hometown = hometown            ?   hometown    :   @"";
-        self.biography = biography          ?   biography   :   @"";
-        self.pledgeClass = pledgeClass      ?   pledgeClass :   @"";
-        self.status = status                ?   status      :   @"";
-        self.role = role                    ?   role        :   @"";
-        self.gradYear = gradYear            ?   gradYear    :   0;
-        self.proDevEvents = proDevEvents    ?   proDevEvents:   0;
-        self.comServHours = comServHours    ?   comServHours:   0;
-        self.committees = committees        ?   committees  :   @[];
-        self.phoneNumber = phoneNumber      ?   phoneNumber :   @"";
-        self.email = email                  ?   email       :   @"";
-        self.account = account;
-        self._id = _id;
-        self.__v = __v;
+        self.image          = image                           ?   image           :   [UIImage imageNamed:@"UserPlaceholder"];
+        self.firstName      = [firstName isNotNilOrEmpty]     ?   firstName       :   @"FIRSTNAME";
+        self.lastName       = [lastName isNotNilOrEmpty]      ?   lastName        :   @"LASTNAME";
+        self.uniqname       = [uniqname isNotNilOrEmpty]      ?   uniqname        :   @"UNIQNAME";
+        self.gender         = [gender isNotNilOrEmpty]        ?   gender          :   @"GENDER";
+        self.major          = [major isNotNilOrEmpty]         ?   major           :   @"MAJOR";
+        self.hometown       = [hometown isNotNilOrEmpty]      ?   hometown        :   @"HOMETOWN";
+        self.biography      = [biography isNotNilOrEmpty]     ?   biography       :   @"BIOGRAPHY";
+        self.pledgeClass    = [pledgeClass isNotNilOrEmpty]   ?   pledgeClass     :   @"PLEDGECLASS";
+        self.status         = [status isNotNilOrEmpty]        ?   status          :   @"STATUS";
+        self.role           = [role isNotNilOrEmpty]          ?   role            :   @"ROLE";
+        self.gradYear       = gradYear                        ?   gradYear        :   0;
+        self.proDevEvents   = proDevEvents                    ?   proDevEvents    :   0;
+        self.comServHours   = comServHours                    ?   comServHours    :   0;
+        self.committees     = committees                      ?   committees      :   @[];
+        self.phoneNumber    = [phoneNumber isNotNilOrEmpty]   ?   phoneNumber     :   @"PHONENUMBER";
+        self.email          = [email isNotNilOrEmpty]         ?   email           :   @"EMAIL";
+        self.account        = account;
+        self._id            = _id;
+        self.__v            = __v;
     }
     return self;
 }
@@ -100,10 +100,13 @@
 
 #pragma mark - Update
 
-- (void)update {
+- (void)update:(void (^)(BOOL successful))block {
     [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIMembers appending:self._id parameters:nil withBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberUpdateFailed object:self];
+        }
+        if (block) {
+            block(!error);
         }
     }];
 }

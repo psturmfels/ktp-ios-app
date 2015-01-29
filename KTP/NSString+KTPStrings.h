@@ -11,10 +11,17 @@
 @interface NSString (KTPStrings)
 
 /*!
- Returns whether the string is empty (no characters, including whitespace)
+ Returns whether the string is empty (whitespace will cause this to return false)
  
  @returns       YES if the string is empty, NO otherwise
  */
 - (BOOL)isEmpty;
+
+/*!
+ Returns whether the string is not nil or empty (after trimming whitespace and newlines).
+ 
+ @returns       NO if the string is nil or empty, YES otherwise
+ */
+- (BOOL)isNotNilOrEmpty;
 
 @end

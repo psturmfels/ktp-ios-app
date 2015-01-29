@@ -14,4 +14,8 @@
     return ([self length] == 0);
 }
 
+- (BOOL)isNotNilOrEmpty {
+    return [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length];
+}
+
 @end

@@ -17,5 +17,6 @@
 @property (nonatomic, strong) NSMutableArray *membersArray;
 
 + (KTPSMembers*)members;
+- (void)reloadMembers;
 
 @end

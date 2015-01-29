@@ -19,36 +19,46 @@
 @property (nonatomic, strong) UITableView *membersTableView;
 @property (nonatomic, strong) KTPMembersDataSource *dataSource;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation KTPMembersViewController
 
-- (void)updateMembersTableView:(NSNotification*)notification {
-    [self.membersTableView reloadData];
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(updateMembersTableView:)
-                                                     name:KTPNotificationMembersUpdated
-                                                   object:nil];
-        self.membersTableView = [UITableView new];
-        self.membersTableView.delegate = self;
-        
-        self.dataSource = [KTPMembersDataSource new];
-        self.membersTableView.dataSource = self.dataSource;
-        [self.membersTableView registerClass:[KTPMembersCell class] forCellReuseIdentifier:@"MemberCell"];
-        
         self.navigationItem.title = @"Members";
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ProfileIcon"]
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
                                                                                  action:@selector(showUserProfile)];
+        [self initTableView];
+        [self initPullToRefresh];
+        
+        // Register for notification of members updated
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(updateMembersTableView)
+                                                     name:KTPNotificationMembersUpdated
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)initTableView {
+    self.membersTableView = [UITableView new];
+    self.membersTableView.delegate = self;
+    self.membersTableView.separatorInset = UIEdgeInsetsZero;
+    
+    self.dataSource = [KTPMembersDataSource new];
+    self.membersTableView.dataSource = self.dataSource;
+    [self.membersTableView registerClass:[KTPMembersCell class] forCellReuseIdentifier:@"MemberCell"];
+}
+
+- (void)initPullToRefresh {
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refreshMembers) forControlEvents:UIControlEventValueChanged];
+    [self.membersTableView addSubview:self.refreshControl];
 }
 
 - (void)viewDidLoad {
@@ -65,6 +75,10 @@
     // Get the corresponding cell's member
     KTPMembersCell *cell = (KTPMembersCell*)[tableView cellForRowAtIndexPath:indexPath];
     [self showProfileWithMember:cell.member];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
 }
 
 /*!
@@ -84,6 +98,19 @@
     
     // Push profileVC onto the navigation stack
     [self.navigationController pushViewController:profileVC animated:YES];
+}
+
+#pragma mark - Notification Handling
+
+- (void)updateMembersTableView {
+    [self.membersTableView reloadData];
+    [self.refreshControl endRefreshing];
+}
+
+#pragma mark - Refresh TableView
+
+- (void)refreshMembers {
+    [[KTPSMembers members] reloadMembers];
 }
 
 @end

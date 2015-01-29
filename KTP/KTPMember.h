@@ -120,9 +120,9 @@
 + (instancetype)memberWithAccount:(NSString*)account;
 
 /*!
- Update's this member's information in the database.
+ Update's this member's information in the database. Calls block after update is complete.
  */
-- (void)update;
+- (void)update:(void (^)(BOOL successful))block;
 
 
 @end
