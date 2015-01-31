@@ -17,4 +17,5 @@
     #import "UIImage+KTPImages.h"
     #import "NSString+KTPStrings.h"
     #import "KTPConstants.h"
+    #import "UILabel+KTPLabel.h"
 #endif

@@ -15,14 +15,18 @@
 extern NSString *const KTPNotificationMembersUpdated;
 extern NSString *const KTPNotificationMemberUpdateFailed;
 extern NSString *const KTPNotificationUserLogout;
+extern NSString *const KTPNotificationPitchesUpdated;
+extern NSString *const KTPNotificationPitchAlreadyVoted;
 
 #define kSlideMenuWidth                 [UIScreen mainScreen].bounds.size.width * 0.8
 #define kSlideAnimationDuration         0.2
 #define kMainViewShadowOpacity          0.8
+#define kStandardTableViewCellHeight    44
 
 typedef NS_ENUM(NSInteger, KTPViewType) {
     KTPViewTypeMembers,
     KTPViewTypePledge,
     KTPViewTypeAnnouncements,
-    KTPViewTypeSettings
+    KTPViewTypeSettings,
+    KTPViewTypePitches
 };

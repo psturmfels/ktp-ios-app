@@ -18,7 +18,8 @@ typedef NS_ENUM(NSInteger, KTPRequestType) {
 typedef NS_ENUM(NSInteger, KTPRequestRoute) {
     KTPRequestRouteAPIMembers,          /*  /api/members/           */
     KTPRequestRouteAPILogin,            /*  /api/login/             */
-    KTPRequestRouteAPIChangePassword    /*  /api/changePassword/    */
+    KTPRequestRouteAPIChangePassword,   /*  /api/changePassword/    */
+    KTPRequestRouteAPIPitches           /*  /api/pitches/           */
 };
 
 /*!

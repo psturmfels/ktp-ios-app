@@ -14,6 +14,7 @@
 #import "KTPPledgeViewController.h"
 #import "KTPAnnouncementsViewController.h"
 #import "KTPSettingsViewController.h"
+#import "KTPPitchesViewController.h"
 
 #import "KTPSlideMenuCell.h"
 
@@ -265,29 +266,33 @@
         case KTPViewTypeMembers:
             if (![baseVC isKindOfClass:[KTPMembersViewController class]]) {
                 [self.navVC setViewControllers:@[[KTPMembersViewController new]]];
-                [self loadSubviews];
             }
             break;
         case KTPViewTypePledge:
             if (![baseVC isKindOfClass:[KTPPledgeViewController class]]) {
                 [self.navVC setViewControllers:@[[KTPPledgeViewController new]]];
-                [self loadSubviews];
             }
             break;
         case KTPViewTypeAnnouncements:
             if (![baseVC isKindOfClass:[KTPAnnouncementsViewController class]]) {
                 [self.navVC setViewControllers:@[[KTPAnnouncementsViewController new]]];
-                [self loadSubviews];
             }
             break;
         case KTPViewTypeSettings:
             if (![baseVC isKindOfClass:[KTPSettingsViewController class]]) {
                 [self.navVC setViewControllers:@[[KTPSettingsViewController new]]];
-                [self loadSubviews];
+            }
+            break;
+        case KTPViewTypePitches:
+            if (![baseVC isKindOfClass:[KTPPitchesViewController class]]) {
+                [self.navVC setViewControllers:@[[KTPPitchesViewController new]]];
             }
             break;
         default:
             break;
+    }
+    if (baseVC != self.navVC.viewControllers[0]) {
+        [self loadSubviews];
     }
     [self toggleMenu];
 }

@@ -33,6 +33,8 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
             return @"/api/login/";
         case KTPRequestRouteAPIChangePassword:
             return @"/api/changePassword/";
+        case KTPRequestRouteAPIPitches:
+            return @"/api/pitches/";
     }
 }
 
@@ -60,6 +62,7 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
     
     if (!error) {
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//            NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
             block(response, data, connectionError);
         }];
     } else {

@@ -12,7 +12,7 @@
 
 +(UIColor *)KTPGreen363
 {
-    return [UIColor colorWithRed:0.3 green:0.6 blue:0.3 alpha:0.5];
+    return [UIColor colorWithRed:0.3 green:0.6 blue:0.3 alpha:1];
 }
 
 +(UIColor *)KTPGreen1F1
