@@ -10,8 +10,4 @@
 
 @interface KTPPitchesDataSource : NSObject <UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *pitchArray;   // type: KTPPitch
-
-- (void)reloadPitches;
-
 @end

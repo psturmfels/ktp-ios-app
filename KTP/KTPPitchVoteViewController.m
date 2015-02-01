@@ -8,7 +8,9 @@
 
 #import "KTPPitchVoteViewController.h"
 #import "KTPPitch.h"
+#import "KTPPitchVote.h"
 #import "KTPMember.h"
+#import "KTPSUser.h"
 
 #import <ActionSheetPicker-3.0/ActionSheetStringPicker.h>
 
@@ -41,6 +43,9 @@
     if (self) {
         self.pitch = pitch;
         self.navigationItem.title = @"Pitch";
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVotedSuccess:) name:KTPNotificationPitchVotedSuccess object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVotedFailure) name:KTPNotificationPitchVotedFailure object:nil];
     }
     return self;
 }
@@ -73,6 +78,7 @@
 - (void)loadScrollView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.delaysContentTouches = NO;
     [self.view addSubview:self.scrollView];
 }
 
@@ -124,15 +130,28 @@
 - (void)loadVoteButton {
     self.voteButton = [UIButton new];
     [self.voteButton addTarget:self action:@selector(submitVote) forControlEvents:UIControlEventTouchUpInside];
-    [self.voteButton setTitle:@"Vote" forState:UIControlStateNormal];
-    [self.voteButton setBackgroundImage:[UIImage imageWithColor:[UIColor KTPGreen363]] forState:UIControlStateNormal];
-    [self.voteButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
-    // highlight lags probably due to passing down the touch to the button view layer
+    
+    if ([self.pitch userDidVote]) {
+        // user already voted, so disable vote button
+        [self disableVoteButton];
+    } else {
+        [self enableVoteButton];
+    }
     [self.contentView addSubview:self.voteButton];
 }
 
-- (void)submitVote {
-    NSLog(@"vote");
+- (void)enableVoteButton {
+    self.voteButton.enabled = YES;
+    [self.voteButton setTitle:@"Vote" forState:UIControlStateNormal];
+    [self.voteButton setBackgroundImage:[UIImage imageWithColor:[UIColor KTPGreen363]] forState:UIControlStateNormal];
+    [self.voteButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
+}
+
+- (void)disableVoteButton {
+    self.voteButton.enabled = NO;
+    [self.voteButton setTitle:@"Voted" forState:UIControlStateNormal];
+    [self.voteButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateNormal];
+//    [self.voteButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
 }
 
 - (void)autoLayoutSubviews {
@@ -155,20 +174,46 @@
                               @"voteTableViewHeight"    :  [NSNumber numberWithFloat:[self.voteTableView numberOfRowsInSection:0] * kStandardTableViewCellHeight]
                               };
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleLabel]-10-|" options:0 metrics:nil views:views]];
+    // titleLabel, memberLabel, descriptionLabel, descriptionDataLabel, voteLabel
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[titleLabel]-[memberLabel]-30-[descriptionLabel]-[descriptionDataLabel]-30-[voteLabel]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
-    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleLabel]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[memberLabel]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[descriptionLabel]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[descriptionDataLabel]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[voteLabel]-10-|" options:0 metrics:nil views:views]];
     
+    // voteTableView
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[voteTableView]-0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[voteLabel]-5-[voteTableView(voteTableViewHeight)]" options:0 metrics:metrics views:views]];
     
+    // voteButton
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[voteButton]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[voteTableView]-10-[voteButton(50)]" options:0 metrics:nil views:views]];
+}
+
+#define CONTENT_VIEW_BOTTOM_PADDING 20
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     
+    // Get the top and bottom subviews of contentView
+    UIView *topView, *bottomView;
+    for (UIView *view in self.contentView.subviews) {
+        if (!topView || topView.frame.origin.y > view.frame.origin.y) {
+            topView = view;
+        }
+        if (!bottomView || bottomView.frame.origin.y + bottomView.frame.size.height < view.frame.origin.y + view.frame.size.height) {
+            bottomView = view;
+        }
+    }
+    
+    // Resize contentView such that it is larger than its subviews
+    CGRect frame = self.contentView.frame;
+    frame.size.height = topView.frame.origin.y + bottomView.frame.origin.y + bottomView.frame.size.height + CONTENT_VIEW_BOTTOM_PADDING;
+    self.contentView.frame = frame;
+    
+    // Set the content size of scrollView to contentView's size
+    self.scrollView.contentSize = self.contentView.frame.size;
 }
 
 #pragma mark - Vote TableView Methods
@@ -242,6 +287,7 @@
                                        initialSelection:[scoreChoices indexOfObject:label.text]
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                                            label.text = selectedValue;
+                                           [label sizeToFit];
                                        }
                                        cancelBlock:nil
                                        origin:label];
@@ -253,6 +299,26 @@
     if (self.view.frame.size.height - pickerHeight < labelFrame.origin.y + labelFrame.size.height) {
         // picker is covering the selected label
     }
+}
+
+- (void)submitVote {
+    [self.pitch addVote:[[KTPPitchVote alloc] initWithMember:[KTPSUser currentUser].member
+                                             innovationScore:[self.innovationScoreLabel.text integerValue]
+                                             usefulnessScore:[self.usefulnessScoreLabel.text integerValue]
+                                               coolnessScore:[self.coolnessScoreLabel.text integerValue]]];
+}
+
+#pragma mark - Notification Handling
+
+- (void)userVotedSuccess:(NSNotification*)notification {
+    if (notification.object == self.pitch) {
+        [self disableVoteButton];
+    }
+}
+
+- (void)userVotedFailure {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Vote Not Submitted" message:@"There was an error in submitting your vote" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
 }
 
 @end

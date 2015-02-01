@@ -10,6 +10,7 @@
 #import "KTPPitchVote.h"
 #import "KTPMember.h"
 #import "KTPSUser.h"
+#import "KTPNetworking.h"
 
 @interface KTPPitch ()
 
@@ -17,35 +18,41 @@
 
 @implementation KTPPitch
 
-- (instancetype)initWithMember:(KTPMember*)member {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        self.member = member;
+        self.votes = [NSMutableArray new];
     }
     return self;
 }
 
-- (instancetype)initWithMember:(KTPMember*)member title:(NSString*)title description:(NSString*)description votes:(NSMutableArray*)votes {
-    self = [self initWithMember:member];
+- (instancetype)initWithMember:(KTPMember*)member title:(NSString*)title description:(NSString*)description votes:(NSMutableArray*)votes _id:(NSString*)_id {
+    self = [self init];
     if (self) {
+        self.member = member;
         self.pitchTitle = title;
         self.pitchDescription = description;
         self.votes = votes;
+        self._id = _id;
     }
     return self;
 }
 
 /*!
- Adds a vote to the pitch if the current user has not voted yet.
+ Adds a vote to the pitch and updates the database.
  
  @param         vote    The vote to add
  */
 - (void)addVote:(KTPPitchVote*)vote {
-    if (![self userDidVote]) {
-        [self.votes addObject:vote];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPitchAlreadyVoted object:self];
-    }
+    [self.votes addObject:vote];
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIPitches appending:self._id parameters:nil withBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (!error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPitchVotedSuccess object:self userInfo:@{@"pitch" : self}];
+        } else {
+            NSLog(@"Pitch vote was not sent with error: %@", error.userInfo);
+            [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPitchVotedFailure object:self];
+        }
+    }];
 }
 
 /*!
@@ -63,7 +70,6 @@
 }
 
 - (NSDictionary*)JSONObject {
-    
     NSMutableArray *votes = [NSMutableArray new];
     for (KTPPitchVote *vote in self.votes) {
         [votes addObject:@{
@@ -73,13 +79,6 @@
                            @"coolnessScore"     :   [NSNumber numberWithUnsignedInteger:vote.coolnessScore]
                            }];
     }
-    
-//    NSData *data = [NSJSONSerialization dataWithJSONObject:votes options:0 error:nil];
-//    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:nil error:nil];
-    
-//    NSLog(@"%@", dict);
-    
-    
     return @{
              @"member"      :   self.member._id,
              @"title"       :   self.pitchTitle,

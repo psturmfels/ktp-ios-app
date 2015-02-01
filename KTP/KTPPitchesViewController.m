@@ -11,6 +11,7 @@
 #import "KTPPitchesDataSource.h"
 #import "KTPPitchAddViewController.h"
 #import "KTPPitchVoteViewController.h"
+#import "KTPSPitches.h"
 
 @interface KTPPitchesViewController () <UITableViewDelegate>
 
@@ -25,8 +26,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        // Instantiate singleton
+        [KTPSPitches pitches];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePitchesTableView) name:KTPNotificationPitchesUpdated object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pitchAlreadyVotedAlert) name:KTPNotificationPitchAlreadyVoted object:nil];
         self.navigationItem.title = @"Pitches";
         
         [self initTableView];
@@ -45,7 +48,7 @@
 
 - (void)initPullToRefresh {
     self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self.dataSource action:@selector(reloadPitches) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:[KTPSPitches pitches] action:@selector(reloadPitches) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
 }
 
@@ -62,7 +65,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.navigationController pushViewController:[[KTPPitchVoteViewController alloc] initWithPitch:self.dataSource.pitchArray[indexPath.row]]
+    [self.navigationController pushViewController:[[KTPPitchVoteViewController alloc] initWithPitch:[KTPSPitches pitches].pitchesArray[indexPath.row]]
                                          animated:YES];
 }
 
@@ -77,12 +80,6 @@
 - (void)updatePitchesTableView {
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];
-}
-
-- (void)pitchAlreadyVotedAlert {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Already Voted" message:@"You already voted for this pitch" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 

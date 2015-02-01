@@ -16,14 +16,15 @@
  */
 @interface KTPPitch : NSObject
 
+@property (nonatomic, strong) NSString *_id;
 @property (nonatomic, strong) KTPMember *member;
 @property (nonatomic, strong) NSString *pitchTitle;
 @property (nonatomic, strong) NSString *pitchDescription;
 @property (nonatomic, strong) NSMutableArray *votes;
 
-- (instancetype)initWithMember:(KTPMember*)member;
-- (instancetype)initWithMember:(KTPMember*)member title:(NSString*)title description:(NSString*)description votes:(NSMutableArray*)votes;
+- (instancetype)initWithMember:(KTPMember*)member title:(NSString*)title description:(NSString*)description votes:(NSMutableArray*)votes _id:(NSString*)_id;
 
+- (BOOL)userDidVote;
 - (void)addVote:(KTPPitchVote*)vote;
 
 - (NSDictionary*)JSONObject;
