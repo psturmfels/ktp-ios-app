@@ -38,7 +38,7 @@
 }
 
 - (void)loadLogoutButton {
-    self.logoutButton = [[UIButton alloc] init];
+    self.logoutButton = [UIButton new];
     [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
     [self.logoutButton addTarget:[KTPSUser currentUser] action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
     
@@ -57,7 +57,7 @@
                             @"logoutButton"     :   self.logoutButton
                             };
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[logoutButton]-20-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[logoutButton]-10-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[logoutButton(50)]-20-|" options:0 metrics:nil views:views]];
 }
 

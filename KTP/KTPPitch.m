@@ -38,11 +38,6 @@
     return self;
 }
 
-/*!
- Adds a vote to the pitch and updates the database.
- 
- @param         vote    The vote to add
- */
 - (void)addVote:(KTPPitchVote*)vote {
     [self.votes addObject:vote];
     [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIPitches appending:self._id parameters:nil withBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -69,6 +64,11 @@
     return NO;
 }
 
+/*!
+ Returns a JSON object with all editable properties of a KTPPitch
+ 
+ @returns       The JSON object as an NSDictionary
+ */
 - (NSDictionary*)JSONObject {
     NSMutableArray *votes = [NSMutableArray new];
     for (KTPPitchVote *vote in self.votes) {
@@ -80,7 +80,6 @@
                            }];
     }
     return @{
-             @"member"      :   self.member._id,
              @"title"       :   self.pitchTitle,
              @"description" :   self.pitchDescription,
              @"votes"       :   votes

@@ -16,7 +16,16 @@
 
 @property (nonatomic, strong) NSMutableArray *membersArray;
 
+/*!
+ This method is used to access the singleton instance of KTPSMembers.
+ 
+ @returns       The singleton instance of KTPSMembers
+ */
 + (KTPSMembers*)members;
+
+/*!
+ Sends a request to the KTP API for new members data and loads membersArray when request is complete.
+ */
 - (void)reloadMembers;
 
 @end

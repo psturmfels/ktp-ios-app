@@ -7,11 +7,8 @@
 //
 
 #import "KTPPitchesDataSource.h"
-#import "KTPNetworking.h"
 #import "KTPPitch.h"
-#import "KTPSMembers.h"
 #import "KTPMember.h"
-#import "KTPPitchVote.h"
 #import "KTPSPitches.h"
 
 @implementation KTPPitchesDataSource

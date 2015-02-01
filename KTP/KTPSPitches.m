@@ -32,6 +32,7 @@
 }
 
 - (void)reloadPitches {
+    // Requests all pitches sorted by title in ascending order
     [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteAPIPitches appending:nil parameters:@"sort=title" withBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (!error) {
             NSError *jsonError;

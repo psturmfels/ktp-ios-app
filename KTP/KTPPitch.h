@@ -24,9 +24,18 @@
 
 - (instancetype)initWithMember:(KTPMember*)member title:(NSString*)title description:(NSString*)description votes:(NSMutableArray*)votes _id:(NSString*)_id;
 
+/*!
+ Returns whether the user has already voted on this pitch.
+ 
+ @returns       YES if the user has already voted on this pitch, NO otherwise.
+ */
 - (BOOL)userDidVote;
-- (void)addVote:(KTPPitchVote*)vote;
 
-- (NSDictionary*)JSONObject;
+/*!
+ Adds a vote to this pitch and updates the database.
+ 
+ @param         vote    The vote to add
+ */
+- (void)addVote:(KTPPitchVote*)vote;
 
 @end

@@ -82,8 +82,11 @@
  Loads all subviews of self.scrollView
  */
 - (void)loadSubviews {
+    // Container views
     [self loadScrollView];
     [self loadContentView];
+    
+    // Content views
     [self loadProfileImageView];
     [self loadMajorLabel];
     [self loadGradLabel];

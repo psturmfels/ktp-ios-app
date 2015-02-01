@@ -94,10 +94,8 @@
  @param         member
  */
 - (void)showProfileWithMember:(KTPMember*)member {
-    KTPProfileViewController *profileVC = [[KTPProfileViewController alloc] initWithMember:member];
-    
-    // Push profileVC onto the navigation stack
-    [self.navigationController pushViewController:profileVC animated:YES];
+    // Push a profile VC onto the navigation stack
+    [self.navigationController pushViewController:[[KTPProfileViewController alloc] initWithMember:member] animated:YES];
 }
 
 #pragma mark - Notification Handling
