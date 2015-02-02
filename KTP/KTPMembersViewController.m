@@ -7,23 +7,23 @@
 //
 
 #import "KTPMembersViewController.h"
-#import "KTPMembersDataSource.h"
 #import "KTPSMembers.h"
 #import "KTPProfileViewController.h"
 #import "KTPMembersCell.h"
 #import "KTPMember.h"
 #import "KTPSUser.h"
 
-@interface KTPMembersViewController () <UITableViewDelegate>
+@interface KTPMembersViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *membersTableView;
-@property (nonatomic, strong) KTPMembersDataSource *dataSource;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
 @implementation KTPMembersViewController
+
+#pragma mark - Initialization
 
 - (instancetype)init {
     self = [super init];
@@ -48,10 +48,8 @@
 - (void)initTableView {
     self.membersTableView = [UITableView new];
     self.membersTableView.delegate = self;
+    self.membersTableView.dataSource = self;
     self.membersTableView.separatorInset = UIEdgeInsetsZero;
-    
-    self.dataSource = [KTPMembersDataSource new];
-    self.membersTableView.dataSource = self.dataSource;
     [self.membersTableView registerClass:[KTPMembersCell class] forCellReuseIdentifier:@"MemberCell"];
 }
 
@@ -61,6 +59,8 @@
     [self.membersTableView addSubview:self.refreshControl];
 }
 
+#pragma mark - Loading Subviews
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -69,17 +69,7 @@
     [self.view addSubview:self.membersTableView];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    // Get the corresponding cell's member
-    KTPMembersCell *cell = (KTPMembersCell*)[tableView cellForRowAtIndexPath:indexPath];
-    [self showProfileWithMember:cell.member];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
+#pragma mark - Showing KTPProfileViewController
 
 /*!
  Shows the profile of the logged in user as maintained by KTPSUser
@@ -109,6 +99,37 @@
 
 - (void)refreshMembers {
     [[KTPSMembers members] reloadMembers];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [KTPSMembers members].membersArray.count;
+}
+
+#pragma mark - UITableViewDelegate methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    // Get the corresponding cell's member
+    KTPMembersCell *cell = (KTPMembersCell*)[tableView cellForRowAtIndexPath:indexPath];
+    [self showProfileWithMember:cell.member];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+#pragma mark - UITableViewDataSource methods
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    KTPMembersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberCell" forIndexPath:indexPath];
+    if (!cell) {
+        cell = [[KTPMembersCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MemberCell"];
+    }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.member = [KTPSMembers members].membersArray[indexPath.row];
+    
+    return cell;
 }
 
 @end
