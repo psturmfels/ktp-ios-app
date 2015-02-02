@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/*!
+ @class         KTPTextView
+ @description   A KTPTextView is a subclass of UITextView and adds the ability to use a placeholder in the textview (similar to a UITextField placeholder)
+ */
 @interface KTPTextView : UITextView
 
 @property (nonatomic, strong) NSString *placeholder;

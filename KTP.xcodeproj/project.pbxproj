@@ -39,7 +39,6 @@
 		A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A31A73AD200062B072 /* KTPProfileViewController.m */; };
 		A883BE771A78E26300139232 /* NSString+KTPStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = A883BE761A78E26300139232 /* NSString+KTPStrings.m */; };
 		A883BE7A1A79715A00139232 /* KTPPitchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A883BE791A79715A00139232 /* KTPPitchesViewController.m */; };
-		A883BE7D1A7A0D1400139232 /* KTPPitchesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A883BE7C1A7A0D1400139232 /* KTPPitchesDataSource.m */; };
 		A883BE841A7AC2B300139232 /* KTPPitchesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A883BE831A7AC2B300139232 /* KTPPitchesCell.m */; };
 		A883BE871A7AC74F00139232 /* KTPPitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A883BE861A7AC74F00139232 /* KTPPitch.m */; };
 		A883BE8A1A7AC85F00139232 /* KTPPitchVote.m in Sources */ = {isa = PBXBuildFile; fileRef = A883BE891A7AC85F00139232 /* KTPPitchVote.m */; };
@@ -125,8 +124,6 @@
 		A883BE761A78E26300139232 /* NSString+KTPStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KTPStrings.m"; sourceTree = "<group>"; };
 		A883BE781A79715A00139232 /* KTPPitchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesViewController.h; sourceTree = "<group>"; };
 		A883BE791A79715A00139232 /* KTPPitchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesViewController.m; sourceTree = "<group>"; };
-		A883BE7B1A7A0D1400139232 /* KTPPitchesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesDataSource.h; sourceTree = "<group>"; };
-		A883BE7C1A7A0D1400139232 /* KTPPitchesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesDataSource.m; sourceTree = "<group>"; };
 		A883BE821A7AC2B300139232 /* KTPPitchesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesCell.h; sourceTree = "<group>"; };
 		A883BE831A7AC2B300139232 /* KTPPitchesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesCell.m; sourceTree = "<group>"; };
 		A883BE851A7AC74F00139232 /* KTPPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitch.h; sourceTree = "<group>"; };
@@ -199,15 +196,17 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		89581FB7199C6EB10033B5A4 /* Views */ = {
+		89581FB7199C6EB10033B5A4 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
 				89581F66199B2E230033B5A4 /* KTPBlockView.h */,
 				89581F67199B2E230033B5A4 /* KTPBlockView.m */,
 				897E8F0819AE477C001C849F /* KTPTextField.h */,
 				897E8F0919AE477C001C849F /* KTPTextField.m */,
+				A8F483E01A7D366600B17E7F /* KTPTextView.h */,
+				A8F483E11A7D366600B17E7F /* KTPTextView.m */,
 			);
-			name = Views;
+			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 		89581FB8199C6EB80033B5A4 /* User */ = {
@@ -265,8 +264,6 @@
 			children = (
 				89855F18199B2BC2006E5A14 /* KTPAppDelegate.h */,
 				89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */,
-				A8F483E01A7D366600B17E7F /* KTPTextView.h */,
-				A8F483E11A7D366600B17E7F /* KTPTextView.m */,
 				A883BE7E1A7AC0D800139232 /* RootView */,
 				A883BE7F1A7AC0E100139232 /* Constants */,
 				A883BE801A7AC0EA00139232 /* Networking */,
@@ -280,7 +277,7 @@
 				89A1553C19AE599400DE7346 /* RequirementsView */,
 				89581FB9199C6EC30033B5A4 /* AnnouncementsView */,
 				89581FB8199C6EB80033B5A4 /* User */,
-				89581FB7199C6EB10033B5A4 /* Views */,
+				89581FB7199C6EB10033B5A4 /* Custom Views */,
 				89581FB6199C6EA20033B5A4 /* Categories */,
 				89855F1B199B2BC2006E5A14 /* Images.xcassets */,
 				89855F10199B2BC2006E5A14 /* Supporting Files */,
@@ -402,8 +399,6 @@
 			children = (
 				A883BE781A79715A00139232 /* KTPPitchesViewController.h */,
 				A883BE791A79715A00139232 /* KTPPitchesViewController.m */,
-				A883BE7B1A7A0D1400139232 /* KTPPitchesDataSource.h */,
-				A883BE7C1A7A0D1400139232 /* KTPPitchesDataSource.m */,
 				A883BE821A7AC2B300139232 /* KTPPitchesCell.h */,
 				A883BE831A7AC2B300139232 /* KTPPitchesCell.m */,
 				A883BE8E1A7AFE0D00139232 /* KTPPitchAddViewController.h */,
@@ -634,7 +629,6 @@
 				A80943661A6EEF3600B03647 /* KTPSlideMenuViewController.m in Sources */,
 				A8C6D0601A7745CC00B7CAC0 /* KTPPledgeViewController.m in Sources */,
 				A8B2D6531A77F62100039724 /* KTPNetworking.m in Sources */,
-				A883BE7D1A7A0D1400139232 /* KTPPitchesDataSource.m in Sources */,
 				89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */,
 				A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */,
 				A883BE8D1A7ACEC800139232 /* KTPPitchVoteViewController.m in Sources */,

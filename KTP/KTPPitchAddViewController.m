@@ -23,11 +23,12 @@
 
 @implementation KTPPitchAddViewController
 
+#pragma mark - Initialization
+
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.navigationItem.title = @"New Pitch";
-        
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped)];
         
@@ -37,18 +38,21 @@
     return self;
 }
 
+- (void)initTitleField {
+    self.titleField = [UITextField new];
+    self.titleField.placeholder = @"Pitch Title";
+}
+
+- (void)initDescriptionField {
+    self.descriptionField = [[KTPTextView alloc] initWithPlaceholder:@"Add a description..."];
+    self.descriptionField.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+}
+
+#pragma mark - Loading Subviews
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self loadSubviews];
-}
-
-- (void)cancelButtonTapped {
-    [self.view endEditing:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)loadSubviews {
     [self loadTableView];
 }
 
@@ -61,15 +65,17 @@
     [self.view addSubview:self.tableView];
 }
 
-- (void)initTitleField {
-    self.titleField = [UITextField new];
-    self.titleField.placeholder = @"Pitch Title";
+#pragma mark - UITableViewDelegate methods
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 1) {
+        return kStandardTableViewCellHeight * 4;
+    } else {
+        return kStandardTableViewCellHeight;
+    }
 }
 
-- (void)initDescriptionField {
-    self.descriptionField = [[KTPTextView alloc] initWithPlaceholder:@"Add a description..."];
-    self.descriptionField.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
-}
+#pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PitchAddCell" forIndexPath:indexPath];
@@ -102,13 +108,7 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 1) {
-        return kStandardTableViewCellHeight * 4;
-    } else {
-        return kStandardTableViewCellHeight;
-    }
-}
+#pragma mark - UI action selectors
 
 /*!
  Adds a pitch. Updates the KTP database.
@@ -148,6 +148,11 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
+}
+
+- (void)cancelButtonTapped {
+    [self.view endEditing:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

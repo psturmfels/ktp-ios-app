@@ -23,6 +23,8 @@
 
 @implementation KTPChangePasswordViewController
 
+#pragma mark - Initialization
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -44,6 +46,8 @@
     self.passwordCurrent.secureTextEntry = self.passwordNew.secureTextEntry = self.passwordConfirm.secureTextEntry = YES;
 }
 
+#pragma mark - Loading Subviews
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -58,6 +62,8 @@
     self.tableView.allowsSelection = NO;
     [self.view addSubview:self.tableView];
 }
+
+#pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [UITableViewCell new];
@@ -88,6 +94,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
+
+#pragma mark - UI action selectors
 
 - (void)changePassword {
     [self.view endEditing:YES];

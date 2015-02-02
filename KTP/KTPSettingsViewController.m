@@ -81,7 +81,7 @@
     [self.footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[logoutButton(50)]|" options:0 metrics:nil views:views]];
 }
 
-#pragma mark - UITableView Delegate Methods
+#pragma mark - UITableViewDelegate Methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
