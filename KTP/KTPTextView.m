@@ -71,7 +71,6 @@
  */
 - (void)textDidChange {
     self.placeholderLabel.hidden = ![self.text isEmpty];
-    NSLog(@"%f", self.contentSize.height);
 }
 
 @end

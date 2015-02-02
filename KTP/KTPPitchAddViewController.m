@@ -41,7 +41,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadSubviews];
-    NSLog(@"%f", self.view.frame.origin.y);
 }
 
 - (void)cancelButtonTapped {

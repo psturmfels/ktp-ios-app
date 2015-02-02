@@ -27,11 +27,14 @@
 @property (nonatomic, strong) UILabel *descriptionDataLabel;
 @property (nonatomic, strong) UILabel *voteLabel;
 @property (nonatomic, strong) UITableView *voteTableView;
+@property (nonatomic, strong) UIView *voteTableViewMask;
 @property (nonatomic, strong) UIButton *voteButton;
 
 @property (nonatomic, strong) UILabel *innovationScoreLabel;
 @property (nonatomic, strong) UILabel *usefulnessScoreLabel;
 @property (nonatomic, strong) UILabel *coolnessScoreLabel;
+
+@property (nonatomic, strong) KTPPitchVote *userVote;
 @end
 
 @implementation KTPPitchVoteViewController
@@ -48,6 +51,18 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVotedFailure) name:KTPNotificationPitchVotedFailure object:nil];
     }
     return self;
+}
+
+- (void)setPitch:(KTPPitch *)pitch {
+    if (_pitch != pitch) {
+        _pitch = pitch;
+        for (KTPPitchVote *vote in pitch.votes) {
+            if (vote.member == [KTPSUser currentUser].member) {
+                self.userVote = vote;
+                break;
+            }
+        }
+    }
 }
 
 #pragma mark - Loading Subviews
@@ -71,7 +86,7 @@
     [self loadMemberLabel];
     [self loadDescriptionLabel];
     [self loadVoteLabel];
-    [self loadVoteTableVew];
+    [self loadVoteTableView];
     [self loadVoteButton];
 }
 
@@ -118,18 +133,37 @@
     [self.contentView addSubview:self.voteLabel];
 }
 
-- (void)loadVoteTableVew {
+- (void)loadVoteTableView {
     self.voteTableView = [UITableView new];
     self.voteTableView.delegate = self;
     self.voteTableView.dataSource = self;
     self.voteTableView.scrollEnabled = NO;
     [self.voteTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"PitchVoteCell"];
     [self.contentView addSubview:self.voteTableView];
+    
+    self.voteTableViewMask = [UIView new];
+    self.voteTableViewMask.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+    [self.contentView addSubview:self.voteTableViewMask];
+    if ([self.pitch userDidVote]) {
+        // user already voted, so disable tableView
+        [self disableVoteTableView];
+    } else {
+        [self enableVoteTableView];
+    }
+}
+
+- (void)enableVoteTableView {
+    self.voteTableViewMask.hidden = YES;
+    self.voteTableView.userInteractionEnabled = YES;
+}
+
+- (void)disableVoteTableView {
+    self.voteTableViewMask.hidden = NO;
+    self.voteTableView.userInteractionEnabled = NO;
 }
 
 - (void)loadVoteButton {
     self.voteButton = [UIButton new];
-    [self.voteButton addTarget:self action:@selector(submitVote) forControlEvents:UIControlEventTouchUpInside];
     
     if ([self.pitch userDidVote]) {
         // user already voted, so disable vote button
@@ -142,6 +176,7 @@
 
 - (void)enableVoteButton {
     self.voteButton.enabled = YES;
+    [self.voteButton addTarget:self action:@selector(submitVote) forControlEvents:UIControlEventTouchUpInside];
     [self.voteButton setTitle:@"Vote" forState:UIControlStateNormal];
     [self.voteButton setBackgroundImage:[UIImage imageWithColor:[UIColor KTPGreen363]] forState:UIControlStateNormal];
     [self.voteButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
@@ -151,7 +186,6 @@
     self.voteButton.enabled = NO;
     [self.voteButton setTitle:@"Voted" forState:UIControlStateNormal];
     [self.voteButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateNormal];
-//    [self.voteButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
 }
 
 - (void)autoLayoutSubviews {
@@ -182,9 +216,13 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[descriptionDataLabel]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[voteLabel]-10-|" options:0 metrics:nil views:views]];
     
-    // voteTableView
+    // voteTableView, voteTableViewMask
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[voteTableView]-0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[voteLabel]-5-[voteTableView(voteTableViewHeight)]" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.voteTableViewMask attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.voteTableView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.voteTableViewMask attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.voteTableView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.voteTableViewMask attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.voteTableView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.voteTableViewMask attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.voteTableView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
     // voteButton
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[voteButton]-10-|" options:0 metrics:nil views:views]];
@@ -229,13 +267,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PitchVoteCell" forIndexPath:indexPath];
     
-    UILabel *label = [UILabel labelWithText:@"5"];
-    [label sizeToFit];
-    
+    UILabel *label;
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"Innovation Score";
             if (!self.innovationScoreLabel) {
+                label = [UILabel labelWithText:(self.userVote ? [NSString stringWithFormat:@"%lu", (unsigned long)self.userVote.innovationScore] : @"5")];
                 self.innovationScoreLabel = label;
             }
             cell.accessoryView = self.innovationScoreLabel;
@@ -243,6 +280,7 @@
         case 1:
             cell.textLabel.text = @"Usefulness Score";
             if (!self.usefulnessScoreLabel) {
+                label = [UILabel labelWithText:(self.userVote ? [NSString stringWithFormat:@"%lu", (unsigned long)self.userVote.usefulnessScore] : @"5")];
                 self.usefulnessScoreLabel = label;
             }
             cell.accessoryView = self.usefulnessScoreLabel;
@@ -250,6 +288,7 @@
         case 2:
             cell.textLabel.text = @"Coolness Score";
             if (!self.coolnessScoreLabel) {
+                label = [UILabel labelWithText:(self.userVote ? [NSString stringWithFormat:@"%lu", (unsigned long)self.userVote.coolnessScore] : @"5")];
                 self.coolnessScoreLabel = label;
             }
             cell.accessoryView = self.coolnessScoreLabel;
@@ -257,6 +296,7 @@
         default:
             break;
     }
+    [label sizeToFit];
     
     return cell;
 }
@@ -313,6 +353,7 @@
 - (void)userVotedSuccess:(NSNotification*)notification {
     if (notification.object == self.pitch) {
         [self disableVoteButton];
+        [self disableVoteTableView];
     }
 }
 
