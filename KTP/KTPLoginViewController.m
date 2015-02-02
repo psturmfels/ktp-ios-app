@@ -47,6 +47,7 @@
     self.scrollView.frame = self.view.frame;
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.backgroundColor = [UIColor KTPDarkGray];
+    self.scrollView.delaysContentTouches = NO;
     [self.view addSubview:self.scrollView];
 }
 
@@ -85,6 +86,7 @@
     self.logInButton.center = CGPointMake(self.scrollView.center.x, 360);
     [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
     [self.logInButton setTitleColor:[UIColor KTPOpenGreen] forState:UIControlStateNormal];
+    [self.logInButton setTitleColor:[[UIColor KTPOpenGreen] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
     [self.logInButton addTarget:self action:@selector(tappedLogIn) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.logInButton];
 }
