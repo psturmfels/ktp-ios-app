@@ -71,7 +71,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // IMPLEMENT
-    return 0;   // placeholder to allow compilation
+    return 1;   // placeholder to allow compilation
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"Personal";
+        case 1:
+            return @"Fraternity";
+        case 2:
+            return @"Contact";
+        default:
+            return nil;
+    }
 }
 
 #pragma mark - UI action selectors
