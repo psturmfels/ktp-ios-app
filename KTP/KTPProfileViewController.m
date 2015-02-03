@@ -11,6 +11,7 @@
 #import "KTPProfileViewController.h"
 #import "KTPMember.h"
 #import "KTPSUser.h"
+#import "KTPEditProfileViewController.h"
 
 @interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -83,7 +84,7 @@
     if ([KTPSUser currentUser].member == self.member) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                                                target:self
-                                                                                               action:@selector(showEditView)];
+                                                                                               action:@selector(editButtonTapped)];
     }
     
     [self loadSubviews];
@@ -397,10 +398,6 @@
 
 #pragma mark - UI action selectors
 
-- (void)showEditView {
-//    [self.member update:nil];
-}
-
 /*!
  Method called when the profile image is tapped. Displays an actionsheet that allows the user to choose a photo from the library or take a new one.
  */
@@ -436,6 +433,11 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)editButtonTapped {
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:[[KTPEditProfileViewController alloc] initWithMember:self.member]];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 - (void)twitterButtonTapped {
