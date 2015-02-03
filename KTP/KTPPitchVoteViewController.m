@@ -231,8 +231,6 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[voteTableView]-10-[voteButton(50)]" options:0 metrics:nil views:views]];
 }
 
-#define CONTENT_VIEW_BOTTOM_PADDING 20
-
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
@@ -249,7 +247,7 @@
     
     // Resize contentView such that it is larger than its subviews
     CGRect frame = self.contentView.frame;
-    frame.size.height = topView.frame.origin.y + bottomView.frame.origin.y + bottomView.frame.size.height + CONTENT_VIEW_BOTTOM_PADDING;
+    frame.size.height = topView.frame.origin.y + bottomView.frame.origin.y + bottomView.frame.size.height + kContentViewBottomPadding;
     self.contentView.frame = frame;
     
     // Set the content size of scrollView to contentView's size

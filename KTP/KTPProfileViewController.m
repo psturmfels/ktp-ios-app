@@ -25,13 +25,19 @@
 @property (nonatomic, strong) UILabel *gradDataLabel;
 @property (nonatomic, strong) UILabel *hometownLabel;
 @property (nonatomic, strong) UILabel *hometownDataLabel;
+@property (nonatomic, strong) UIView *personalDividerView;
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UILabel *statusDataLabel;
 @property (nonatomic, strong) UILabel *roleLabel;
 @property (nonatomic, strong) UILabel *roleDataLabel;
 @property (nonatomic, strong) UILabel *pledgeClassLabel;
 @property (nonatomic, strong) UILabel *pledgeClassDataLabel;
-@property (nonatomic, strong) UITextView *bioTextView;
+@property (nonatomic, strong) UILabel *bioLabel;
+@property (nonatomic, strong) UITextView *bioDataTextView;
+
+@property (nonatomic, strong) UIButton *twitterButton;
+@property (nonatomic, strong) UIButton *facebookButton;
+@property (nonatomic, strong) UIButton *linkedInButton;
 
 // Private Member Info
 @property (nonatomic, strong) UILabel *comServLabel;
@@ -43,6 +49,8 @@
 
 @implementation KTPProfileViewController
 
+#pragma mark - Initialization
+
 - (instancetype)initWithMember:(KTPMember*)member {
     self = [super init];
     if (self) {
@@ -50,6 +58,8 @@
     }
     return self;
 }
+
+#pragma mark - Overriden Setters/Getters
 
 /*!
  Overriden setter for member property. Sets the title of this VC to the first and last name of the member.
@@ -62,6 +72,8 @@
         self.title = [NSString stringWithFormat:@"%@ %@", member.firstName, member.lastName];
     }
 }
+
+#pragma mark - Loading Subviews
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,15 +103,21 @@
     [self loadMajorLabel];
     [self loadGradLabel];
     [self loadHometownLabel];
+    [self loadPersonalDividerView];
     [self loadStatusLabel];
     [self loadRoleLabel];
     [self loadPledgeClassLabel];
     [self loadBioTextView];
+    
+    [self loadTwitterButton];
+    [self loadFacebookButton];
+    [self loadLinkedInButton];
 }
 
 - (void)loadScrollView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.delaysContentTouches = NO;
     [self.view addSubview:self.scrollView];
 }
 
@@ -126,12 +144,10 @@
  Initializes and loads majorLabel and majorDataLabel, and adds as subviews
  */
 - (void)loadMajorLabel {
-    self.majorLabel = [UILabel new];
-    self.majorLabel.text = @"Major:";
+    self.majorLabel = [UILabel labelWithText:@"Major:"];
     [self.contentView addSubview:self.majorLabel];
     
-    self.majorDataLabel = [UILabel new];
-    self.majorDataLabel.text = self.member.major;
+    self.majorDataLabel = [UILabel labelWithText:self.member.major];
     self.majorDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.majorDataLabel];
 }
@@ -141,8 +157,7 @@
  */
 - (void)loadGradLabel {
     // Use "0000" as a default
-    self.gradLabel = [UILabel new];
-    self.gradLabel.text = @"Grad Year:";
+    self.gradLabel = [UILabel labelWithText:@"Grad Year:"];
     [self.contentView addSubview:self.gradLabel];
     
     self.gradDataLabel = [UILabel new];
@@ -157,26 +172,28 @@
  Initializes and loads hometownLabel and hometownDataLabel, and adds as subviews
  */
 - (void)loadHometownLabel {
-    self.hometownLabel = [UILabel new];
-    self.hometownLabel.text = @"Hometown:";
+    self.hometownLabel = [UILabel labelWithText:@"Hometown:"];
     [self.contentView addSubview:self.hometownLabel];
     
-    self.hometownDataLabel = [UILabel new];
-    self.hometownDataLabel.text = self.member.hometown;
+    self.hometownDataLabel = [UILabel labelWithText:self.member.hometown];
     self.hometownDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.hometownDataLabel];
+}
+
+- (void)loadPersonalDividerView {
+    self.personalDividerView = [UIView new];
+    self.personalDividerView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
+    [self.contentView addSubview:self.personalDividerView];
 }
 
 /*!
  Initializes and loads statusLabel and statusDataLabel, and adds as subviews
  */
 - (void)loadStatusLabel {
-    self.statusLabel = [UILabel new];
-    self.statusLabel.text = @"Status:";
+    self.statusLabel = [UILabel labelWithText:@"Status:"];
     [self.contentView addSubview:self.statusLabel];
     
-    self.statusDataLabel = [UILabel new];
-    self.statusDataLabel.text = self.member.status;
+    self.statusDataLabel = [UILabel labelWithText:self.member.status];
     [self.contentView addSubview:self.statusDataLabel];
 }
 
@@ -184,12 +201,10 @@
  Initializes and loads roleLabel and roleDataLabel, and adds as subviews
  */
 - (void)loadRoleLabel {
-    self.roleLabel = [UILabel new];
-    self.roleLabel.text = @"Role:";
+    self.roleLabel = [UILabel labelWithText:@"Role"];
     [self.contentView addSubview:self.roleLabel];
     
-    self.roleDataLabel = [UILabel new];
-    self.roleDataLabel.text = self.member.role;
+    self.roleDataLabel = [UILabel labelWithText:self.member.role];
     [self.contentView addSubview:self.roleDataLabel];
 }
 
@@ -197,27 +212,62 @@
  Initializes and loads pledgeClassLabel and pledgeClassDataLabel, and adds as subviews
  */
 - (void)loadPledgeClassLabel {
-    self.pledgeClassLabel = [UILabel new];
-    self.pledgeClassLabel.text = @"Pledge Class:";
+    self.pledgeClassLabel = [UILabel labelWithText:@"Pledge Class:"];
     [self.contentView addSubview:self.pledgeClassLabel];
     
-    self.pledgeClassDataLabel = [UILabel new];
-    self.pledgeClassDataLabel.text = self.member.pledgeClass;
+    self.pledgeClassDataLabel = [UILabel labelWithText:self.member.pledgeClass];
     [self.contentView addSubview:self.pledgeClassDataLabel];
 }
 
 /*!
- Initializes and loads bioTextView, and adds it as a subview
+ Initializes and loads bioLabel and bioDataTextView, and adds as subviews
  */
 - (void)loadBioTextView {
-    // IMPLEMENT
+    self.bioLabel = [UILabel labelWithText:@"Personal Bio:"];
+    [self.contentView addSubview:self.bioLabel];
+    
+    self.bioDataTextView = [UITextView new];
+    self.bioDataTextView.editable = NO;
+    self.bioDataTextView.text = self.member.biography;
+    [self.contentView addSubview:self.bioDataTextView];
+}
+
+#define kLinkButtonCornerRadius 5
+
+- (void)loadTwitterButton {
+    self.twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
+    [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
+    self.twitterButton.layer.cornerRadius = kLinkButtonCornerRadius;
+    self.twitterButton.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.twitterButton];
+}
+
+- (void)loadFacebookButton {
+    self.facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
+    [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
+    self.facebookButton.layer.cornerRadius = kLinkButtonCornerRadius;
+    self.facebookButton.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.facebookButton];
+}
+
+- (void)loadLinkedInButton {
+    self.linkedInButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
+    [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
+    self.linkedInButton.layer.cornerRadius = kLinkButtonCornerRadius;
+    self.linkedInButton.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.linkedInButton];
 }
 
 /*!
  Sets autolayout constraints on subviews of self.scrollView
  */
 - (void)autoLayoutSubviews {
-    // IMPLEMENT
     
     // Set translatesAutoresizingMaskIntoConstraints property to NO for all autolayout views
     for (UIView *view in self.contentView.subviews) {
@@ -233,12 +283,18 @@
                             @"gradDataLabel"        :   self.gradDataLabel,
                             @"hometownLabel"        :   self.hometownLabel,
                             @"hometownDataLabel"    :   self.hometownDataLabel,
+                            @"personalDividerView"  :   self.personalDividerView,
                             @"statusLabel"          :   self.statusLabel,
                             @"statusDataLabel"      :   self.statusDataLabel,
                             @"roleLabel"            :   self.roleLabel,
                             @"roleDataLabel"        :   self.roleDataLabel,
                             @"pledgeClassLabel"     :   self.pledgeClassLabel,
-                            @"pledgeClassDataLabel" :   self.pledgeClassDataLabel
+                            @"pledgeClassDataLabel" :   self.pledgeClassDataLabel,
+                            @"bioLabel"             :   self.bioLabel,
+                            @"bioDataTextView"      :   self.bioDataTextView,
+                            @"twitterButton"        :   self.twitterButton,
+                            @"facebookButton"       :   self.facebookButton,
+                            @"linkedInButton"       :   self.linkedInButton
                             };
     
     /* profileImageView */
@@ -263,19 +319,21 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[hometownLabel(90)]-5-[hometownDataLabel]" options:0 metrics:nil views:views]];
     
     /* majorDataLabel, gradDataLabel, hometownDataLabel right space from containerView */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.majorDataLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.gradDataLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.hometownDataLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[majorDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[gradDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[hometownDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
     
     /* major, grad, hometown label/data vertical spacing */
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[majorDataLabel]-5-[gradLabel]" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[gradDataLabel]-5-[hometownLabel]" options:0 metrics:nil views:views]];
     
+    /* personalDivider */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalDividerView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.hometownLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalDividerView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.hometownDataLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[hometownDataLabel]-10-[personalDividerView(1)]" options:0 metrics:nil views:views]];
+    
     /* pledgeClass, role, status labels positions */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.profileImageView attribute:NSLayoutAttributeBottom multiplier:1 constant:10]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.hometownDataLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:10]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pledgeClassLabel]-5-[roleLabel]-5-[statusLabel]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[personalDividerView]-10-[pledgeClassLabel]-5-[roleLabel]-5-[statusLabel]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
     
     /* pledgeClass, role, status label/data vertical alignment */
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pledgeClassLabel]-10-[pledgeClassDataLabel]" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
@@ -285,7 +343,59 @@
     /* pledgeClass, role, status data left alignment */
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.roleDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.roleDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.statusDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    
+    /* bioLabel, bioDataTextView */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioLabel]-(>=5)-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[linkedInButton]-(>=20)-[bioLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[statusLabel]-(>=20)-[bioLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bioLabel]-[bioDataTextView]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioDataTextView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.bioLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioDataTextView]-10-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioDataTextView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:[self.bioDataTextView sizeThatFits:self.bioDataTextView.frame.size].height]];
+    
+    /* twitterButton */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[profileImageView]-10-[facebookButton]-10-[linkedInButton]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    
+    /* facebookButton */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.twitterButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    
+    /* linkedInButton */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.linkedInButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 }
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    // Get the top and bottom subviews of contentView
+    UIView *topView, *bottomView;
+    for (UIView *view in self.contentView.subviews) {
+        if (!topView || topView.frame.origin.y > view.frame.origin.y) {
+            topView = view;
+        }
+        if (!bottomView || bottomView.frame.origin.y + bottomView.frame.size.height < view.frame.origin.y + view.frame.size.height) {
+            bottomView = view;
+        }
+    }
+    
+    // Resize contentView such that it is larger than its subviews
+    CGRect frame = self.contentView.frame;
+    frame.size.height = topView.frame.origin.y + bottomView.frame.origin.y + bottomView.frame.size.height + kContentViewBottomPadding;
+    self.contentView.frame = frame;
+    
+    // Set the content size of scrollView to contentView's size
+    self.scrollView.contentSize = self.contentView.frame.size;
+}
+
+#pragma mark - UI action selectors
 
 - (void)showEditView {
 //    [self.member update:nil];
@@ -328,6 +438,17 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)twitterButtonTapped {
+    NSLog(@"twitter button tapped");
+}
+
+- (void)facebookButtonTapped {
+    NSLog(@"facebook button tapped");
+}
+
+- (void)linkedInButtonTapped {
+    NSLog(@"linkedIn button tapped");
+}
 
 
 @end
