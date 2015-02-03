@@ -70,6 +70,10 @@
                                                                committees:dict[@"committees"]
                                                               phoneNumber:dict[@"phone_number"]
                                                                     email:dict[@"email"]
+                                                                 facebook:dict[@"facebook"]
+                                                                  twitter:dict[@"twitter"]
+                                                                 linkedIn:dict[@"linkedin"]
+                                                             personalSite:dict[@"personal_site"]
                                                                   account:dict[@"account"]
                                                                       _id:dict[@"_id"]
                                                                       __v:dict[@"__v"]]];

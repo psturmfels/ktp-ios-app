@@ -7,13 +7,14 @@
 //
 
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <MessageUI/MessageUI.h>
 
 #import "KTPProfileViewController.h"
 #import "KTPMember.h"
 #import "KTPSUser.h"
 #import "KTPEditProfileViewController.h"
 
-@interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
@@ -36,9 +37,12 @@
 @property (nonatomic, strong) UILabel *bioLabel;
 @property (nonatomic, strong) UITextView *bioDataTextView;
 
-@property (nonatomic, strong) UIButton *twitterButton;
+@property (nonatomic, strong) UIButton *phoneButton;
+@property (nonatomic, strong) UIButton *emailButton;
 @property (nonatomic, strong) UIButton *facebookButton;
+@property (nonatomic, strong) UIButton *twitterButton;
 @property (nonatomic, strong) UIButton *linkedInButton;
+@property (nonatomic, strong) UIButton *personalSiteButton;
 
 // Private Member Info
 @property (nonatomic, strong) UILabel *comServLabel;
@@ -110,9 +114,12 @@
     [self loadPledgeClassLabel];
     [self loadBioTextView];
     
-    [self loadTwitterButton];
+    [self loadPhoneButton];
+    [self loadEmailButton];
     [self loadFacebookButton];
+    [self loadTwitterButton];
     [self loadLinkedInButton];
+    [self loadPersonalSiteButton];
 }
 
 - (void)loadScrollView {
@@ -235,34 +242,94 @@
 
 #define kLinkButtonCornerRadius 5
 
-- (void)loadTwitterButton {
-    self.twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
-    [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
-    self.twitterButton.layer.cornerRadius = kLinkButtonCornerRadius;
-    self.twitterButton.layer.masksToBounds = YES;
-    [self.contentView addSubview:self.twitterButton];
+- (void)loadPhoneButton {
+    self.phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.phoneButton addTarget:self action:@selector(phoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.member.phoneNumber isNotNilOrEmpty]) {
+        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIcon"] forState:UIControlStateNormal];
+        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        self.phoneButton.enabled = NO;
+        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateNormal];
+    }
+    self.phoneButton.layer.cornerRadius = kLinkButtonCornerRadius;
+    self.phoneButton.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.phoneButton];
+}
+
+- (void)loadEmailButton {
+    self.emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.member.email isNotNilOrEmpty]) {
+        [self.emailButton setImage:[UIImage imageNamed:@"EmailIcon"] forState:UIControlStateNormal];
+        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        self.emailButton.enabled = NO;
+        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateNormal];
+    }
+    self.emailButton.layer.cornerRadius = kLinkButtonCornerRadius;
+    self.emailButton.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.emailButton];
 }
 
 - (void)loadFacebookButton {
     self.facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
-    [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
+    if ([self.member.facebook isNotNilOrEmpty]) {
+        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
+        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        self.facebookButton.enabled = NO;
+        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateNormal];
+    }
     self.facebookButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.facebookButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.facebookButton];
 }
 
+- (void)loadTwitterButton {
+    self.twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.member.twitter isNotNilOrEmpty]) {
+        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
+        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        self.twitterButton.enabled = NO;
+        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateNormal];
+    }
+    self.twitterButton.layer.cornerRadius = kLinkButtonCornerRadius;
+    self.twitterButton.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.twitterButton];
+}
+
 - (void)loadLinkedInButton {
     self.linkedInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
-    [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
+    if ([self.member.linkedIn isNotNilOrEmpty]) {
+        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
+        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        self.linkedInButton.enabled = NO;
+        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateNormal];
+    }
     self.linkedInButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.linkedInButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.linkedInButton];
+}
+
+- (void)loadPersonalSiteButton {
+    self.personalSiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.member.personalSite isNotNilOrEmpty]) {
+        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIcon"] forState:UIControlStateNormal];
+        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        self.personalSiteButton.enabled = NO;
+        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateNormal];
+    }
+    self.personalSiteButton.layer.cornerRadius = kLinkButtonCornerRadius;
+    self.personalSiteButton.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.personalSiteButton];
 }
 
 /*!
@@ -293,9 +360,12 @@
                             @"pledgeClassDataLabel" :   self.pledgeClassDataLabel,
                             @"bioLabel"             :   self.bioLabel,
                             @"bioDataTextView"      :   self.bioDataTextView,
-                            @"twitterButton"        :   self.twitterButton,
+                            @"phoneButton"          :   self.phoneButton,
+                            @"emailButton"          :   self.emailButton,
                             @"facebookButton"       :   self.facebookButton,
-                            @"linkedInButton"       :   self.linkedInButton
+                            @"twitterButton"        :   self.twitterButton,
+                            @"linkedInButton"       :   self.linkedInButton,
+                            @"personalSiteButton"   :   self.personalSiteButton
                             };
     
     /* profileImageView */
@@ -305,7 +375,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[profileImageView]" options:0 metrics:nil views:views]];
     
     /* majorLabel, gradLabel, hometownLabel left alignment */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[majorLabel]" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-10-[majorLabel]" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.majorLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.gradLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.gradLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.hometownLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     
@@ -355,22 +425,39 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioDataTextView]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioDataTextView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:[self.bioDataTextView sizeThatFits:self.bioDataTextView.frame.size].height]];
     
-    /* twitterButton */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[profileImageView]-10-[facebookButton]-10-[linkedInButton]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    /* phoneButton */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[profileImageView]-10-[phoneButton]-10-[facebookButton]-10-[linkedInButton]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.phoneButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.phoneButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.phoneButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    
+    /* emailButton */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.emailButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
     
     /* facebookButton */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    
+    /* twitterButton */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.emailButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.emailButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.twitterButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
     
     /* linkedInButton */
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.linkedInButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    
+    /* personalSiteButton */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.twitterButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.twitterButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.linkedInButton attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.personalSiteButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -440,16 +527,76 @@
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
+- (void)phoneButtonTapped {
+    NSString *phoneNumber = [[self.member.phoneNumber componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"0123456789-=()"].invertedSet] componentsJoinedByString:@""];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Call" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", phoneNumber]]];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Send Message" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if ([MFMessageComposeViewController canSendText]) {
+            MFMessageComposeViewController *messageVC = [MFMessageComposeViewController new];
+            messageVC.messageComposeDelegate = self;
+            messageVC.recipients = @[phoneNumber];
+            [self presentViewController:messageVC animated:YES completion:nil];
+        }
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)emailButtonTapped {
+    MFMailComposeViewController *mailComposeVC = [MFMailComposeViewController new];
+    mailComposeVC.mailComposeDelegate = self;
+    [mailComposeVC setToRecipients:@[self.member.email]];
+    [self presentViewController:mailComposeVC animated:YES completion:nil];
+}
+
 - (void)twitterButtonTapped {
-    NSLog(@"twitter button tapped");
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitter://"]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"twitter://user?screen_name=%@", self.member.twitter]]];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", self.member.twitter]]];
+    }
 }
 
 - (void)facebookButtonTapped {
-    NSLog(@"facebook button tapped");
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]]) {
+        // make request to facebook graph api to get user's id from username, then use id to launch facebook app to correct profile
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@", self.member.facebook]]];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            if (!connectionError) {
+                NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", res[@"id"]]]];
+            } else {
+                NSLog(@"There was an error making the facebook request");
+            }
+        }];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://facebook.com/%@", self.member.facebook]]];
+    }
 }
 
 - (void)linkedInButtonTapped {
-    NSLog(@"linkedIn button tapped");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://linkedin.com/in/%@", self.member.linkedIn]]];
+}
+
+- (void)personalSiteButtonTapped {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", self.member.personalSite]]];
+}
+
+#pragma mark - MFMessageComposeViewControllerDelegate methods
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate methods
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

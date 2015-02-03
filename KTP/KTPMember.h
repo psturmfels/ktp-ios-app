@@ -36,6 +36,10 @@
 // Contact
 @property (nonatomic, strong)   NSString    *phoneNumber;
 @property (nonatomic, strong)   NSString    *email;
+@property (nonatomic, strong)   NSString    *facebook;
+@property (nonatomic, strong)   NSString    *twitter;
+@property (nonatomic, strong)   NSString    *linkedIn;
+@property (nonatomic, strong)   NSString    *personalSite;
 
 // Account
 @property (nonatomic, strong)   NSString    *account;
@@ -82,6 +86,10 @@
                        committees:(NSArray*)committees
                       phoneNumber:(NSString*)phoneNumber
                             email:(NSString*)email
+                         facebook:(NSString*)facebook
+                          twitter:(NSString*)twitter
+                         linkedIn:(NSString*)linkedIn
+                     personalSite:(NSString*)personalSite
                           account:(NSString*)account
                               _id:(NSString*)_id
                               __v:(NSString*)__v;

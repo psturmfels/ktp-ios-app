@@ -31,29 +31,37 @@
                        committees:(NSArray*)committees
                       phoneNumber:(NSString*)phoneNumber
                             email:(NSString*)email
+                         facebook:(NSString*)facebook
+                          twitter:(NSString*)twitter
+                         linkedIn:(NSString*)linkedIn
+                     personalSite:(NSString*)personalSite
                           account:(NSString*)account
                               _id:(NSString*)_id
                               __v:(NSString*)__v
 {
     self = [super init];
     if (self) {
-        self.image          = image                           ?   image           :   [UIImage imageNamed:@"UserPlaceholder"];
-        self.firstName      = [firstName isNotNilOrEmpty]     ?   firstName       :   @"FIRSTNAME";
-        self.lastName       = [lastName isNotNilOrEmpty]      ?   lastName        :   @"LASTNAME";
-        self.uniqname       = [uniqname isNotNilOrEmpty]      ?   uniqname        :   @"UNIQNAME";
-        self.gender         = [gender isNotNilOrEmpty]        ?   gender          :   @"GENDER";
-        self.major          = [major isNotNilOrEmpty]         ?   major           :   @"MAJOR";
-        self.hometown       = [hometown isNotNilOrEmpty]      ?   hometown        :   @"HOMETOWN";
-        self.biography      = [biography isNotNilOrEmpty]     ?   biography       :   @"BIOGRAPHY";
-        self.pledgeClass    = [pledgeClass isNotNilOrEmpty]   ?   pledgeClass     :   @"PLEDGECLASS";
-        self.status         = [status isNotNilOrEmpty]        ?   status          :   @"STATUS";
-        self.role           = [role isNotNilOrEmpty]          ?   role            :   @"ROLE";
-        self.gradYear       = gradYear                        ?   gradYear        :   0;
-        self.proDevEvents   = proDevEvents                    ?   proDevEvents    :   0;
-        self.comServHours   = comServHours                    ?   comServHours    :   0;
-        self.committees     = committees                      ?   committees      :   @[];
-        self.phoneNumber    = [phoneNumber isNotNilOrEmpty]   ?   phoneNumber     :   @"PHONENUMBER";
-        self.email          = [email isNotNilOrEmpty]         ?   email           :   @"EMAIL";
+        self.image          = image                             ?   image           :   [UIImage imageNamed:@"UserPlaceholder"];
+        self.firstName      = [firstName isNotNilOrEmpty]       ?   firstName       :   @"FIRSTNAME";
+        self.lastName       = [lastName isNotNilOrEmpty]        ?   lastName        :   @"LASTNAME";
+        self.uniqname       = [uniqname isNotNilOrEmpty]        ?   uniqname        :   @"UNIQNAME";
+        self.gender         = [gender isNotNilOrEmpty]          ?   gender          :   @"GENDER";
+        self.major          = [major isNotNilOrEmpty]           ?   major           :   @"MAJOR";
+        self.hometown       = [hometown isNotNilOrEmpty]        ?   hometown        :   @"HOMETOWN";
+        self.biography      = [biography isNotNilOrEmpty]       ?   biography       :   @"BIOGRAPHY";
+        self.pledgeClass    = [pledgeClass isNotNilOrEmpty]     ?   pledgeClass     :   @"PLEDGECLASS";
+        self.status         = [status isNotNilOrEmpty]          ?   status          :   @"STATUS";
+        self.role           = [role isNotNilOrEmpty]            ?   role            :   @"ROLE";
+        self.gradYear       = gradYear                          ?   gradYear        :   0;
+        self.proDevEvents   = proDevEvents                      ?   proDevEvents    :   0;
+        self.comServHours   = comServHours                      ?   comServHours    :   0;
+        self.committees     = committees                        ?   committees      :   @[];
+        self.phoneNumber    = phoneNumber;
+        self.email          = email;
+        self.facebook       = facebook;
+        self.twitter        = twitter;
+        self.linkedIn       = linkedIn;
+        self.personalSite   = personalSite;
         self.account        = account;
         self._id            = _id;
         self.__v            = __v;
@@ -134,7 +142,11 @@
              @"pro_dev_events"      :   [NSNumber numberWithInteger:self.proDevEvents],
              @"service_hours"       :   [NSNumber numberWithFloat:self.comServHours],
              @"phone_number"        :   self.phoneNumber,
-             @"email"               :   self.email
+             @"email"               :   self.email,
+             @"facebook"            :   self.facebook,
+             @"twitter"             :   self.twitter,
+             @"linkedin"            :   self.linkedIn,
+             @"personal_site"       :   self.personalSite
              };
 }
 
