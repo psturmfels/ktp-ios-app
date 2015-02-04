@@ -21,6 +21,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        [self addObserver:self forKeyPath:@"votes" options:0 context:nil];
         self.votes = [NSMutableArray new];
     }
     return self;
@@ -48,6 +49,27 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPitchVotedFailure object:self];
         }
     }];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"votes"]) {
+        [self calculateScores];
+    }
+}
+
+- (void)calculateScores {
+    self.innovationScore = self.usefulnessScore = self.coolnessScore = self.overallScore = 0;
+
+    for (KTPPitchVote *vote in self.votes) {
+        self.innovationScore += vote.innovationScore;
+        self.usefulnessScore += vote.usefulnessScore;
+        self.coolnessScore += vote.coolnessScore;
+    }
+    
+    self.innovationScore /= self.votes.count ? self.votes.count : 1;
+    self.usefulnessScore /= self.votes.count ? self.votes.count : 1;
+    self.coolnessScore /= self.votes.count ? self.votes.count : 1;
+    self.overallScore = (self.innovationScore + self.usefulnessScore + self.coolnessScore) / 3;
 }
 
 /*!
@@ -84,6 +106,10 @@
              @"description" :   self.pitchDescription,
              @"votes"       :   votes
              };
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"votes"];
 }
 
 @end

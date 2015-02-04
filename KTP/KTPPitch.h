@@ -22,6 +22,11 @@
 @property (nonatomic, strong) NSString *pitchDescription;
 @property (nonatomic, strong) NSMutableArray *votes;
 
+@property (nonatomic) CGFloat innovationScore;
+@property (nonatomic) CGFloat usefulnessScore;
+@property (nonatomic) CGFloat coolnessScore;
+@property (nonatomic) CGFloat overallScore;
+
 - (instancetype)initWithMember:(KTPMember*)member title:(NSString*)title description:(NSString*)description votes:(NSMutableArray*)votes _id:(NSString*)_id;
 
 /*!

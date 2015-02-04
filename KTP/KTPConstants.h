@@ -24,6 +24,7 @@ extern NSString *const KTPNotificationPitchVotedFailure;
 #define kMainViewShadowOpacity          0.8
 #define kStandardTableViewCellHeight    44
 #define kContentViewBottomPadding       20
+#define kLargeButtonHeight              60
 
 typedef NS_ENUM(NSInteger, KTPViewType) {
     KTPViewTypeMembers,

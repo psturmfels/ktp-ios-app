@@ -35,6 +35,9 @@
 		A835049A1A7FFA7900644B2A /* KTPSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504991A7FFA7900644B2A /* KTPSettingsDataSource.m */; };
 		A835049D1A8005AB00644B2A /* KTPChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A835049C1A8005AB00644B2A /* KTPChangePasswordViewController.m */; };
 		A83504A01A807A5500644B2A /* KTPEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */; };
+		A83504A31A81529E00644B2A /* KTPPitchesResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504A21A81529E00644B2A /* KTPPitchesResultViewController.m */; };
+		A83504A61A81567E00644B2A /* KTPPitchesResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504A51A81567E00644B2A /* KTPPitchesResultCell.m */; };
+		A83504A91A81720E00644B2A /* KTPPitchesResultSortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504A81A81720E00644B2A /* KTPPitchesResultSortViewController.m */; };
 		A873039D1A7199560062B072 /* KTPSMembers.m in Sources */ = {isa = PBXBuildFile; fileRef = A873039C1A7199560062B072 /* KTPSMembers.m */; };
 		A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A01A72C2A80062B072 /* KTPConstants.m */; };
 		A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A31A73AD200062B072 /* KTPProfileViewController.m */; };
@@ -117,6 +120,12 @@
 		A835049C1A8005AB00644B2A /* KTPChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPChangePasswordViewController.m; sourceTree = "<group>"; };
 		A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileViewController.h; sourceTree = "<group>"; };
 		A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditProfileViewController.m; sourceTree = "<group>"; };
+		A83504A11A81529E00644B2A /* KTPPitchesResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesResultViewController.h; sourceTree = "<group>"; };
+		A83504A21A81529E00644B2A /* KTPPitchesResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesResultViewController.m; sourceTree = "<group>"; };
+		A83504A41A81567E00644B2A /* KTPPitchesResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesResultCell.h; sourceTree = "<group>"; };
+		A83504A51A81567E00644B2A /* KTPPitchesResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesResultCell.m; sourceTree = "<group>"; };
+		A83504A71A81720E00644B2A /* KTPPitchesResultSortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesResultSortViewController.h; sourceTree = "<group>"; };
+		A83504A81A81720E00644B2A /* KTPPitchesResultSortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesResultSortViewController.m; sourceTree = "<group>"; };
 		A873039B1A7199560062B072 /* KTPSMembers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSMembers.h; sourceTree = "<group>"; };
 		A873039C1A7199560062B072 /* KTPSMembers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSMembers.m; sourceTree = "<group>"; };
 		A873039F1A72C2A80062B072 /* KTPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPConstants.h; sourceTree = "<group>"; };
@@ -410,6 +419,12 @@
 				A883BE8F1A7AFE0D00139232 /* KTPPitchAddViewController.m */,
 				A883BE8B1A7ACEC800139232 /* KTPPitchVoteViewController.h */,
 				A883BE8C1A7ACEC800139232 /* KTPPitchVoteViewController.m */,
+				A83504A11A81529E00644B2A /* KTPPitchesResultViewController.h */,
+				A83504A21A81529E00644B2A /* KTPPitchesResultViewController.m */,
+				A83504A41A81567E00644B2A /* KTPPitchesResultCell.h */,
+				A83504A51A81567E00644B2A /* KTPPitchesResultCell.m */,
+				A83504A71A81720E00644B2A /* KTPPitchesResultSortViewController.h */,
+				A83504A81A81720E00644B2A /* KTPPitchesResultSortViewController.m */,
 				A8F483E61A7D65DC00B17E7F /* Pitch */,
 			);
 			name = PitchView;
@@ -613,6 +628,7 @@
 				A8C1DAFE1A15ADA300298FF9 /* KTPMembersViewController.m in Sources */,
 				A883BE871A7AC74F00139232 /* KTPPitch.m in Sources */,
 				A809436A1A6EF5CD00B03647 /* KTPSlideMenuDataSource.m in Sources */,
+				A83504A31A81529E00644B2A /* KTPPitchesResultViewController.m in Sources */,
 				897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */,
 				A835049D1A8005AB00644B2A /* KTPChangePasswordViewController.m in Sources */,
 				A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */,
@@ -622,6 +638,7 @@
 				A8B2D6591A78386600039724 /* UIImage+KTPImages.m in Sources */,
 				89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */,
 				A83504A01A807A5500644B2A /* KTPEditProfileViewController.m in Sources */,
+				A83504A61A81567E00644B2A /* KTPPitchesResultCell.m in Sources */,
 				A8F483E21A7D366600B17E7F /* KTPTextView.m in Sources */,
 				897E8F1919AE544F001C849F /* KTPSUser.m in Sources */,
 				A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */,
@@ -631,6 +648,7 @@
 				897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */,
 				A883BE841A7AC2B300139232 /* KTPPitchesCell.m in Sources */,
 				A83504971A7EE25A00644B2A /* KTPSPitches.m in Sources */,
+				A83504A91A81720E00644B2A /* KTPPitchesResultSortViewController.m in Sources */,
 				89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */,
 				A80943661A6EEF3600B03647 /* KTPSlideMenuViewController.m in Sources */,
 				A8C6D0601A7745CC00B7CAC0 /* KTPPledgeViewController.m in Sources */,

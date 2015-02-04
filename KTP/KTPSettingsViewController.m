@@ -77,8 +77,14 @@
     NSDictionary *views = @{
                             @"logoutButton"     :   self.logoutButton
                             };
+    
+    NSDictionary *metrics = @{
+                              @"logoutButtonHeight"     :   [NSNumber numberWithFloat:kLargeButtonHeight]
+                              };
+    
     [self.footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[logoutButton]-10-|" options:0 metrics:nil views:views]];
-    [self.footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[logoutButton(50)]|" options:0 metrics:nil views:views]];
+    [self.footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[logoutButton(logoutButtonHeight)]" options:0 metrics:metrics views:views]];
+    [self.footerView addConstraint:[NSLayoutConstraint constraintWithItem:self.logoutButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.footerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
 
 #pragma mark - UITableViewDelegate Methods

@@ -13,11 +13,14 @@
 #import "KTPSPitches.h"
 #import "KTPPitch.h"
 #import "KTPMember.h"
+#import "KTPPitchesResultViewController.h"
 
 @interface KTPPitchesViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+
+@property (nonatomic, strong) UIButton *pitchesResultsButton;
 
 @end
 
@@ -60,9 +63,28 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // Add pitches tableview as subview
-    self.tableView.frame = self.view.bounds;
+    [self loadTableView];
+    [self loadPitchResultsButton];
+}
+
+- (void)loadTableView {
+    CGRect frame = self.view.bounds;
+    frame.size.height -= kLargeButtonHeight;
+    self.tableView.frame = frame;
     [self.view addSubview:self.tableView];
+}
+
+- (void)loadPitchResultsButton {
+    CGRect frame = CGRectMake(self.tableView.frame.origin.x,
+                              self.tableView.frame.origin.x + self.tableView.frame.size.height,
+                              self.tableView.frame.size.width,
+                              kLargeButtonHeight);
+    self.pitchesResultsButton = [[UIButton alloc] initWithFrame:frame];
+    [self.pitchesResultsButton addTarget:self action:@selector(pitchesResultsButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.pitchesResultsButton setTitle:@"Results" forState:UIControlStateNormal];
+    [self.pitchesResultsButton setBackgroundImage:[UIImage imageWithColor:[UIColor KTPGreen363]] forState:UIControlStateNormal];
+    [self.pitchesResultsButton setBackgroundImage:[UIImage imageWithColor:[[UIColor KTPGreen363] colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
+    [self.view addSubview:self.pitchesResultsButton];
 }
 
 #pragma mark - Notification Handling
@@ -103,6 +125,11 @@
 - (void)addPitchButtonTapped {
     KTPPitchAddViewController *pitchAddVC = [KTPPitchAddViewController new];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:pitchAddVC];
+    [self presentViewController:navVC animated:YES completion:nil];
+}
+
+- (void)pitchesResultsButtonTapped {
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:[KTPPitchesResultViewController new]];
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
