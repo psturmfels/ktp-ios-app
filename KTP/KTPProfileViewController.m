@@ -245,6 +245,7 @@
 - (void)loadPhoneButton {
     self.phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.phoneButton addTarget:self action:@selector(phoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.phoneButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(phoneButtonLongPressed)]];
     if ([self.member.phoneNumber isNotNilOrEmpty]) {
         [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIcon"] forState:UIControlStateNormal];
         [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateHighlighted];
@@ -260,6 +261,7 @@
 - (void)loadEmailButton {
     self.emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.emailButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(emailButtonLongPressed)]];
     if ([self.member.email isNotNilOrEmpty]) {
         [self.emailButton setImage:[UIImage imageNamed:@"EmailIcon"] forState:UIControlStateNormal];
         [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateHighlighted];
@@ -275,6 +277,7 @@
 - (void)loadFacebookButton {
     self.facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.facebookButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(facebookButtonLongPressed)]];
     if ([self.member.facebook isNotNilOrEmpty]) {
         [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
         [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
@@ -290,6 +293,7 @@
 - (void)loadTwitterButton {
     self.twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.twitterButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(twitterButtonLongPressed)]];
     if ([self.member.twitter isNotNilOrEmpty]) {
         [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
         [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
@@ -305,6 +309,7 @@
 - (void)loadLinkedInButton {
     self.linkedInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.linkedInButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(linkedInButtonLongPressed)]];
     if ([self.member.linkedIn isNotNilOrEmpty]) {
         [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
         [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
@@ -320,6 +325,7 @@
 - (void)loadPersonalSiteButton {
     self.personalSiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.personalSiteButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(personalSiteButtonLongPressed)]];
     if ([self.member.personalSite isNotNilOrEmpty]) {
         [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIcon"] forState:UIControlStateNormal];
         [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateHighlighted];
@@ -547,11 +553,19 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)phoneButtonLongPressed {
+    [self showCopyAlertControllerWithTitle:@"Copy Phone Number" copiedValue:self.member.phoneNumber];
+}
+
 - (void)emailButtonTapped {
     MFMailComposeViewController *mailComposeVC = [MFMailComposeViewController new];
     mailComposeVC.mailComposeDelegate = self;
     [mailComposeVC setToRecipients:@[self.member.email]];
     [self presentViewController:mailComposeVC animated:YES completion:nil];
+}
+
+- (void)emailButtonLongPressed {
+    [self showCopyAlertControllerWithTitle:@"Copy Email" copiedValue:self.member.email];
 }
 
 - (void)twitterButtonTapped {
@@ -560,6 +574,10 @@
     } else {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", self.member.twitter]]];
     }
+}
+
+- (void)twitterButtonLongPressed {
+    [self showCopyAlertControllerWithTitle:@"Copy Twitter Handle" copiedValue:self.member.twitter];
 }
 
 - (void)facebookButtonTapped {
@@ -579,12 +597,33 @@
     }
 }
 
+- (void)facebookButtonLongPressed {
+    [self showCopyAlertControllerWithTitle:@"Copy Facebook Username" copiedValue:self.member.facebook];
+}
+
 - (void)linkedInButtonTapped {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://linkedin.com/in/%@", self.member.linkedIn]]];
 }
 
+- (void)linkedInButtonLongPressed {
+    [self showCopyAlertControllerWithTitle:@"Copy LinkedIn Username" copiedValue:self.member.linkedIn];
+}
+
 - (void)personalSiteButtonTapped {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", self.member.personalSite]]];
+}
+
+- (void)personalSiteButtonLongPressed {
+    [self showCopyAlertControllerWithTitle:@"Copy Link" copiedValue:self.member.personalSite];
+}
+
+- (void)showCopyAlertControllerWithTitle:(NSString*)title copiedValue:(NSString*)value {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [UIPasteboard generalPasteboard].string = value;
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - MFMessageComposeViewControllerDelegate methods
