@@ -23,4 +23,13 @@
     return self;
 }
 
+- (NSDictionary*)JSONObject {
+    return @{
+             @"member"            :   self.member._id,
+             @"innovationScore"   :   [NSNumber numberWithUnsignedInteger:self.innovationScore],
+             @"usefulnessScore"   :   [NSNumber numberWithUnsignedInteger:self.usefulnessScore],
+             @"coolnessScore"     :   [NSNumber numberWithUnsignedInteger:self.coolnessScore]
+             };
+}
+
 @end

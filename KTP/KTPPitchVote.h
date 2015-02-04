@@ -21,4 +21,6 @@
 @property (nonatomic) NSUInteger coolnessScore;
 
 - (instancetype)initWithMember:(KTPMember*)member innovationScore:(NSUInteger)innovationScore usefulnessScore:(NSUInteger)usefulnessScore coolnessScore:(NSUInteger)coolnessScore;
+
+- (NSDictionary*)JSONObject;
 @end

@@ -18,11 +18,13 @@
 
 @implementation KTPPitch
 
+#pragma mark - Initialization
+
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self addObserver:self forKeyPath:@"votes" options:0 context:nil];
-        self.votes = [NSMutableArray new];
+        [self addObservers];
+        self.votes = [[NSMutableArray new] mutableArrayValueForKey:@"votes"];
     }
     return self;
 }
@@ -39,24 +41,29 @@
     return self;
 }
 
+#pragma mark - Voting
+
+/*!
+ Adds a vote to this pitch. Also updates the KTP database
+ 
+ @param         vote    The vote to add to this pitch
+ */
 - (void)addVote:(KTPPitchVote*)vote {
     [self.votes addObject:vote];
-    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIPitches appending:self._id parameters:nil withBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePOST toRoute:KTPRequestRouteAPIPitches appending:[NSString stringWithFormat:@"%@/vote", self._id] parameters:nil withBody:[vote JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (!error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPitchVotedSuccess object:self userInfo:@{@"pitch" : self}];
         } else {
             NSLog(@"Pitch vote was not sent with error: %@", error.userInfo);
+            [self.votes removeLastObject];
             [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPitchVotedFailure object:self];
         }
     }];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"votes"]) {
-        [self calculateScores];
-    }
-}
-
+/*!
+ Calculates the average scores for this pitch
+ */
 - (void)calculateScores {
     self.innovationScore = self.usefulnessScore = self.coolnessScore = self.overallScore = 0;
 
@@ -106,6 +113,19 @@
              @"description" :   self.pitchDescription,
              @"votes"       :   votes
              };
+}
+
+#pragma mark - KVO
+
+- (void)addObservers {
+    [self addObserver:self forKeyPath:@"votes" options:0 context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"votes"]) {
+        NSLog(@"observed value");
+        [self calculateScores];
+    }
 }
 
 - (void)dealloc {
