@@ -209,7 +209,7 @@
  Initializes and loads roleLabel and roleDataLabel, and adds as subviews
  */
 - (void)loadRoleLabel {
-    self.roleLabel = [UILabel labelWithText:@"Role"];
+    self.roleLabel = [UILabel labelWithText:@"Role:"];
     [self.contentView addSubview:self.roleLabel];
     
     self.roleDataLabel = [UILabel labelWithText:self.member.role];
