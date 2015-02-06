@@ -35,6 +35,12 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
             return @"/api/changePassword/";
         case KTPRequestRouteAPIPitches:
             return @"/api/pitches/";
+        case KTPRequestRouteAPIPledgeTasks:
+            return @"/api/pledgeTasks/";
+        case KTPRequestRouteAPIPledgeMeetings:
+            return @"/api/pledgeMeetings/";
+        case KTPRequestRouteAPICommittees:
+            return @"/api/committees/";
     }
 }
 
