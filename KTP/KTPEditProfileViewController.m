@@ -8,6 +8,8 @@
 
 #import "KTPEditProfileViewController.h"
 #import "KTPMember.h"
+#import "KTPNetworking.h"
+#import "KTPEditProfileViewCell.h"
 
 @interface KTPEditProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -54,11 +56,8 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    /*
-     Add any additional tableview setup here as needed
-     */
-    
+    [self.tableView registerClass:[KTPEditProfileViewCell class] forCellReuseIdentifier:@"MemberEditCell"];
+    self.tableView.allowsSelection = NO;
     [self.view addSubview:self.tableView];
 }
 
@@ -66,12 +65,50 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // IMPLEMENT
-    return [UITableViewCell new];   // placeholder to allow compilation
+    
+    KTPEditProfileViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberEditCell" forIndexPath:indexPath];
+    
+    if(indexPath.section == 0) {
+        switch(indexPath.row) {
+            case 0:
+                cell.textField.placeholder = @"First Name";
+                cell.textField.text = self.member.firstName;
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            default:
+                break;
+        }
+    }
+    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // IMPLEMENT
-    return 1;   // placeholder to allow compilation
+    
+    switch(section) {
+        case 0:
+            return 8;
+        case 1:
+            return 2;
+        case 2:
+            return 2;
+    }
+    
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
