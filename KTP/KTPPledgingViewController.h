@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTPPledgeViewController : UIViewController
+@interface KTPPledgingViewController : UIViewController
 
 @end

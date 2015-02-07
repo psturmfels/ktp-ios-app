@@ -6,14 +6,18 @@
 //  Copyright (c) 2015 Kappa Theta Pi. All rights reserved.
 //
 
-#import "KTPPledgeViewController.h"
+#import "KTPPledgingViewController.h"
+#import "KTPSPledgeTasks.h"
 
-@implementation KTPPledgeViewController
+@implementation KTPPledgingViewController
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.navigationItem.title = @"Pledge";
+        // Instantiate singleton
+        [KTPSPledgeTasks pledgeTasks];
+        
+        self.navigationItem.title = @"Pledging";
     }
     return self;
 }
