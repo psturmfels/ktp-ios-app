@@ -46,6 +46,7 @@
 		A83504BC1A85BC6400644B2A /* KTPPledgeMeeting.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */; };
 		A83504BF1A85C75C00644B2A /* KTPSPledgeMeetings.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504BE1A85C75C00644B2A /* KTPSPledgeMeetings.m */; };
 		A83504C21A869DFF00644B2A /* KTPPledgeTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */; };
+		A83504C51A86A31900644B2A /* KTPPledgeTasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */; };
 		A873039D1A7199560062B072 /* KTPSMembers.m in Sources */ = {isa = PBXBuildFile; fileRef = A873039C1A7199560062B072 /* KTPSMembers.m */; };
 		A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A01A72C2A80062B072 /* KTPConstants.m */; };
 		A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A31A73AD200062B072 /* KTPProfileViewController.m */; };
@@ -150,6 +151,8 @@
 		A83504BE1A85C75C00644B2A /* KTPSPledgeMeetings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSPledgeMeetings.m; sourceTree = "<group>"; };
 		A83504C01A869DFF00644B2A /* KTPPledgeTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPledgeTaskViewController.h; sourceTree = "<group>"; };
 		A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeTaskViewController.m; sourceTree = "<group>"; };
+		A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KTP-Bridging-Header.h"; sourceTree = "<group>"; };
+		A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTPPledgeTasksCell.swift; sourceTree = "<group>"; };
 		A873039B1A7199560062B072 /* KTPSMembers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSMembers.h; sourceTree = "<group>"; };
 		A873039C1A7199560062B072 /* KTPSMembers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSMembers.m; sourceTree = "<group>"; };
 		A873039F1A72C2A80062B072 /* KTPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPConstants.h; sourceTree = "<group>"; };
@@ -298,6 +301,7 @@
 		89855F0F199B2BC2006E5A14 /* KTP */ = {
 			isa = PBXGroup;
 			children = (
+				A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */,
 				89855F18199B2BC2006E5A14 /* KTPAppDelegate.h */,
 				89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */,
 				A883BE7F1A7AC0E100139232 /* Constants */,
@@ -502,6 +506,7 @@
 				A8C6D05F1A7745CC00B7CAC0 /* KTPPledgingViewController.m */,
 				A83504AA1A8577DF00644B2A /* KTPPledgeTasksViewController.h */,
 				A83504AB1A8577DF00644B2A /* KTPPledgeTasksViewController.m */,
+				A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */,
 				A83504C01A869DFF00644B2A /* KTPPledgeTaskViewController.h */,
 				A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */,
 				A83504AD1A8577F200644B2A /* KTPPledgeMeetingsViewController.h */,
@@ -700,6 +705,7 @@
 				89581FB2199C65B90033B5A4 /* KTPRequirementsDataSource.m in Sources */,
 				897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */,
 				A883BE841A7AC2B300139232 /* KTPPitchesCell.m in Sources */,
+				A83504C51A86A31900644B2A /* KTPPledgeTasksCell.swift in Sources */,
 				A83504971A7EE25A00644B2A /* KTPSPitches.m in Sources */,
 				A83504A91A81720E00644B2A /* KTPPitchesResultSortViewController.m in Sources */,
 				89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */,
@@ -835,11 +841,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
 				INFOPLIST_FILE = "KTP/KTP-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KTP/KTP-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -850,11 +860,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
 				INFOPLIST_FILE = "KTP/KTP-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KTP/KTP-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
