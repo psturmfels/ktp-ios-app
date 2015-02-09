@@ -11,7 +11,7 @@
 #import "KTPSlideMenuViewController.h"
 
 #import "KTPMembersViewController.h"
-#import "KTPPledgeViewController.h"
+#import "KTPPledgingViewController.h"
 #import "KTPAnnouncementsViewController.h"
 #import "KTPSettingsViewController.h"
 #import "KTPPitchesViewController.h"
@@ -268,9 +268,9 @@
                 [self.navVC setViewControllers:@[[KTPMembersViewController new]]];
             }
             break;
-        case KTPViewTypePledge:
-            if (![baseVC isKindOfClass:[KTPPledgeViewController class]]) {
-                [self.navVC setViewControllers:@[[KTPPledgeViewController new]]];
+        case KTPViewTypePledging:
+            if (![baseVC isKindOfClass:[KTPPledgingViewController class]]) {
+                [self.navVC setViewControllers:@[[KTPPledgingViewController new]]];
             }
             break;
         case KTPViewTypeAnnouncements:

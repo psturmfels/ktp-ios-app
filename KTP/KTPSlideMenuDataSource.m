@@ -35,8 +35,8 @@
                 cellViewType = KTPViewTypeMembers;
                 break;
             case 1:
-                cellTitle = @"Pledge";
-                cellViewType = KTPViewTypePledge;
+                cellTitle = @"Pledging";
+                cellViewType = KTPViewTypePledging;
                 break;
             case 2:
                 cellTitle = @"Announcements";
