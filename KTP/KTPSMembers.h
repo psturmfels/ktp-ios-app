@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 /*!
  @class         KTPSMembers
  @description   The KTPSMembers class is a singleton that handles fetching and maintaining the information on all KTP members. It should be referenced (and thus initialized) as early as possible to ensure all members' data are loaded by the time they are needed.
@@ -27,5 +26,4 @@
  Sends a request to the KTP API for new members data and loads membersArray when request is complete.
  */
 - (void)reloadMembers;
-
 @end

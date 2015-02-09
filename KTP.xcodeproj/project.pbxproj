@@ -66,7 +66,6 @@
 		A8C6D0601A7745CC00B7CAC0 /* KTPPledgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C6D05F1A7745CC00B7CAC0 /* KTPPledgingViewController.m */; };
 		A8F483E21A7D366600B17E7F /* KTPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E11A7D366600B17E7F /* KTPTextView.m */; };
 		A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */; };
-		BF64784E1A843CBE00717ABE /* KTPEditProfileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF64784D1A843CBD00717ABE /* KTPEditProfileViewCell.m */; };
 		C6B8C8AF9F3F88C5FE6DDB97 /* libPods-KTP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E107C6DC1FF5353387CBC832 /* libPods-KTP.a */; };
 /* End PBXBuildFile section */
 
@@ -193,8 +192,6 @@
 		A8F483E71A7D6F3000B17E7F /* UILabel+KTPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+KTPLabel.h"; sourceTree = "<group>"; };
 		A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+KTPLabel.m"; sourceTree = "<group>"; };
 		B0337AD64C6FF27F839A0238 /* Pods-KTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KTP/Pods-KTP.debug.xcconfig"; sourceTree = "<group>"; };
-		BF64784C1A843CBD00717ABE /* KTPEditProfileViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileViewCell.h; sourceTree = "<group>"; };
-		BF64784D1A843CBD00717ABE /* KTPEditProfileViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditProfileViewCell.m; sourceTree = "<group>"; };
 		E107C6DC1FF5353387CBC832 /* libPods-KTP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KTP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -425,8 +422,6 @@
 				A87303A31A73AD200062B072 /* KTPProfileViewController.m */,
 				A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */,
 				A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */,
-				BF64784C1A843CBD00717ABE /* KTPEditProfileViewCell.h */,
-				BF64784D1A843CBD00717ABE /* KTPEditProfileViewCell.m */,
 			);
 			name = ProfileView;
 			sourceTree = "<group>";
@@ -708,7 +703,6 @@
 				A883BE771A78E26300139232 /* NSString+KTPStrings.m in Sources */,
 				A83504AF1A8577F200644B2A /* KTPPledgeMeetingsViewController.m in Sources */,
 				89581FB2199C65B90033B5A4 /* KTPRequirementsDataSource.m in Sources */,
-				BF64784E1A843CBE00717ABE /* KTPEditProfileViewCell.m in Sources */,
 				897E8F0A19AE477C001C849F /* KTPTextField.m in Sources */,
 				A883BE841A7AC2B300139232 /* KTPPitchesCell.m in Sources */,
 				A83504C51A86A31900644B2A /* KTPPledgeTasksCell.swift in Sources */,
