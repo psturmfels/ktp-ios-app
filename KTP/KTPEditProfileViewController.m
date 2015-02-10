@@ -136,7 +136,7 @@
             textField.frame = frame;
             [cell.contentView addSubview:textField];
         }
-        if(indexPath.row == 8) {
+        if(indexPath.row == 7) {
             self.bioField.frame = frame;
             [cell.contentView addSubview:self.bioField];
         }

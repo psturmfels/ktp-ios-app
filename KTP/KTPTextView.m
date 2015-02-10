@@ -45,6 +45,11 @@
     }
 }
 
+- (void)setText:(NSString *)text {
+    [super setText:text];
+    self.placeholderLabel.hidden = [text isNotNilOrEmpty];
+}
+
 - (void)loadPlaceholderLabel {
     self.placeholderLabel = [UILabel new];
     self.placeholderLabel.text = self.placeholder;
