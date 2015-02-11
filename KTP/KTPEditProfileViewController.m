@@ -14,9 +14,10 @@
 #import "NSString+KTPStrings.h"
 
 
-@interface KTPEditProfileViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface KTPEditProfileViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+
 @property (nonatomic, strong) NSArray *textFields;
 @property (nonatomic, strong) KTPTextView *bioField;
 @property (nonatomic, strong) UITextField *firstName;
@@ -26,6 +27,8 @@
 @property (nonatomic, strong) UITextField *hometown;
 @property (nonatomic, strong) UITextField *gradYear;
 @property (nonatomic, strong) UITextField *uniqname;
+
+@property (nonatomic, strong) UIView *activeField;
 
 @end
 
@@ -39,6 +42,7 @@
         self.navigationItem.title = @"Edit Profile";
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped)];
+        [self registerKeyboardNotifications];
     }
     return self;
 }
@@ -57,6 +61,8 @@
     self.bioField = [[KTPTextView alloc] initWithPlaceholder:@"Add bio here..."];
     self.bioField.frame = CGRectMake(0, 0, 1, 1);
     self.bioField.text = self.member.biography;
+    self.bioField.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    self.bioField.delegate = self;
 }
 
 -(void)initTextFields {
@@ -92,6 +98,24 @@
                         self.gradYear,
                         self.hometown
                         ];
+    for (UITextField *textField in self.textFields) {
+        textField.delegate = self;
+    }
+}
+
+- (void)registerKeyboardNotifications {
+    // We use change notification (instead of show/hide) in case the user changes
+    // the height of the keyboard by adding/removing the autofill bar
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChangeFrame:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)deregisterKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)dealloc {
+    [self deregisterKeyboardNotifications];
 }
 
 
@@ -110,6 +134,7 @@
     self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MemberEditCell"];
     self.tableView.allowsSelection = NO;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.view addSubview:self.tableView];
 }
 
@@ -221,6 +246,65 @@
     }];
     
     NSLog(@"done button tapped");
+}
+
+#pragma mark - Handling Keyboard Show/Hide
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.activeField = textField;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    self.activeField = nil;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    self.activeField = textView;
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    self.activeField = nil;
+}
+
+- (void)keyboardDidChangeFrame:(NSNotification*)notification {
+    NSLog(@"%@", notification.userInfo);
+    
+    
+    // Determine the change in keyboard position/height
+    CGRect beginFrame = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat frameChangeY = endFrame.origin.y - beginFrame.origin.y;
+    
+    // Change the tableview's insets in accordance with the change in keyboard position
+    UIEdgeInsets insets = self.tableView.scrollIndicatorInsets;
+    insets.bottom -= frameChangeY;
+    self.tableView.scrollIndicatorInsets = insets;
+    self.tableView.contentInset = insets;
+    
+    // Get the visible frame (bottom of navigation bar to top of keyboard)
+    CGRect visibleFrame = self.tableView.frame;
+    visibleFrame.size.height -= endFrame.size.height;
+    
+    // Get the active field's tableview cell
+    UIView *view = self.activeField.superview;
+    if (!view) return;
+    while (![view.class isSubclassOfClass:[UITableViewCell class]]) {
+        view = view.superview;
+    }
+    
+    // If active field is not visible, scroll the tableview so it is visible + some padding
+    CGRect activeFrame = view.frame;
+    activeFrame.size.height += 10;
+    CGPoint point = activeFrame.origin;
+    point.y += activeFrame.size.height;
+    if (!CGRectContainsPoint(visibleFrame, point)) {
+        [self.tableView scrollRectToVisible:activeFrame animated:YES];
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification*)notification {
+    self.tableView.contentInset = UIEdgeInsetsZero;
 }
 
 @end
