@@ -55,6 +55,7 @@
 
 -(void)initBioField {
     self.bioField = [[KTPTextView alloc] initWithPlaceholder:@"Add bio here..."];
+    self.bioField.frame = CGRectMake(0, 0, 1, 1);
     self.bioField.text = self.member.biography;
 }
 
