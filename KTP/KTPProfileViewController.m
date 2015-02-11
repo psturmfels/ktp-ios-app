@@ -95,6 +95,10 @@
     [self autoLayoutSubviews];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self loadContent];
+}
+
 /*!
  Loads all subviews of self.scrollView
  */
@@ -122,15 +126,26 @@
     [self loadPersonalSiteButton];
 }
 
+- (void)loadContent {
+    self.profileImageView.image = self.member.image;
+    self.majorDataLabel.text = self.member.major;
+    self.gradDataLabel.text = [NSString stringWithFormat:@"%ld",(long)self.member.gradYear];
+    self.hometownDataLabel.text = self.member.hometown;
+    self.statusDataLabel.text = self.member.status;
+    self.roleDataLabel.text = self.member.role;
+    self.pledgeClassDataLabel.text = self.member.pledgeClass;
+    self.bioDataTextView.text = self.member.biography;
+}
+
 - (void)loadScrollView {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.delaysContentTouches = NO;
     [self.view addSubview:self.scrollView];
 }
 
 - (void)loadContentView {
-    self.contentView = [[UIView alloc] initWithFrame:self.view.frame];
+    self.contentView = [[UIView alloc] initWithFrame:self.scrollView.bounds];
     [self.scrollView addSubview:self.contentView];
 }
 

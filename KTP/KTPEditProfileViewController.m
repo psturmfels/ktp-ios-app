@@ -30,6 +30,8 @@
 
 @property (nonatomic, strong) UIView *activeField;
 
+@property (nonatomic)         BOOL userDidMakeChanges; // flag to determine whether member update is necessary
+
 @end
 
 @implementation KTPEditProfileViewController
@@ -43,6 +45,7 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped)];
         [self registerKeyboardNotifications];
+        self.userDidMakeChanges = NO;
     }
     return self;
 }
@@ -185,7 +188,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -212,9 +215,19 @@
  Called when the done button is tapped. Makes a request to the KTP API to update the member's profile information. Displays an alert if there was an error when updating. Otherwise, dismisses the view controller after the request is complete.
  */
 - (void)doneButtonTapped {
+    NSLog(@"done button tapped");
     
+    // Don't bother saving anything if the user didn't make changes
+    if (!self.userDidMakeChanges) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
+    // Check if all fields have been completed
     for(int i = 0; i < [self.textFields count]; i++) {
         UITextField *textField = [self.textFields objectAtIndex:i];
+        
+        // If a field was left empty, alert the user
         if(![textField.text isNotNilOrEmpty]){
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Missing Fields" message:@"One or more sections were not completed" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
@@ -223,44 +236,44 @@
         }
     }
     
-    NSDictionary *memberInfo = @{
-                                 @"first_name"  :   self.firstName.text,
-                                 @"last_name"   :   self.lastName.text,
-                                 @"year"        :   self.gradYear.text,
-                                 @"major"       :   self.major.text,
-                                 @"gender"      :   self.gender.text,
-                                 @"hometown"    :   self.hometown.text,
-                                 @"biography"   :   self.bioField.text
-                                 };
+    // Update member object
+    self.member.firstName = self.firstName.text;
+    self.member.lastName = self.lastName.text;
+    self.member.gradYear = [self.gradYear.text integerValue];
+    self.member.major = self.major.text;
+    self.member.gender = self.gender.text;
+    self.member.hometown = self.hometown.text;
+    self.member.biography = self.bioField.text;
     
-    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIMembers appending:self.member._id parameters:nil withBody:memberInfo block:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if(error) {
+    // Update member in database
+    [self.member update:^(BOOL successful) {
+        if (successful) {
+            NSLog(@"Member successfully updated");
+            [self.view endEditing:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
             NSLog(@"Error updating member");
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Member update failed" message:@"Your info was not added or updated" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            [self.view endEditing:YES];
-            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
-    
-    NSLog(@"done button tapped");
 }
 
 #pragma mark - Handling Keyboard Show/Hide
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.activeField = textField;
+    self.userDidMakeChanges = YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.activeField = nil;
 }
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+- (void)textViewDidBeginEditing:(UITextView *)textView {
     self.activeField = textView;
-    return YES;
+    self.userDidMakeChanges = YES;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -268,8 +281,6 @@
 }
 
 - (void)keyboardDidChangeFrame:(NSNotification*)notification {
-    NSLog(@"%@", notification.userInfo);
-    
     
     // Determine the change in keyboard position/height
     CGRect beginFrame = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
