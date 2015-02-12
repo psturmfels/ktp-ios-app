@@ -13,11 +13,13 @@
 #import "KTPMember.h"
 #import "KTPSUser.h"
 
-@interface KTPMembersViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface KTPMembersViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (nonatomic, strong) UITableView *membersTableView;
+@property (nonatomic, strong) NSMutableArray *filteredMembers;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 @end
 
@@ -29,18 +31,13 @@
     self = [super init];
     if (self) {
         self.navigationItem.title = @"Members";
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ProfileIcon"]
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(showUserProfile)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ProfileIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserProfile)];
+
         [self initTableView];
         [self initPullToRefresh];
         
         // Register for notification of members updated
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(updateMembersTableView)
-                                                     name:KTPNotificationMembersUpdated
-                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMembersTableView) name:KTPNotificationMembersUpdated object:nil];
     }
     return self;
 }
@@ -51,6 +48,8 @@
     self.membersTableView.dataSource = self;
     self.membersTableView.separatorInset = UIEdgeInsetsZero;
     [self.membersTableView registerClass:[KTPMembersCell class] forCellReuseIdentifier:@"MemberCell"];
+    
+    self.membersTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
 
 - (void)initPullToRefresh {
@@ -59,7 +58,18 @@
     [self.membersTableView addSubview:self.refreshControl];
 }
 
-#pragma mark - Loading Subviews
+- (void)initSearchBar {
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.membersTableView.tableHeaderView.frame.size.width, kStandardTableViewCellHeight)];
+    self.searchBar.delegate = self;
+    self.searchBar.placeholder = @"Search";
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchBar.tintColor = [UIColor blackColor];
+    
+    self.membersTableView.tableHeaderView = self.searchBar;
+    self.membersTableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+}
+
+#pragma mark - UIViewController methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,6 +77,12 @@
     // Add members TableView as subview
     self.membersTableView.frame = self.view.frame;
     [self.view addSubview:self.membersTableView];
+    
+    [self initSearchBar];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self searchBarCancelButtonClicked:self.searchBar];
 }
 
 #pragma mark - Showing KTPProfileViewController
@@ -91,6 +107,7 @@
 #pragma mark - Notification Handling
 
 - (void)updateMembersTableView {
+    self.filteredMembers = [KTPSMembers members].membersArray;
     [self.membersTableView reloadData];
     [self.refreshControl endRefreshing];
 }
@@ -102,7 +119,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [KTPSMembers members].membersArray.count;
+    return self.filteredMembers.count;
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -123,13 +140,38 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     KTPMembersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberCell" forIndexPath:indexPath];
-    if (!cell) {
-        cell = [[KTPMembersCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MemberCell"];
-    }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.member = [KTPSMembers members].membersArray[indexPath.row];
-    
+    cell.member = self.filteredMembers[indexPath.row];
     return cell;
+}
+
+#pragma mark - UISearchBarDelegate methods
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    searchBar.text = @"";
+    [self searchBar:searchBar textDidChange:searchBar.text];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText isNotNilOrEmpty]) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName contains[c] %@ OR lastName contains[c] %@", searchText, searchText];
+        self.filteredMembers = (NSMutableArray*)[[KTPSMembers members].membersArray filteredArrayUsingPredicate:predicate];
+    } else {
+        self.filteredMembers = [KTPSMembers members].membersArray;
+    }
+    [self.membersTableView reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    searchBar.text = @"";
+    [self searchBar:searchBar textDidChange:searchBar.text];
+    [searchBar resignFirstResponder];
+    [self.membersTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 @end
