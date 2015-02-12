@@ -76,7 +76,7 @@
 
 - (void)loadPitchResultsButton {
     CGRect frame = CGRectMake(self.tableView.frame.origin.x,
-                              self.tableView.frame.origin.x + self.tableView.frame.size.height,
+                              self.tableView.frame.origin.y + self.tableView.frame.size.height,
                               self.tableView.frame.size.width,
                               kLargeButtonHeight);
     self.pitchesResultsButton = [[UIButton alloc] initWithFrame:frame];
