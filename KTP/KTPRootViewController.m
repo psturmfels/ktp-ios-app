@@ -265,27 +265,27 @@
     switch (cell.viewType) {
         case KTPViewTypeMembers:
             if (![baseVC isKindOfClass:[KTPMembersViewController class]]) {
-                [self.navVC setViewControllers:@[[KTPMembersViewController new]]];
+                self.navVC.viewControllers = @[[KTPMembersViewController new]];
             }
             break;
         case KTPViewTypePledging:
             if (![baseVC isKindOfClass:[KTPPledgingViewController class]]) {
-                [self.navVC setViewControllers:@[[KTPPledgingViewController new]]];
+                self.navVC.viewControllers = @[[KTPPledgingViewController new]];
             }
             break;
         case KTPViewTypeAnnouncements:
             if (![baseVC isKindOfClass:[KTPAnnouncementsViewController class]]) {
-                [self.navVC setViewControllers:@[[KTPAnnouncementsViewController new]]];
+                self.navVC.viewControllers = @[[KTPAnnouncementsViewController new]];
             }
             break;
         case KTPViewTypeSettings:
             if (![baseVC isKindOfClass:[KTPSettingsViewController class]]) {
-                [self.navVC setViewControllers:@[[KTPSettingsViewController new]]];
+                self.navVC.viewControllers = @[[KTPSettingsViewController new]];
             }
             break;
         case KTPViewTypePitches:
             if (![baseVC isKindOfClass:[KTPPitchesViewController class]]) {
-                [self.navVC setViewControllers:@[[KTPPitchesViewController new]]];
+                self.navVC.viewControllers = @[[KTPPitchesViewController new]];
             }
             break;
         default:

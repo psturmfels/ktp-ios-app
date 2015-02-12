@@ -36,6 +36,8 @@
         [self initTableView];
         [self initPullToRefresh];
         
+        self.filteredMembers = [KTPSMembers members].membersArray;
+        
         // Register for notification of members updated
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMembersTableView) name:KTPNotificationMembersUpdated object:nil];
     }
@@ -61,12 +63,16 @@
 - (void)initSearchBar {
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.membersTableView.tableHeaderView.frame.size.width, kStandardTableViewCellHeight)];
     self.searchBar.delegate = self;
-    self.searchBar.placeholder = @"Search";
+    self.searchBar.placeholder = @"Search for members";
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.tintColor = [UIColor blackColor];
     
     self.membersTableView.tableHeaderView = self.searchBar;
     self.membersTableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UIViewController methods
@@ -82,7 +88,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self searchBarCancelButtonClicked:self.searchBar];
+    [self resetSearchBar:self.searchBar];
 }
 
 #pragma mark - Showing KTPProfileViewController
@@ -168,10 +174,15 @@
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self resetSearchBar:searchBar];
+    
+    // Haven't decided if we should hide searchbar on cancel
+//    [self.membersTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)resetSearchBar:(UISearchBar*)searchBar {
     searchBar.text = @"";
-    [self searchBar:searchBar textDidChange:searchBar.text];
     [searchBar resignFirstResponder];
-    [self.membersTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 @end
