@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTPMembersViewController : UIViewController
+@interface KTPMembersViewController : UITableViewController
 
 @end

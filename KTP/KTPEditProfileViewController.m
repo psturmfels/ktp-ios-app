@@ -113,12 +113,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)deregisterKeyboardNotifications {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
-}
-
 - (void)dealloc {
-    [self deregisterKeyboardNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
