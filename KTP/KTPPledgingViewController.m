@@ -9,6 +9,9 @@
 #import "KTPPledgingViewController.h"
 #import "KTPSPledgeTasks.h"
 
+#import "KTPPledgeTasksViewController.h"
+#import "KTPPledgeMeetingsViewController.h"
+
 @implementation KTPPledgingViewController
 
 - (instancetype)init {
@@ -17,15 +20,19 @@
         // Instantiate singleton
         [KTPSPledgeTasks pledgeTasks];
         
-        self.navigationItem.title = @"Pledging";
+        self.tabBar.translucent = NO;
+        
+        UIViewController *pledgeTasksVC = [KTPPledgeTasksViewController new];
+        UIViewController *pledgeMeetingsVC = [KTPPledgeMeetingsViewController new];
+        self.viewControllers = @[pledgeTasksVC, pledgeMeetingsVC];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
 }
+
 
 @end
