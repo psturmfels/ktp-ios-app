@@ -14,4 +14,21 @@
 
 @implementation KTPPledgeMeetingsViewController
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Meetings" image:[UIImage imageNamed:@"MeetingTabBarIcon"] tag:1];
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.tabBarController.navigationItem.title = @"Pledge Meetings";
+}
+
 @end

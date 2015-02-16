@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTPPledgeTasksViewController : UIViewController
+@interface KTPPledgeTasksViewController : UITableViewController
 
 @end

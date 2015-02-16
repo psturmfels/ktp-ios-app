@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTPPledgingViewController : UIViewController
+@interface KTPPledgingViewController : UITabBarController
 
 @end

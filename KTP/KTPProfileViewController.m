@@ -35,7 +35,7 @@
 @property (nonatomic, strong) UILabel *pledgeClassLabel;
 @property (nonatomic, strong) UILabel *pledgeClassDataLabel;
 @property (nonatomic, strong) UILabel *bioLabel;
-@property (nonatomic, strong) UITextView *bioDataTextView;
+@property (nonatomic, strong) UILabel *bioDataLabel;
 
 @property (nonatomic, strong) UIButton *phoneButton;
 @property (nonatomic, strong) UIButton *emailButton;
@@ -116,7 +116,7 @@
     [self loadStatusLabel];
     [self loadRoleLabel];
     [self loadPledgeClassLabel];
-    [self loadBioTextView];
+    [self loadBioLabel];
     
     [self loadPhoneButton];
     [self loadEmailButton];
@@ -135,7 +135,7 @@
     self.statusDataLabel.text = self.member.status;
     self.roleDataLabel.text = self.member.role;
     self.pledgeClassDataLabel.text = self.member.pledgeClass;
-    self.bioDataTextView.text = self.member.biography;
+    self.bioDataLabel.text = self.member.biography;
 }
 
 - (void)loadScrollView {
@@ -146,7 +146,9 @@
 }
 
 - (void)loadContentView {
-    self.contentView = [[UIView alloc] initWithFrame:self.scrollView.bounds];
+    CGRect frame = self.scrollView.bounds;
+    frame.size.height = 1000;
+    self.contentView = [[UIView alloc] initWithFrame:frame];
     [self.scrollView addSubview:self.contentView];
 }
 
@@ -245,16 +247,16 @@
 }
 
 /*!
- Initializes and loads bioLabel and bioDataTextView, and adds as subviews
+ Initializes and loads bioLabel and bioDataLabel, and adds as subviews
  */
-- (void)loadBioTextView {
+- (void)loadBioLabel {
     self.bioLabel = [UILabel labelWithText:@"Personal Bio:"];
     [self.contentView addSubview:self.bioLabel];
     
-    self.bioDataTextView = [UITextView new];
-    self.bioDataTextView.editable = NO;
-    self.bioDataTextView.text = self.member.biography;
-    [self.contentView addSubview:self.bioDataTextView];
+    self.bioDataLabel = [UILabel labelWithText:self.member.biography];
+    self.bioDataLabel.numberOfLines = 0;
+    self.bioDataLabel.font = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
+    [self.contentView addSubview:self.bioDataLabel];
 }
 
 #define kLinkButtonCornerRadius 5
@@ -382,7 +384,7 @@
                             @"pledgeClassLabel"     :   self.pledgeClassLabel,
                             @"pledgeClassDataLabel" :   self.pledgeClassDataLabel,
                             @"bioLabel"             :   self.bioLabel,
-                            @"bioDataTextView"      :   self.bioDataTextView,
+                            @"bioDataLabel"      :   self.bioDataLabel,
                             @"phoneButton"          :   self.phoneButton,
                             @"emailButton"          :   self.emailButton,
                             @"facebookButton"       :   self.facebookButton,
@@ -447,15 +449,14 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[roleDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[statusDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
     
-    /* bioLabel, bioDataTextView */
+    /* bioLabel, bioDataLabel */
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioLabel]-(>=5)-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[linkedInButton]-(>=20)-[bioLabel]" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[statusLabel]-(>=20)-[bioLabel]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bioLabel]-[bioDataTextView]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioDataTextView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.bioLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioDataTextView]-10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioDataTextView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:[self.bioDataTextView sizeThatFits:self.bioDataTextView.frame.size].height]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bioLabel]-[bioDataLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.bioLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioDataLabel]-10-|" options:0 metrics:nil views:views]];
     
     /* phoneButton */
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[profileImageView]-10-[phoneButton]-10-[facebookButton]-10-[linkedInButton]" options:0 metrics:nil views:views]];
