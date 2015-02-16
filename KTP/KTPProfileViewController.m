@@ -74,7 +74,7 @@
 - (void)setMember:(KTPMember *)member {
     if (_member != member) {
         _member = member;
-        self.title = [NSString stringWithFormat:@"%@ %@", member.firstName, member.lastName];
+        [self loadContent];
     }
 }
 
@@ -127,6 +127,7 @@
 }
 
 - (void)loadContent {
+    self.title = [NSString stringWithFormat:@"%@ %@", self.member.firstName, self.member.lastName];
     self.profileImageView.image = self.member.image;
     self.majorDataLabel.text = self.member.major;
     self.gradDataLabel.text = [NSString stringWithFormat:@"%ld",(long)self.member.gradYear];

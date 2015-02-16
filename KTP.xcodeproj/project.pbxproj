@@ -66,6 +66,8 @@
 		A8C6D0601A7745CC00B7CAC0 /* KTPPledgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C6D05F1A7745CC00B7CAC0 /* KTPPledgingViewController.m */; };
 		A8F483E21A7D366600B17E7F /* KTPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E11A7D366600B17E7F /* KTPTextView.m */; };
 		A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */; };
+		BF6478881A91964E00717ABE /* KTPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6478871A91964E00717ABE /* KTPTableViewCell.m */; };
+		BF64788E1A92858700717ABE /* TableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BF64788D1A92858700717ABE /* TableItem.m */; };
 		C6B8C8AF9F3F88C5FE6DDB97 /* libPods-KTP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E107C6DC1FF5353387CBC832 /* libPods-KTP.a */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +194,10 @@
 		A8F483E71A7D6F3000B17E7F /* UILabel+KTPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+KTPLabel.h"; sourceTree = "<group>"; };
 		A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+KTPLabel.m"; sourceTree = "<group>"; };
 		B0337AD64C6FF27F839A0238 /* Pods-KTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KTP/Pods-KTP.debug.xcconfig"; sourceTree = "<group>"; };
+		BF6478861A91964E00717ABE /* KTPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPTableViewCell.h; sourceTree = "<group>"; };
+		BF6478871A91964E00717ABE /* KTPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPTableViewCell.m; sourceTree = "<group>"; };
+		BF64788C1A92858700717ABE /* TableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableItem.h; path = ../../sampletable/sampletable/TableItem.h; sourceTree = "<group>"; };
+		BF64788D1A92858700717ABE /* TableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableItem.m; path = ../../sampletable/sampletable/TableItem.m; sourceTree = "<group>"; };
 		E107C6DC1FF5353387CBC832 /* libPods-KTP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KTP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -422,6 +428,10 @@
 				A87303A31A73AD200062B072 /* KTPProfileViewController.m */,
 				A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */,
 				A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */,
+				BF6478861A91964E00717ABE /* KTPTableViewCell.h */,
+				BF6478871A91964E00717ABE /* KTPTableViewCell.m */,
+				BF64788C1A92858700717ABE /* TableItem.h */,
+				BF64788D1A92858700717ABE /* TableItem.m */,
 			);
 			name = ProfileView;
 			sourceTree = "<group>";
@@ -689,7 +699,9 @@
 				A835049D1A8005AB00644B2A /* KTPChangePasswordViewController.m in Sources */,
 				A83504B21A85785D00644B2A /* KTPPledgesViewController.m in Sources */,
 				A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */,
+				BF64788E1A92858700717ABE /* TableItem.m in Sources */,
 				A883BE7A1A79715A00139232 /* KTPPitchesViewController.m in Sources */,
+				BF6478881A91964E00717ABE /* KTPTableViewCell.m in Sources */,
 				A8C1DB011A15ADF700298FF9 /* KTPMember.m in Sources */,
 				A883BE8A1A7AC85F00139232 /* KTPPitchVote.m in Sources */,
 				A8B2D6591A78386600039724 /* UIImage+KTPImages.m in Sources */,
