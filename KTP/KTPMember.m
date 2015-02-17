@@ -29,6 +29,7 @@
                      proDevEvents:(NSInteger)proDevEvents
                      comServHours:(CGFloat)comServHours
                        committees:(NSArray*)committees
+                         meetings:(NSArray*)meetings
                       phoneNumber:(NSString*)phoneNumber
                             email:(NSString*)email
                          facebook:(NSString*)facebook
@@ -56,6 +57,7 @@
         self.proDevEvents   = proDevEvents                      ?   proDevEvents    :   0;
         self.comServHours   = comServHours                      ?   comServHours    :   0;
         self.committees     = committees                        ?   committees      :   @[];
+        self.meetings       = meetings                          ?   meetings        :   @[];
         self.phoneNumber    = [phoneNumber isNotNilOrEmpty]     ?   phoneNumber     :   @"";
         self.email          = [email isNotNilOrEmpty]           ?   email           :   @"";
         self.facebook       = [facebook isNotNilOrEmpty]        ?   facebook        :   @"";

@@ -10,4 +10,15 @@
 
 @implementation KTPPledgeMeeting
 
+- (instancetype)initWithActive:(KTPMember*)active pledge:(KTPMember*)pledge complete:(BOOL)complete _id:(NSString*)_id {
+    self = [super init];
+    if (self) {
+        self.active = active;
+        self.pledge = pledge;
+        self.complete = complete;
+        self._id = _id;
+    }
+    return self;
+}
+
 @end

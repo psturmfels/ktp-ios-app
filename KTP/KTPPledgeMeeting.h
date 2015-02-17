@@ -11,8 +11,11 @@
 
 @interface KTPPledgeMeeting : NSObject
 
+@property (nonatomic, strong) NSString *_id;
 @property (nonatomic, strong) KTPMember *pledge;
 @property (nonatomic, strong) KTPMember *active;
-@property (nonatomic) BOOL completed;
+@property (nonatomic) BOOL complete;
+
+- (instancetype)initWithActive:(KTPMember*)active pledge:(KTPMember*)pledge complete:(BOOL)complete _id:(NSString*)_id;
 
 @end

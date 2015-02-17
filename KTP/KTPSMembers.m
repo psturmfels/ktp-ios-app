@@ -9,6 +9,7 @@
 #import "KTPSMembers.h"
 #import "KTPMember.h"
 #import "KTPNetworking.h"
+#import "KTPPledgeMeeting.h"
 
 @implementation KTPSMembers
 
@@ -31,7 +32,7 @@
 
 - (void)reloadMembers {
     // Requests all members sorted by first_name in ascending order
-    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteAPIMembers appending:nil parameters:@"sort=first_name" withBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteAPIMembers appending:nil parameters:@"populate=meetings&sort=first_name" withBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (!error) {
             NSError *error;
             NSArray *members = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
@@ -68,6 +69,7 @@
                                                              proDevEvents:[(NSNumber*)dict[@"pro_dev_events"] integerValue]
                                                              comServHours:[(NSNumber*)dict[@"service_hours"] floatValue]
                                                                committees:dict[@"committees"]
+                                                                 meetings:nil
                                                               phoneNumber:dict[@"phone_number"]
                                                                     email:dict[@"email"]
                                                                  facebook:dict[@"facebook"]
@@ -77,6 +79,18 @@
                                                                   account:dict[@"account"]
                                                                       _id:dict[@"_id"]
                                                                       __v:dict[@"__v"]]];
+    }
+    
+    int i = 0;
+    for (KTPMember *member in self.membersArray) {
+        NSMutableArray *meetings = [NSMutableArray new];
+        for (NSDictionary *dict in members[i][@"meetings"]) {
+            KTPMember *active = [KTPMember memberWithID:dict[@"active"]];
+            KTPMember *pledge = [KTPMember memberWithID:dict[@"pledge"]];
+            [meetings addObject:[[KTPPledgeMeeting alloc] initWithActive:active pledge:pledge complete:[dict[@"complete"] boolValue] _id:dict[@"_id"]]];
+        }
+        member.meetings = meetings;
+        ++i;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMembersUpdated object:self];
 }

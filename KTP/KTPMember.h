@@ -32,6 +32,7 @@
 @property (nonatomic)           NSInteger   proDevEvents;
 @property (nonatomic)           CGFloat     comServHours;
 @property (nonatomic, strong)   NSArray     *committees;
+@property (nonatomic, strong)   NSArray     *meetings;
 
 // Contact
 @property (nonatomic, strong)   NSString    *phoneNumber;
@@ -84,6 +85,7 @@
                      proDevEvents:(NSInteger)proDevEvents
                      comServHours:(CGFloat)comServHours
                        committees:(NSArray*)committees
+                         meetings:(NSArray*)meetings
                       phoneNumber:(NSString*)phoneNumber
                             email:(NSString*)email
                          facebook:(NSString*)facebook
