@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTPPledgeMeetingsViewController : UIViewController
+@interface KTPPledgeMeetingsViewController : UITableViewController
 
 @end

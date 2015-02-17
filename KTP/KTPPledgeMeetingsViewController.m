@@ -14,6 +14,8 @@
 
 @implementation KTPPledgeMeetingsViewController
 
+#pragma mark - Initialization
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -21,6 +23,8 @@
     }
     return self;
 }
+
+#pragma mark - UIViewController methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
