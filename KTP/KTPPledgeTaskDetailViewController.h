@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) KTPPledgeTask *pledgeTask;
 
+
 /*!
  Initializes this class with a KTPMember.
  

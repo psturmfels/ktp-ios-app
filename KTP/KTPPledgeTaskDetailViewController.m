@@ -13,10 +13,12 @@
 
 @interface KTPPledgeTaskDetailViewController ()
 
-@end
-
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
+
+@end
+
+
 
 @implementation KTPPledgeTaskDetailViewController
 
