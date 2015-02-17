@@ -47,7 +47,6 @@
 		A83504B91A85BC4A00644B2A /* KTPSPledgeTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504B81A85BC4A00644B2A /* KTPSPledgeTasks.m */; };
 		A83504BC1A85BC6400644B2A /* KTPPledgeMeeting.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */; };
 		A83504BF1A85C75C00644B2A /* KTPSPledgeMeetings.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504BE1A85C75C00644B2A /* KTPSPledgeMeetings.m */; };
-		A83504C21A869DFF00644B2A /* KTPPledgeTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */; };
 		A83504C51A86A31900644B2A /* KTPPledgeTasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */; };
 		A873039D1A7199560062B072 /* KTPSMembers.m in Sources */ = {isa = PBXBuildFile; fileRef = A873039C1A7199560062B072 /* KTPSMembers.m */; };
 		A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A01A72C2A80062B072 /* KTPConstants.m */; };
@@ -154,8 +153,6 @@
 		A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeMeeting.m; sourceTree = "<group>"; };
 		A83504BD1A85C75C00644B2A /* KTPSPledgeMeetings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSPledgeMeetings.h; sourceTree = "<group>"; };
 		A83504BE1A85C75C00644B2A /* KTPSPledgeMeetings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSPledgeMeetings.m; sourceTree = "<group>"; };
-		A83504C01A869DFF00644B2A /* KTPPledgeTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPledgeTaskViewController.h; sourceTree = "<group>"; };
-		A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeTaskViewController.m; sourceTree = "<group>"; };
 		A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KTP-Bridging-Header.h"; sourceTree = "<group>"; };
 		A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTPPledgeTasksCell.swift; sourceTree = "<group>"; };
 		A873039B1A7199560062B072 /* KTPSMembers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSMembers.h; sourceTree = "<group>"; };
@@ -381,15 +378,6 @@
 			name = RequirementsView;
 			sourceTree = "<group>";
 		};
-		8B0E2D661A92E7F1000D5177 /* PledgeTaskDetailView */ = {
-			isa = PBXGroup;
-			children = (
-				8B0E2D641A92E6CA000D5177 /* KTPPledgeTaskDetailViewController.m */,
-				8B0E2D631A92E6CA000D5177 /* KTPPledgeTaskDetailViewController.h */,
-			);
-			name = PledgeTaskDetailView;
-			sourceTree = "<group>";
-		};
 		A80943671A6EEF7400B03647 /* MenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,19 +504,18 @@
 		A8C6D0611A7745D900B7CAC0 /* PledgingView */ = {
 			isa = PBXGroup;
 			children = (
+				8B0E2D631A92E6CA000D5177 /* KTPPledgeTaskDetailViewController.h */,
+				8B0E2D641A92E6CA000D5177 /* KTPPledgeTaskDetailViewController.m */,
 				A8C6D05E1A7745CC00B7CAC0 /* KTPPledgingViewController.h */,
 				A8C6D05F1A7745CC00B7CAC0 /* KTPPledgingViewController.m */,
 				A83504AA1A8577DF00644B2A /* KTPPledgeTasksViewController.h */,
 				A83504AB1A8577DF00644B2A /* KTPPledgeTasksViewController.m */,
 				A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */,
-				A83504C01A869DFF00644B2A /* KTPPledgeTaskViewController.h */,
-				A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */,
 				A83504AD1A8577F200644B2A /* KTPPledgeMeetingsViewController.h */,
 				A83504AE1A8577F200644B2A /* KTPPledgeMeetingsViewController.m */,
 				84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */,
 				A83504B01A85785D00644B2A /* KTPPledgesViewController.h */,
 				A83504B11A85785D00644B2A /* KTPPledgesViewController.m */,
-				8B0E2D661A92E7F1000D5177 /* PledgeTaskDetailView */,
 			);
 			name = PledgingView;
 			sourceTree = "<group>";
@@ -699,7 +686,6 @@
 				A8C1DAFE1A15ADA300298FF9 /* KTPMembersViewController.m in Sources */,
 				A883BE871A7AC74F00139232 /* KTPPitch.m in Sources */,
 				A809436A1A6EF5CD00B03647 /* KTPSlideMenuDataSource.m in Sources */,
-				A83504C21A869DFF00644B2A /* KTPPledgeTaskViewController.m in Sources */,
 				A83504A31A81529E00644B2A /* KTPPitchesResultViewController.m in Sources */,
 				897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */,
 				A835049D1A8005AB00644B2A /* KTPChangePasswordViewController.m in Sources */,
