@@ -92,6 +92,7 @@
 - (void)loadTitleLabel{
     self.titleDataLabel = [UILabel labelWithText:self.pledgeTask.taskTitle];
     [self.titleDataLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.titleDataLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     self.titleDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.titleDataLabel];
 }
@@ -106,11 +107,11 @@
                             @"titleDataLabel"       :   self.titleDataLabel
                             };
     
-    /* profileImageView */
+    /* titleDataLabel */
 //    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleDataLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.titleDataLabel attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 //    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleDataLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleDataLabel]-10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[titleDataLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[titleDataLabel]" options:0 metrics:nil views:views]];
     
     
 }
