@@ -67,8 +67,8 @@
 		A8C6D0601A7745CC00B7CAC0 /* KTPPledgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C6D05F1A7745CC00B7CAC0 /* KTPPledgingViewController.m */; };
 		A8F483E21A7D366600B17E7F /* KTPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E11A7D366600B17E7F /* KTPTextView.m */; };
 		A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */; };
+		BF29208E1A92F9BC00EFE46A /* TableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29208D1A92F9BC00EFE46A /* TableItem.m */; };
 		BF6478881A91964E00717ABE /* KTPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6478871A91964E00717ABE /* KTPTableViewCell.m */; };
-		BF64788E1A92858700717ABE /* TableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BF64788D1A92858700717ABE /* TableItem.m */; };
 		C6B8C8AF9F3F88C5FE6DDB97 /* libPods-KTP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E107C6DC1FF5353387CBC832 /* libPods-KTP.a */; };
 /* End PBXBuildFile section */
 
@@ -196,10 +196,10 @@
 		A8F483E71A7D6F3000B17E7F /* UILabel+KTPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+KTPLabel.h"; sourceTree = "<group>"; };
 		A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+KTPLabel.m"; sourceTree = "<group>"; };
 		B0337AD64C6FF27F839A0238 /* Pods-KTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KTP/Pods-KTP.debug.xcconfig"; sourceTree = "<group>"; };
+		BF29208C1A92F9BC00EFE46A /* TableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableItem.h; sourceTree = "<group>"; };
+		BF29208D1A92F9BC00EFE46A /* TableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableItem.m; sourceTree = "<group>"; };
 		BF6478861A91964E00717ABE /* KTPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPTableViewCell.h; sourceTree = "<group>"; };
 		BF6478871A91964E00717ABE /* KTPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPTableViewCell.m; sourceTree = "<group>"; };
-		BF64788C1A92858700717ABE /* TableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableItem.h; path = ../../sampletable/sampletable/TableItem.h; sourceTree = "<group>"; };
-		BF64788D1A92858700717ABE /* TableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableItem.m; path = ../../sampletable/sampletable/TableItem.m; sourceTree = "<group>"; };
 		E107C6DC1FF5353387CBC832 /* libPods-KTP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KTP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -432,8 +432,8 @@
 				A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */,
 				BF6478861A91964E00717ABE /* KTPTableViewCell.h */,
 				BF6478871A91964E00717ABE /* KTPTableViewCell.m */,
-				BF64788C1A92858700717ABE /* TableItem.h */,
-				BF64788D1A92858700717ABE /* TableItem.m */,
+				BF29208C1A92F9BC00EFE46A /* TableItem.h */,
+				BF29208D1A92F9BC00EFE46A /* TableItem.m */,
 			);
 			name = ProfileView;
 			sourceTree = "<group>";
@@ -603,9 +603,10 @@
 				ORGANIZATIONNAME = "Kappa Theta Pi";
 				TargetAttributes = {
 					89855F05199B2BC2006E5A14 = {
-						DevelopmentTeam = VE9497R3WL;
+						DevelopmentTeam = QAZG2BYMD2;
 					};
 					89855F20199B2BC2006E5A14 = {
+						DevelopmentTeam = QAZG2BYMD2;
 						TestTargetID = 89855F05199B2BC2006E5A14;
 					};
 				};
@@ -703,7 +704,7 @@
 				84380F971A919E9200A6A110 /* KTPPledgeMeetingsCell.swift in Sources */,
 				A83504B21A85785D00644B2A /* KTPPledgesViewController.m in Sources */,
 				A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */,
-				BF64788E1A92858700717ABE /* TableItem.m in Sources */,
+				BF29208E1A92F9BC00EFE46A /* TableItem.m in Sources */,
 				A883BE7A1A79715A00139232 /* KTPPitchesViewController.m in Sources */,
 				BF6478881A91964E00717ABE /* KTPTableViewCell.m in Sources */,
 				A8C1DB011A15ADF700298FF9 /* KTPMember.m in Sources */,
@@ -859,11 +860,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
 				INFOPLIST_FILE = "KTP/KTP-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "KTP/KTP-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
@@ -878,11 +881,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KTP/KTP-Prefix.pch";
 				INFOPLIST_FILE = "KTP/KTP-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "KTP/KTP-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
