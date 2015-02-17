@@ -61,6 +61,7 @@
 
 -(void)initFields {
     
+    //personal info
     TableItem *firstName = [TableItem new];
     firstName.placeholder = @"First Name";
     firstName.text = self.member.firstName;
@@ -86,6 +87,7 @@
     bio.placeholder = @"Add bio here...";
     bio.text = self.member.biography;
     
+    //fraternity info
     TableItem *status = [TableItem new];
     status.placeholder = @"Status";
     status.text = self.member.status;
@@ -103,10 +105,26 @@
     proDev.text = [NSString stringWithFormat:@"%ld", (long)self.member.proDevEvents];
     
     //contact info
+    TableItem *twitter = [TableItem new];
+    twitter.placeholder = @"Twitter Handle";
+    twitter.text = self.member.twitter;
+    TableItem *facebook = [TableItem new];
+    facebook.placeholder = @"Facebook Username";
+    facebook.text = self.member.facebook;
+    TableItem *linkedIn = [TableItem new];
+    linkedIn.placeholder = @"LinkedIn Username";
+    linkedIn.text = self.member.linkedIn;
+    TableItem *personalSite = [TableItem new];
+    personalSite.placeholder = @"www.yourpersonalwebsite.com";
+    personalSite.text = self.member.personalSite;
+    TableItem *phoneNumber = [TableItem new];
+    phoneNumber.placeholder = @"(xxx)-xxx-xxxx";
+    phoneNumber.text = self.member.phoneNumber;
     
     self.fields = [@[
                      [@[firstName, lastName, gender, uniqname, major, gradYear, hometown, bio] mutableCopy],
-                     [@[status, role, pledgeClass, comService, proDev] mutableCopy]
+                     [@[status, role, pledgeClass, comService, proDev] mutableCopy],
+                     [@[twitter, facebook, linkedIn, personalSite, phoneNumber] mutableCopy]
                      ] mutableCopy];
 }
 
@@ -205,14 +223,14 @@
         case 1:
             return 5;
         case 2:
-            return 2;
+            return 5;
     }
     
     return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -236,12 +254,17 @@
     
     KTPTableViewCell *cell = (KTPTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 || indexPath.section == 2) {
+        if(indexPath.row == 2) {
+            
+        }
         //manually passing the touch through to the text field, instead of textFieldDidBeginEditing
         cell.textField.enabled = YES;
         [cell.textField becomeFirstResponder];
     } else if(indexPath.section == 1) {
-        [self showPicker:indexPath];
+        if([self.member.status isEqualToString:@"Eboard"])  {
+            [self showPicker:indexPath];
+        }
     }
 }
 
@@ -249,7 +272,12 @@
     
     KTPTableViewCell *cell = (KTPTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     NSString *title = self.pickerChoices[indexPath.row][0];
-    NSArray *data = self.pickerChoices[indexPath.row][1];
+    NSArray *data;
+    if(indexPath.section == 0 && indexPath.row == 2) {
+        data = @[@"Female", @"Male", @"Other"];
+    } else {
+        data = self.pickerChoices[indexPath.row][1];
+    }
     TableItem *item = self.fields[indexPath.section][indexPath.row];
     
     ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc]
@@ -257,7 +285,6 @@
                                        rows:data
                                        initialSelection:0
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           
                                            if (![cell.textField.text isEqualToString:selectedValue]) {
                                                self.userDidMakeChanges = YES;
                                            }
@@ -282,7 +309,6 @@
  Called when the done button is tapped. Makes a request to the KTP API to update the member's profile information. Displays an alert if there was an error when updating. Otherwise, dismisses the view controller after the request is complete.
  */
 - (void)doneButtonTapped {
-//    [self.view endEditing:YES];
     if (self.curIndexPath) {
         KTPTableViewCell *cell = (KTPTableViewCell *)[self.tableView cellForRowAtIndexPath:self.curIndexPath];
         NSMutableArray *sectionFields = [self.fields objectAtIndex:self.curIndexPath.section];
@@ -324,6 +350,12 @@
     self.member.pledgeClass = [self.fields[1][2] text];
     self.member.comServHours = [[self.fields[1][3] text] integerValue];
     self.member.proDevEvents = [[self.fields[1][4] text] integerValue];
+    
+    self.member.twitter = [self.fields[2][0] text];
+    self.member.facebook = [self.fields[2][1] text];
+    self.member.linkedIn = [self.fields[2][2] text];
+    self.member.personalSite = [self.fields[2][3] text];
+    self.member.phoneNumber = [self.fields[2][4] text];
     
     // Update member in database
     [self.member update:^(BOOL successful) {
