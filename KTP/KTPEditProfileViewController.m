@@ -107,7 +107,7 @@
     
     //contact info
     KTPEditProfileTableItem *twitter = [KTPEditProfileTableItem new];
-    twitter.placeholder = @"Twitter Handle";
+    twitter.placeholder = @"@yourtwitterhandle";
     twitter.text = self.member.twitter;
     KTPEditProfileTableItem *facebook = [KTPEditProfileTableItem new];
     facebook.placeholder = @"Facebook Username";
@@ -139,7 +139,8 @@
     NSArray *hoursChoices = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10"];
     NSArray *proDevChoices = @[@"0", @"1", @"2", @"3"];
     
-    self.pickerChoices = @[@[@"Select Status", statusChoices], @[@"Select Role", roleChoices],
+    self.pickerChoices = @[@[@"Select Status", statusChoices],
+                           @[@"Select Role", roleChoices],
                            @[@"Select Pledge Class", pledgeClassChoices],
                            @[@"Select Volunteer Hours", hoursChoices],
                            @[@"Select Pro Dev Events", proDevChoices]];
@@ -216,7 +217,8 @@
     cell.textField.text = cell.textView.text = data.text;
     cell.textField.delegate = self;
     cell.textView.delegate = self;
-    cell.textField.enabled = cell.textView.userInteractionEnabled = NO; //only set it enabled after being selected, check if it is in a section that should have a keyboard
+    cell.textField.enabled = cell.textView.userInteractionEnabled = NO;
+    //only set it enabled after being selected, check if it is in a section that should have a keyboard
     
     return cell;
 }
@@ -330,19 +332,6 @@
         return;
     }
     
-    // Check if all fields have been completed
-//    for(int i = 0; i < [self.textFields count]; i++) {
-//        UITextField *textField = [self.textFields objectAtIndex:i];
-//        
-//        // If a field was left empty, alert the user
-//        if(![textField.text isNotNilOrEmpty]){
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Missing Fields" message:@"One or more sections were not completed" preferredStyle:UIAlertControllerStyleAlert];
-//            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-//            [self presentViewController:alert animated:YES completion:nil];
-//            return;
-//        }
-//    }
-    
     // Update member object
     self.member.firstName = [self.fields[0][0] text];
     self.member.lastName = [self.fields[0][1] text];
@@ -377,6 +366,57 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString* totalString = [NSString stringWithFormat:@"%@%@",textField.text,string];
+    
+    // if it's the phone number textfield format it.
+    if(self.curIndexPath.section == 2 && self.curIndexPath.row == 4) {
+        if (range.length == 1) {
+            // Delete button was hit.. so tell the method to delete the last char.
+            textField.text = [self formatPhoneNumber:totalString deleteLastChar:YES];
+        } else {
+            textField.text = [self formatPhoneNumber:totalString deleteLastChar:NO ];
+        }
+        return NO;
+    }
+    
+    return YES;
+}
+
+-(NSString*) formatPhoneNumber:(NSString*) simpleNumber deleteLastChar:(BOOL)deleteLastChar {
+    if(simpleNumber.length==0) return @"";
+    // use regex to remove non-digits(including spaces) so we are left with just the numbers
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[\\s-\\(\\)]" options:NSRegularExpressionCaseInsensitive error:&error];
+    simpleNumber = [regex stringByReplacingMatchesInString:simpleNumber options:0 range:NSMakeRange(0, [simpleNumber length]) withTemplate:@""];
+    
+    // check if the number is to long
+    if(simpleNumber.length>10) {
+        // remove last extra chars.
+        simpleNumber = [simpleNumber substringToIndex:10];
+    }
+    
+    if(deleteLastChar) {
+        // should we delete the last digit?
+        simpleNumber = [simpleNumber substringToIndex:[simpleNumber length] - 1];
+    }
+    
+    // 123 456 7890
+    // format the number.. if it's less then 7 digits.. then use this regex.
+    if(simpleNumber.length<7)
+        simpleNumber = [simpleNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d+)"
+                                                               withString:@"($1) $2"
+                                                                  options:NSRegularExpressionSearch
+                                                                    range:NSMakeRange(0, [simpleNumber length])];
+    
+    else   // else do this one..
+        simpleNumber = [simpleNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d{3})(\\d+)"
+                                                               withString:@"($1) $2-$3"
+                                                                  options:NSRegularExpressionSearch
+                                                                    range:NSMakeRange(0, [simpleNumber length])];
+    return simpleNumber;
 }
 
 #pragma mark - Handling Keyboard Show/Hide

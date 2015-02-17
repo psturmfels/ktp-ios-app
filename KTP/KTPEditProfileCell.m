@@ -17,7 +17,6 @@
         self.textView = [KTPTextView new];
         self.textView.frame = CGRectMake(0, 0, 1, 1);
         self.textView.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
-        
         [self.contentView addSubview:self.textField];
         [self.contentView addSubview:self.textView];
         
