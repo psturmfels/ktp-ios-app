@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842DF0861A932BB400846CCE /* KTPOptionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */; };
 		84380F971A919E9200A6A110 /* KTPPledgeMeetingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */; };
 		89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F67199B2E230033B5A4 /* KTPBlockView.m */; };
 		89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */; };
@@ -84,6 +85,8 @@
 
 /* Begin PBXFileReference section */
 		75A2B277C32F40D9CDD7CC7A /* Pods-KTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.release.xcconfig"; path = "Pods/Target Support Files/Pods-KTP/Pods-KTP.release.xcconfig"; sourceTree = "<group>"; };
+		842DF0841A932BB400846CCE /* KTPOptionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPOptionSelectViewController.h; sourceTree = "<group>"; };
+		842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPOptionSelectViewController.m; sourceTree = "<group>"; };
 		84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTPPledgeMeetingsCell.swift; sourceTree = "<group>"; };
 		89581F66199B2E230033B5A4 /* KTPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPBlockView.h; sourceTree = "<group>"; };
 		89581F67199B2E230033B5A4 /* KTPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPBlockView.m; sourceTree = "<group>"; };
@@ -312,6 +315,8 @@
 				A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */,
 				89855F18199B2BC2006E5A14 /* KTPAppDelegate.h */,
 				89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */,
+				842DF0841A932BB400846CCE /* KTPOptionSelectViewController.h */,
+				842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */,
 				A883BE7F1A7AC0E100139232 /* Constants */,
 				A883BE801A7AC0EA00139232 /* Networking */,
 				89581FB8199C6EB80033B5A4 /* User */,
@@ -603,10 +608,10 @@
 				ORGANIZATIONNAME = "Kappa Theta Pi";
 				TargetAttributes = {
 					89855F05199B2BC2006E5A14 = {
-						DevelopmentTeam = QAZG2BYMD2;
+						DevelopmentTeam = VE9497R3WL;
 					};
 					89855F20199B2BC2006E5A14 = {
-						DevelopmentTeam = QAZG2BYMD2;
+						DevelopmentTeam = VE9497R3WL;
 						TestTargetID = 89855F05199B2BC2006E5A14;
 					};
 				};
@@ -733,6 +738,7 @@
 				A83504BC1A85BC6400644B2A /* KTPPledgeMeeting.m in Sources */,
 				89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */,
 				A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */,
+				842DF0861A932BB400846CCE /* KTPOptionSelectViewController.m in Sources */,
 				A883BE8D1A7ACEC800139232 /* KTPPitchVoteViewController.m in Sources */,
 				A83504BF1A85C75C00644B2A /* KTPSPledgeMeetings.m in Sources */,
 				A80943631A6EEE3600B03647 /* KTPRootViewController.m in Sources */,
