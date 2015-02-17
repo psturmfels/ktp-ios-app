@@ -176,7 +176,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 7) {
+    if(indexPath.section == 0 && indexPath.row == 7) {
         return kStandardTableViewCellHeight * 4;
     } else {
         return kStandardTableViewCellHeight;
@@ -196,6 +196,11 @@
         } else {
             cell.textField.textColor = [UIColor blackColor];
         }
+        
+        if (indexPath.row == 7) {
+            // bio cell
+            cell.isTextField = NO;
+        }
     } else if(indexPath.section == 1) {
         if(![[KTPSUser currentUser].member.status isEqualToString:@"Eboard"]) {
             cell.textField.textColor = [UIColor lightGrayColor];
@@ -207,9 +212,13 @@
     NSMutableArray *sectionFields = [self.fields objectAtIndex:indexPath.section];
     KTPEditProfileTableItem *data = [sectionFields objectAtIndex:indexPath.row];
     cell.textField.placeholder = data.placeholder;
+    cell.textView.placeholder = data.placeholder;
     cell.textField.text = data.text;
+    cell.textView.text = data.text;
     cell.textField.delegate = self;
+    cell.textView.delegate = self;
     cell.textField.enabled = NO; //only set it enabled after being selected, check if it is in a section that should have a keyboard
+    cell.textView.userInteractionEnabled = NO;
     
     
     return cell;
@@ -251,6 +260,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    NSLog(@"selected row");
+    
     self.prevIndexPath = self.curIndexPath ? self.curIndexPath : indexPath;
     self.curIndexPath = indexPath;
     
@@ -264,8 +275,13 @@
         }
     } else {
         if(!(indexPath.section == 0 && indexPath.row == 3)) {
-            cell.textField.enabled = YES;
-            [cell.textField becomeFirstResponder];
+            if (indexPath.section == 0 && indexPath.row == 7) {
+                cell.textView.userInteractionEnabled = YES;
+                [cell.textView becomeFirstResponder];
+            } else {
+                cell.textField.enabled = YES;
+                [cell.textField becomeFirstResponder];
+            }
         }
     }
 }
@@ -317,7 +333,7 @@
         KTPEditProfileCell *cell = (KTPEditProfileCell *)[self.tableView cellForRowAtIndexPath:self.curIndexPath];
         NSMutableArray *sectionFields = [self.fields objectAtIndex:self.curIndexPath.section];
         KTPEditProfileTableItem *data = [sectionFields objectAtIndex:self.curIndexPath.row];
-        data.text = cell.textField.text;
+        data.text = cell.isTextField ? cell.textField.text : cell.textView.text;
     }
     NSLog(@"done tapped, self.fields should be updated to pass back to parent view controller fields: %@", self.fields);
     
@@ -400,8 +416,14 @@
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    NSLog(@"textViewDidEndEditing");
+    NSLog(@"saving text: %@", textView.text);
+    assert(self.prevIndexPath);
+    NSMutableArray *sectionFields = [self.fields objectAtIndex:self.prevIndexPath.section];
+    KTPEditProfileTableItem *data = [sectionFields objectAtIndex:self.prevIndexPath.row];
+    data.text = textView.text;
+    textView.userInteractionEnabled = NO;
     self.activeField = nil;
-
 }
 
 - (void)keyboardDidChangeFrame:(NSNotification*)notification {
