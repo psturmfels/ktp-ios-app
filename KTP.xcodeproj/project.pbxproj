@@ -315,8 +315,6 @@
 				A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */,
 				89855F18199B2BC2006E5A14 /* KTPAppDelegate.h */,
 				89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */,
-				842DF0841A932BB400846CCE /* KTPOptionSelectViewController.h */,
-				842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */,
 				A883BE7F1A7AC0E100139232 /* Constants */,
 				A883BE801A7AC0EA00139232 /* Networking */,
 				89581FB8199C6EB80033B5A4 /* User */,
@@ -332,6 +330,7 @@
 				89A1553C19AE599400DE7346 /* RequirementsView */,
 				89581FB9199C6EC30033B5A4 /* AnnouncementsView */,
 				A8B2D6501A7799E600039724 /* SettingsView */,
+				A8A234501A933B020020E51D /* OptionSelectView */,
 				89581FB7199C6EB10033B5A4 /* Custom Views */,
 				89581FB6199C6EA20033B5A4 /* Categories */,
 				89855F1B199B2BC2006E5A14 /* Images.xcassets */,
@@ -489,6 +488,15 @@
 				A83504A81A81720E00644B2A /* KTPPitchesResultSortViewController.m */,
 			);
 			name = PitchesView;
+			sourceTree = "<group>";
+		};
+		A8A234501A933B020020E51D /* OptionSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				842DF0841A932BB400846CCE /* KTPOptionSelectViewController.h */,
+				842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */,
+			);
+			name = OptionSelectView;
 			sourceTree = "<group>";
 		};
 		A8B2D6501A7799E600039724 /* SettingsView */ = {
