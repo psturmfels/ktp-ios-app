@@ -1,14 +1,14 @@
 //
-//  KTPTableViewCell.m
+//  KTPEditProfileCell.m
 //  KTP
 //
 //  Created by Kate Findlay on 2/15/15.
 //  Copyright (c) 2015 Kappa Theta Pi. All rights reserved.
 //
 
-#import "KTPTableViewCell.h"
+#import "KTPEditProfileCell.h"
 
-@implementation KTPTableViewCell
+@implementation KTPEditProfileCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

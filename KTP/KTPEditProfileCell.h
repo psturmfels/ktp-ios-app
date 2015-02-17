@@ -1,5 +1,5 @@
 //
-//  KTPTableViewCell.h
+//  KTPEditProfileCell.h
 //  KTP
 //
 //  Created by Kate Findlay on 2/15/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTPTableViewCell : UITableViewCell
+@interface KTPEditProfileCell : UITableViewCell
 
 @property (nonatomic) UITextField *textField;
 

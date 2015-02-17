@@ -12,8 +12,8 @@
 #import "KTPSMembers.h"
 #import "KTPTextView.h"
 #import "NSString+KTPStrings.h"
-#import "KTPTableViewCell.h"
-#import "TableItem.h"
+#import "KTPEditProfileCell.h"
+#import "KTPEditProfileTableItem.h"
 #import <ActionSheetPicker-3.0/ActionSheetStringPicker.h>
 #import "KTPSUser.h"
 
@@ -63,62 +63,62 @@
 -(void)initFields {
     
     //personal info
-    TableItem *firstName = [TableItem new];
+    KTPEditProfileTableItem *firstName = [KTPEditProfileTableItem new];
     firstName.placeholder = @"First Name";
     firstName.text = self.member.firstName;
-    TableItem *lastName = [TableItem new];
+    KTPEditProfileTableItem *lastName = [KTPEditProfileTableItem new];
     lastName.placeholder = @"Last Name";
     lastName.text = self.member.lastName;
-    TableItem *gender = [TableItem new];
+    KTPEditProfileTableItem *gender = [KTPEditProfileTableItem new];
     gender.placeholder = @"Gender";
     gender.text = self.member.gender;
-    TableItem *uniqname = [TableItem new];
+    KTPEditProfileTableItem *uniqname = [KTPEditProfileTableItem new];
     uniqname.placeholder = @"Uniqname";
     uniqname.text = self.member.uniqname;
-    TableItem *major = [TableItem new];
+    KTPEditProfileTableItem *major = [KTPEditProfileTableItem new];
     major.placeholder = @"Major";
     major.text = self.member.major;
-    TableItem *gradYear = [TableItem new];
+    KTPEditProfileTableItem *gradYear = [KTPEditProfileTableItem new];
     gradYear.placeholder = @"Graduation Year";
     gradYear.text = [NSString stringWithFormat:@"%ld", (long)self.member.gradYear];
-    TableItem *hometown = [TableItem new];
+    KTPEditProfileTableItem *hometown = [KTPEditProfileTableItem new];
     hometown.placeholder = @"Hometown";
     hometown.text = self.member.hometown;
-    TableItem *bio = [TableItem new];
+    KTPEditProfileTableItem *bio = [KTPEditProfileTableItem new];
     bio.placeholder = @"Add bio here...";
     bio.text = self.member.biography;
     
     //fraternity info
-    TableItem *status = [TableItem new];
+    KTPEditProfileTableItem *status = [KTPEditProfileTableItem new];
     status.placeholder = @"Status";
     status.text = self.member.status;
-    TableItem *role = [TableItem new];
+    KTPEditProfileTableItem *role = [KTPEditProfileTableItem new];
     role.placeholder = @"Role";
     role.text = self.member.role;
-    TableItem *pledgeClass = [TableItem new];
+    KTPEditProfileTableItem *pledgeClass = [KTPEditProfileTableItem new];
     pledgeClass.placeholder = @"Pledge Class";
     pledgeClass.text = self.member.pledgeClass;
-    TableItem *comService = [TableItem new];
+    KTPEditProfileTableItem *comService = [KTPEditProfileTableItem new];
     comService.placeholder = @"Community Service Hours";
     comService.text = [NSString stringWithFormat:@"%ld", (long)self.member.comServHours];
-    TableItem *proDev = [TableItem new];
+    KTPEditProfileTableItem *proDev = [KTPEditProfileTableItem new];
     proDev.placeholder = @"Professional Development Events";
     proDev.text = [NSString stringWithFormat:@"%ld", (long)self.member.proDevEvents];
     
     //contact info
-    TableItem *twitter = [TableItem new];
+    KTPEditProfileTableItem *twitter = [KTPEditProfileTableItem new];
     twitter.placeholder = @"Twitter Handle";
     twitter.text = self.member.twitter;
-    TableItem *facebook = [TableItem new];
+    KTPEditProfileTableItem *facebook = [KTPEditProfileTableItem new];
     facebook.placeholder = @"Facebook Username";
     facebook.text = self.member.facebook;
-    TableItem *linkedIn = [TableItem new];
+    KTPEditProfileTableItem *linkedIn = [KTPEditProfileTableItem new];
     linkedIn.placeholder = @"LinkedIn Username";
     linkedIn.text = self.member.linkedIn;
-    TableItem *personalSite = [TableItem new];
+    KTPEditProfileTableItem *personalSite = [KTPEditProfileTableItem new];
     personalSite.placeholder = @"www.yourpersonalwebsite.com";
     personalSite.text = self.member.personalSite;
-    TableItem *phoneNumber = [TableItem new];
+    KTPEditProfileTableItem *phoneNumber = [KTPEditProfileTableItem new];
     phoneNumber.placeholder = @"(xxx)-xxx-xxxx";
     phoneNumber.text = self.member.phoneNumber;
     
@@ -169,7 +169,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerClass:[KTPTableViewCell class] forCellReuseIdentifier:@"MemberEditCell"];
+    [self.tableView registerClass:[KTPEditProfileCell class] forCellReuseIdentifier:@"MemberEditCell"];
     self.tableView.allowsSelection = YES;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.view addSubview:self.tableView];
@@ -187,7 +187,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    KTPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberEditCell" forIndexPath:indexPath];
+    KTPEditProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberEditCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if(indexPath.section == 0) {
@@ -205,7 +205,7 @@
     }
     
     NSMutableArray *sectionFields = [self.fields objectAtIndex:indexPath.section];
-    TableItem *data = [sectionFields objectAtIndex:indexPath.row];
+    KTPEditProfileTableItem *data = [sectionFields objectAtIndex:indexPath.row];
     cell.textField.placeholder = data.placeholder;
     cell.textField.text = data.text;
     cell.textField.delegate = self;
@@ -254,7 +254,7 @@
     self.prevIndexPath = self.curIndexPath ? self.curIndexPath : indexPath;
     self.curIndexPath = indexPath;
     
-    KTPTableViewCell *cell = (KTPTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    KTPEditProfileCell *cell = (KTPEditProfileCell *)[tableView cellForRowAtIndexPath:indexPath];
 
     if (indexPath.section == 0 && indexPath.row == 2) {
         [self showPicker:indexPath];
@@ -272,7 +272,7 @@
 
 -(void)showPicker:(NSIndexPath *)indexPath {
     
-    KTPTableViewCell *cell = (KTPTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    KTPEditProfileCell *cell = (KTPEditProfileCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     NSString *title;
     NSArray *data;
     if(indexPath.section == 0 && indexPath.row == 2) {
@@ -282,7 +282,7 @@
         title = self.pickerChoices[indexPath.row][0];
         data = self.pickerChoices[indexPath.row][1];
     }
-    TableItem *item = self.fields[indexPath.section][indexPath.row];
+    KTPEditProfileTableItem *item = self.fields[indexPath.section][indexPath.row];
     
     ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc]
                                        initWithTitle:title
@@ -314,9 +314,9 @@
  */
 - (void)doneButtonTapped {
     if (self.curIndexPath) {
-        KTPTableViewCell *cell = (KTPTableViewCell *)[self.tableView cellForRowAtIndexPath:self.curIndexPath];
+        KTPEditProfileCell *cell = (KTPEditProfileCell *)[self.tableView cellForRowAtIndexPath:self.curIndexPath];
         NSMutableArray *sectionFields = [self.fields objectAtIndex:self.curIndexPath.section];
-        TableItem *data = [sectionFields objectAtIndex:self.curIndexPath.row];
+        KTPEditProfileTableItem *data = [sectionFields objectAtIndex:self.curIndexPath.row];
         data.text = cell.textField.text;
     }
     NSLog(@"done tapped, self.fields should be updated to pass back to parent view controller fields: %@", self.fields);
@@ -388,7 +388,7 @@
     NSLog(@"saving text: %@", textField.text);
     assert(self.prevIndexPath);
     NSMutableArray *sectionFields = [self.fields objectAtIndex:self.prevIndexPath.section];
-    TableItem *data = [sectionFields objectAtIndex:self.prevIndexPath.row];
+    KTPEditProfileTableItem *data = [sectionFields objectAtIndex:self.prevIndexPath.row];
     data.text = textField.text;
     textField.enabled = NO;
     self.activeField = nil;

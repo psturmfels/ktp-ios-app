@@ -2,7 +2,7 @@
 //  KTPOptionSelectViewController.m
 //  KTP
 //
-//  Created by Admin on 2/17/15.
+//  Created by Owen Yang on 2/17/15.
 //  Copyright (c) 2015 Kappa Theta Pi. All rights reserved.
 //
 
