@@ -187,6 +187,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     KTPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberEditCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if(indexPath.section == 0) {
         if(indexPath.row == 3) {
@@ -254,16 +255,16 @@
     
     KTPTableViewCell *cell = (KTPTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 
-    if (indexPath.section == 0 || indexPath.section == 2) {
-        if(indexPath.row == 2) {
-            
-        }
-        //manually passing the touch through to the text field, instead of textFieldDidBeginEditing
-        cell.textField.enabled = YES;
-        [cell.textField becomeFirstResponder];
+    if (indexPath.section == 0 && indexPath.row == 2) {
+        [self showPicker:indexPath];
     } else if(indexPath.section == 1) {
         if([self.member.status isEqualToString:@"Eboard"])  {
             [self showPicker:indexPath];
+        }
+    } else {
+        if(!(indexPath.section == 0 && indexPath.row == 3)) {
+            cell.textField.enabled = YES;
+            [cell.textField becomeFirstResponder];
         }
     }
 }
@@ -271,11 +272,13 @@
 -(void)showPicker:(NSIndexPath *)indexPath {
     
     KTPTableViewCell *cell = (KTPTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    NSString *title = self.pickerChoices[indexPath.row][0];
+    NSString *title;
     NSArray *data;
     if(indexPath.section == 0 && indexPath.row == 2) {
+        title = @"Select Gender";
         data = @[@"Female", @"Male", @"Other"];
     } else {
+        title = self.pickerChoices[indexPath.row][0];
         data = self.pickerChoices[indexPath.row][1];
     }
     TableItem *item = self.fields[indexPath.section][indexPath.row];
