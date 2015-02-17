@@ -92,7 +92,7 @@
 - (void)loadTitleLabel{
     self.titleDataLabel = [UILabel labelWithText:self.pledgeTask.taskTitle];
     [self.titleDataLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.titleDataLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    [self.titleDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
     self.titleDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.titleDataLabel];
 }
