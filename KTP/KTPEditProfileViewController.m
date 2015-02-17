@@ -15,6 +15,7 @@
 #import "KTPTableViewCell.h"
 #import "TableItem.h"
 #import <ActionSheetPicker-3.0/ActionSheetStringPicker.h>
+#import "KTPSUser.h"
 
 
 @interface KTPEditProfileViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate>
@@ -196,7 +197,7 @@
             cell.textField.textColor = [UIColor blackColor];
         }
     } else if(indexPath.section == 1) {
-        if(![self.member.status isEqualToString:@"Eboard"]) {
+        if(![[KTPSUser currentUser].member.status isEqualToString:@"Eboard"]) {
             cell.textField.textColor = [UIColor lightGrayColor];
         } else {
             cell.textField.textColor = [UIColor blackColor];
@@ -258,7 +259,7 @@
     if (indexPath.section == 0 && indexPath.row == 2) {
         [self showPicker:indexPath];
     } else if(indexPath.section == 1) {
-        if([self.member.status isEqualToString:@"Eboard"])  {
+        if([[KTPSUser currentUser].member.status isEqualToString:@"Eboard"])  {
             [self showPicker:indexPath];
         }
     } else {

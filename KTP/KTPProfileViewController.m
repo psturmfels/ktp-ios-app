@@ -85,7 +85,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if ([KTPSUser currentUser].member == self.member) {
+    if ([KTPSUser currentUser].member == self.member || [[KTPSUser currentUser].member.status isEqualToString:@"Eboard"]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                                                target:self
                                                                                                action:@selector(editButtonTapped)];
