@@ -18,4 +18,9 @@
 
 - (instancetype)initWithActive:(KTPMember*)active pledge:(KTPMember*)pledge complete:(BOOL)complete _id:(NSString*)_id;
 
+/*!
+ Update's this pledge meeting's information in the database. Calls block after update is complete.
+ */
+- (void)update:(void (^)(BOOL successful))block;
+
 @end

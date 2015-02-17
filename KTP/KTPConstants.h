@@ -20,6 +20,7 @@ extern NSString *const KTPNotificationPitchVotedSuccess;
 extern NSString *const KTPNotificationPitchVotedFailure;
 extern NSString *const KTPNotificationPledgeTasksUpdated;
 extern NSString *const KTPNotificationPledgeTasksUpdateFailed;
+extern NSString *const KTPNotificationPledgeMeetingUpdateFailed;
 
 #define kSlideMenuWidth                 [UIScreen mainScreen].bounds.size.width * 0.8
 #define kSlideAnimationDuration         0.2
