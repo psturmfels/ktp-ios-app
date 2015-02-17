@@ -189,37 +189,34 @@
     
     KTPEditProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberEditCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.isTextField = YES;                             // textfield by default
+    cell.textField.textColor = [UIColor blackColor];    // black by default
     
-    if(indexPath.section == 0) {
-        if(indexPath.row == 3) {
+    cell.textField.autocapitalizationType = cell.textView.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+    cell.textField.autocorrectionType = cell.textView.autocorrectionType = UITextAutocorrectionTypeDefault;
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 3) {
             cell.textField.textColor = [UIColor lightGrayColor];
-        } else {
-            cell.textField.textColor = [UIColor blackColor];
         }
-        
-        if (indexPath.row == 7) {
-            // bio cell
+        if (indexPath.row == 7) {   // bio cell
             cell.isTextField = NO;
         }
-    } else if(indexPath.section == 1) {
-        if(![[KTPSUser currentUser].member.status isEqualToString:@"Eboard"]) {
+    } else if (indexPath.section == 1) {
+        if (![[KTPSUser currentUser].member.status isEqualToString:@"Eboard"]) {
             cell.textField.textColor = [UIColor lightGrayColor];
-        } else {
-            cell.textField.textColor = [UIColor blackColor];
         }
+    } else if (indexPath.section == 2) {
+        cell.textField.autocapitalizationType = cell.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        cell.textField.autocorrectionType = cell.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     }
     
-    NSMutableArray *sectionFields = [self.fields objectAtIndex:indexPath.section];
-    KTPEditProfileTableItem *data = [sectionFields objectAtIndex:indexPath.row];
-    cell.textField.placeholder = data.placeholder;
-    cell.textView.placeholder = data.placeholder;
-    cell.textField.text = data.text;
-    cell.textView.text = data.text;
+    KTPEditProfileTableItem *data = self.fields[indexPath.section][indexPath.row];
+    cell.textField.placeholder = cell.textView.placeholder = data.placeholder;
+    cell.textField.text = cell.textView.text = data.text;
     cell.textField.delegate = self;
     cell.textView.delegate = self;
-    cell.textField.enabled = NO; //only set it enabled after being selected, check if it is in a section that should have a keyboard
-    cell.textView.userInteractionEnabled = NO;
-    
+    cell.textField.enabled = cell.textView.userInteractionEnabled = NO; //only set it enabled after being selected, check if it is in a section that should have a keyboard
     
     return cell;
 }
@@ -227,21 +224,11 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    switch(section) {
-        case 0:
-            return 8;
-        case 1:
-            return 5;
-        case 2:
-            return 5;
-    }
-    
-    return 0;
+    return [self.fields[section] count];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return self.fields.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

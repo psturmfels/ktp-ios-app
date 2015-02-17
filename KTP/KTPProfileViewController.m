@@ -136,6 +136,48 @@
     self.roleDataLabel.text = self.member.role;
     self.pledgeClassDataLabel.text = self.member.pledgeClass;
     self.bioDataLabel.text = self.member.biography;
+    
+    if ((self.phoneButton.enabled = [self.member.phoneNumber isNotNilOrEmpty])) {
+        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIcon"] forState:UIControlStateNormal];
+        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.emailButton.enabled = [self.member.email isNotNilOrEmpty])) {
+        [self.emailButton setImage:[UIImage imageNamed:@"EmailIcon"] forState:UIControlStateNormal];
+        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.facebookButton.enabled = [self.member.facebook isNotNilOrEmpty])) {
+        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
+        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.twitterButton.enabled = [self.member.twitter isNotNilOrEmpty])) {
+        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
+        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.linkedInButton.enabled = [self.member.linkedIn isNotNilOrEmpty])) {
+        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
+        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.personalSiteButton.enabled = [self.member.personalSite isNotNilOrEmpty])) {
+        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIcon"] forState:UIControlStateNormal];
+        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)loadScrollView {
@@ -265,13 +307,6 @@
     self.phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.phoneButton addTarget:self action:@selector(phoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.phoneButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(phoneButtonLongPressed)]];
-    if ([self.member.phoneNumber isNotNilOrEmpty]) {
-        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIcon"] forState:UIControlStateNormal];
-        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.phoneButton.enabled = NO;
-        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateNormal];
-    }
     self.phoneButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.phoneButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.phoneButton];
@@ -281,13 +316,6 @@
     self.emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.emailButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(emailButtonLongPressed)]];
-    if ([self.member.email isNotNilOrEmpty]) {
-        [self.emailButton setImage:[UIImage imageNamed:@"EmailIcon"] forState:UIControlStateNormal];
-        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.emailButton.enabled = NO;
-        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateNormal];
-    }
     self.emailButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.emailButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.emailButton];
@@ -297,13 +325,6 @@
     self.facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.facebookButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(facebookButtonLongPressed)]];
-    if ([self.member.facebook isNotNilOrEmpty]) {
-        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
-        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.facebookButton.enabled = NO;
-        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateNormal];
-    }
     self.facebookButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.facebookButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.facebookButton];
@@ -313,13 +334,6 @@
     self.twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.twitterButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(twitterButtonLongPressed)]];
-    if ([self.member.twitter isNotNilOrEmpty]) {
-        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
-        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.twitterButton.enabled = NO;
-        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateNormal];
-    }
     self.twitterButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.twitterButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.twitterButton];
@@ -329,13 +343,6 @@
     self.linkedInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.linkedInButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(linkedInButtonLongPressed)]];
-    if ([self.member.linkedIn isNotNilOrEmpty]) {
-        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
-        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.linkedInButton.enabled = NO;
-        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateNormal];
-    }
     self.linkedInButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.linkedInButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.linkedInButton];
@@ -345,13 +352,6 @@
     self.personalSiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.personalSiteButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(personalSiteButtonLongPressed)]];
-    if ([self.member.personalSite isNotNilOrEmpty]) {
-        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIcon"] forState:UIControlStateNormal];
-        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.personalSiteButton.enabled = NO;
-        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateNormal];
-    }
     self.personalSiteButton.layer.cornerRadius = kLinkButtonCornerRadius;
     self.personalSiteButton.layer.masksToBounds = YES;
     [self.contentView addSubview:self.personalSiteButton];
