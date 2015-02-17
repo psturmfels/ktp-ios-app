@@ -11,10 +11,12 @@
 
 
 
-@interface KTPPledgeTaskDetailViewController ()
+@interface KTPPledgeTaskDetailViewController () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
+
+@property (nonatomic, strong) UILabel *titleDataLabel;
 
 @end
 
@@ -56,22 +58,42 @@
     [self autoLayoutSubviews];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [self loadContent];
+}
+
+- (void)loadContent {
+    self.titleDataLabel.text = self.pledgeTask.taskTitle;
+}
+
 - (void)loadSubviews {
     [self loadScrollView];
     [self loadContentView];
     
-    // IMPLEMENT
+    // Content Views
+    [self loadTitleLabel];
+    
 }
 
 - (void)loadScrollView {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.delaysContentTouches = NO;
     [self.view addSubview:self.scrollView];
 }
 
 - (void)loadContentView {
-    self.contentView = [[UIView alloc] initWithFrame:self.view.frame];
+    CGRect frame = self.scrollView.bounds;
+    frame.size.height = 1000;
+    self.contentView = [[UIView alloc] initWithFrame:frame];
     [self.scrollView addSubview:self.contentView];
+}
+
+- (void)loadTitleLabel{
+    self.titleDataLabel = [UILabel labelWithText:self.pledgeTask.taskTitle];
+    [self.titleDataLabel setTextAlignment:NSTextAlignmentCenter];
+    self.titleDataLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.titleDataLabel];
 }
 
 - (void)autoLayoutSubviews {
@@ -79,12 +101,40 @@
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
-    // IMPLEMENT
-    
+    // Label all views for autolayout
     NSDictionary *views = @{
-                            
+                            @"titleDataLabel"       :   self.titleDataLabel
                             };
     
+    /* profileImageView */
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleDataLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.titleDataLabel attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleDataLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleDataLabel]-10-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[titleDataLabel]" options:0 metrics:nil views:views]];
     
+    
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    // Get the top and bottom subviews of contentView
+    UIView *topView, *bottomView;
+    for (UIView *view in self.contentView.subviews) {
+        if (!topView || topView.frame.origin.y > view.frame.origin.y) {
+            topView = view;
+        }
+        if (!bottomView || bottomView.frame.origin.y + bottomView.frame.size.height < view.frame.origin.y + view.frame.size.height) {
+            bottomView = view;
+        }
+    }
+    
+    // Resize contentView such that it is larger than its subviews
+    CGRect frame = self.contentView.frame;
+    frame.size.height = topView.frame.origin.y + bottomView.frame.origin.y + bottomView.frame.size.height + kContentViewBottomPadding;
+    self.contentView.frame = frame;
+    
+    // Set the content size of scrollView to contentView's size
+    self.scrollView.contentSize = self.contentView.frame.size;
 }
 @end
