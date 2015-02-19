@@ -26,7 +26,7 @@
     KTPSlideMenuCell *cell = [KTPSlideMenuCell new];
     
     NSString *cellTitle;
-    KTPViewType cellViewType;
+    KTPViewType cellViewType = KTPViewTypeMembers; // default
     
     if (indexPath.section == 0) {
         switch (indexPath.row) {
