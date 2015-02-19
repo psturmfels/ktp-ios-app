@@ -46,6 +46,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Overriden Setters/Getters
 
 /*!
@@ -57,10 +61,11 @@
     if (_member != member) {
         _member = member;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberUpdated:) name:KTPNotificationMemberUpdated object:self.member];
+        [self loadContent];
     }
 }
 
-#pragma mark - Loading Subviews
+#pragma mark - UIViewController methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,80 +79,28 @@
     }
     
     [self loadSubviews];
-//    [self autoLayoutSubviews];
+    [self autoLayoutSubviews];
 }
 
-/*!
- Loads all subviews of self.scrollView
- */
-- (void)loadSubviews {
-    // Container views
-    [self loadScrollView];
-    [self loadContentView];
-    [self loadViews];
+- (void)viewWillAppear:(BOOL)animated {
+    [self loadContent];
 }
 
-- (void)loadScrollView {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    self.scrollView.alwaysBounceVertical = YES;
-    self.scrollView.delaysContentTouches = NO;
-    self.scrollView.backgroundColor = [UIColor KTPDarkGray];
-    [self.view addSubview:self.scrollView];
-}
-
-- (void)loadContentView {
-    CGRect frame = self.scrollView.bounds;
-    frame.size.height = 1000;
-    self.contentView = [[UIView alloc] initWithFrame:frame];
-    [self.scrollView addSubview:self.contentView];
-}
-
--(void)loadViews {
+- (void)loadContent {
+    self.navigationItem.title = self.member.firstName;
     
-    CGFloat space = self.contentView.frame.size.height/50;
-    
-    
-    CGRect frame1 = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/5);
-    self.nameView = [[KTPProfileNameView alloc] initWithFrame:frame1];
-    self.nameView.nameLabel.text = [NSString stringWithFormat:@"%@ \n%@", self.member.firstName, self.member.lastName];
+    self.nameView.nameLabel.text = [NSString stringWithFormat:@"%@\n%@", self.member.firstName, self.member.lastName];
     self.nameView.profileImageView.image = self.member.image;
-    [self.nameView.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
-    [self.contentView addSubview:self.nameView];
     
-    CGRect frame2 = CGRectMake(20, self.view.frame.size.height/5 + space*2-space/2, self.view.frame.size.width-40, self.view.frame.size.height/5);
-    self.bioView = [[KTPProfileBioView alloc] initWithFrame:frame2];
     self.bioView.textLabel.text = self.member.biography;
-    [self.contentView addSubview:self.bioView];
     
-    CGRect frame3 = CGRectMake(20, 2*self.view.frame.size.height/5 + space*3-space/2, self.view.frame.size.width-40, self.view.frame.size.height/8);
-    self.fratInfo = [[KTPProfileFratInfoView alloc] initWithFrame:frame3];
     self.fratInfo.statusLabel.text = [NSString stringWithFormat:@"Status: %@", self.member.status];
     self.fratInfo.roleLabel.text = [NSString stringWithFormat:@"Role: %@", self.member.role];
     self.fratInfo.pledgeClassLabel.text = [NSString stringWithFormat:@"Pledge Class: %@", self.member.pledgeClass];
-    [self.contentView addSubview:self.fratInfo];
     
-    CGRect frame4 = CGRectMake(20, 2*self.view.frame.size.height/5 + self.view.frame.size.height/8 + space*4-space/2, self.view.frame.size.width-40, self.view.frame.size.height/8);
-    self.personalInfo = [[KTPProfilePersonalInfoView alloc] initWithFrame:frame4];
     self.personalInfo.majorLabel.text = [NSString stringWithFormat:@"Major: %@", self.member.major];
     self.personalInfo.gradLabel.text = [NSString stringWithFormat:@"Graduation Year: %ld", (long)self.member.gradYear];
     self.personalInfo.hometownLabel.text = [NSString stringWithFormat:@"Hometown: %@", self.member.hometown];
-    [self.contentView addSubview:self.personalInfo];
-    
-    CGRect frame5 = CGRectMake(20, 2*self.view.frame.size.height/5 + 2*self.view.frame.size.height/8 + space*4.5, self.view.frame.size.width-40, self.view.frame.size.height/10);
-    self.buttonsView = [[KTPProfileButtonsView alloc] initWithFrame:frame5];
-    [self.buttonsView.phoneButton addTarget:self action:@selector(phoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonsView.phoneButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(phoneButtonLongPressed)]];
-    [self.buttonsView.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonsView.emailButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(emailButtonLongPressed)]];
-    [self.buttonsView.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonsView.facebookButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(facebookButtonLongPressed)]];
-    [self.buttonsView.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonsView.twitterButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(twitterButtonLongPressed)]];
-    [self.buttonsView.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonsView.linkedInButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(linkedInButtonLongPressed)]];
-    [self.buttonsView.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.buttonsView.personalSiteButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(personalSiteButtonLongPressed)]];
-    [self.contentView addSubview:self.buttonsView];
     
     if ((self.buttonsView.phoneButton.enabled = [self.member.phoneNumber isNotNilOrEmpty])) {
         [self.buttonsView.phoneButton setImage:[UIImage imageNamed:@"PhoneIcon"] forState:UIControlStateNormal];
@@ -190,9 +143,123 @@
     } else {
         [self.buttonsView.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateNormal];
     }
+}
 
+#pragma mark - Loading Subviews
+
+/*!
+ Loads all subviews of self.scrollView
+ */
+- (void)loadSubviews {
+    // Container views
+    [self loadScrollView];
+    [self loadContentView];
+    [self loadSectionViews];
+}
+
+- (void)loadScrollView {
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.delaysContentTouches = NO;
+    self.scrollView.backgroundColor = [UIColor KTPDarkGray];
+    [self.view addSubview:self.scrollView];
+}
+
+- (void)loadContentView {
+    CGRect frame = self.scrollView.bounds;
+    frame.size.height = 1000;
+    self.contentView = [[UIView alloc] initWithFrame:frame];
+    [self.scrollView addSubview:self.contentView];
+}
+
+- (void)loadSectionViews {
+    self.nameView = [KTPProfileNameView new];
+    [self.nameView.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
+    [self.contentView addSubview:self.nameView];
+    
+    self.bioView = [KTPProfileBioView new];
+    [self.contentView addSubview:self.bioView];
+    
+    self.fratInfo = [KTPProfileFratInfoView new];
+    [self.contentView addSubview:self.fratInfo];
+    
+    self.personalInfo = [KTPProfilePersonalInfoView new];
+    [self.contentView addSubview:self.personalInfo];
+    
+    self.buttonsView = [KTPProfileButtonsView new];
+    [self.buttonsView.phoneButton addTarget:self action:@selector(phoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.phoneButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(phoneButtonLongPressed)]];
+    [self.buttonsView.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.emailButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(emailButtonLongPressed)]];
+    [self.buttonsView.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.facebookButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(facebookButtonLongPressed)]];
+    [self.buttonsView.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.twitterButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(twitterButtonLongPressed)]];
+    [self.buttonsView.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.linkedInButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(linkedInButtonLongPressed)]];
+    [self.buttonsView.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.personalSiteButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(personalSiteButtonLongPressed)]];
+    [self.contentView addSubview:self.buttonsView];
+}
+
+- (void)autoLayoutSubviews {
+    
+    for (UIView *view in self.contentView.subviews) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    NSDictionary *views = @{
+                            @"nameView"     :   self.nameView,
+                            @"bioView"      :   self.bioView,
+                            @"fratInfo"     :   self.fratInfo,
+                            @"personalInfo" :   self.personalInfo,
+                            @"buttonsView"  :   self.buttonsView
+                            };
+    
+    /* nameView */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[nameView]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[nameView]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.nameView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:self.view.frame.size.width * 0.4]];
+    
+    /* bioView */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[bioView]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[nameView]-20-[bioView]" options:0 metrics:nil views:views]];
+    
+    /* fratInfo */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bioView]-20-[fratInfo]-20-[personalInfo]-20-[buttonsView]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.fratInfo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.bioView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    
+    /* personalInfo */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalInfo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.fratInfo attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    
+    /* buttonsView */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.buttonsView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.personalInfo attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
 }
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    // Get the top and bottom subviews of contentView
+    UIView *topView, *bottomView;
+    for (UIView *view in self.contentView.subviews) {
+        if (!topView || topView.frame.origin.y > view.frame.origin.y) {
+            topView = view;
+        }
+        if (!bottomView || bottomView.frame.origin.y + bottomView.frame.size.height < view.frame.origin.y + view.frame.size.height) {
+            bottomView = view;
+        }
+    }
+    
+    // Resize contentView such that it is larger than its subviews
+    CGRect frame = self.contentView.frame;
+    frame.size.height = topView.frame.origin.y + bottomView.frame.origin.y + bottomView.frame.size.height + kContentViewBottomPadding;
+    self.contentView.frame = frame;
+    
+    // Set the content size of scrollView to contentView's size
+    self.scrollView.contentSize = self.contentView.frame.size;
+}
+     
 
 #pragma mark - UI action selectors
 
@@ -358,7 +425,7 @@
     // Workaround -- image does not update right away if this instruction is not
     // dispatched to the main queue
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.nameView.profileImageView.image = self.member.image;
+        [self loadContent];
     });
 }
 

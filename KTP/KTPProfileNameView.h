@@ -12,10 +12,8 @@
 
 @property (nonatomic, strong) UIImageView *profileImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UIView *dividerView;
-@property (nonatomic, strong) CAShapeLayer *line;
-@property (nonatomic, strong) CAShapeLayer *colorBlock;
 
-
+@property (nonatomic, strong) CALayer *border;
+@property (nonatomic, strong) CALayer *baseLayer;
 
 @end

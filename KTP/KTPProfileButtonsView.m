@@ -10,35 +10,38 @@
 
 #define kLinkButtonCornerRadius 5
 
+@interface KTPProfileButtonsView ()
+
+@property (nonatomic, strong) NSArray *buttons;
+
+@end
+
 @implementation KTPProfileButtonsView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.layer.cornerRadius = 10;
         self.layer.masksToBounds = NO;
         [self loadButtons];
-        [self setupFrames];
+        [self autoLayoutSubviews];
     }
     return self;
 }
 
--(void)loadButtons {
+- (void)loadButtons {
     self.phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.linkedInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.personalSiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self setupButton:self.phoneButton];
-    [self setupButton:self.emailButton];
-    [self setupButton:self.facebookButton];
-    [self setupButton:self.twitterButton];
-    [self setupButton:self.linkedInButton];
-    [self setupButton:self.personalSiteButton];
+    
+    self.buttons = @[self.phoneButton, self.emailButton, self.facebookButton, self.twitterButton, self.linkedInButton, self.personalSiteButton];
+    for (UIButton *button in self.buttons) {
+        [self setupButton:button];
+    }
 }
 
 -(void)setupButton:(UIButton *)button {
@@ -49,29 +52,29 @@
     [self addSubview:button];
 }
 
--(void)setupFrames {
-    double size = self.frame.size.width/7;
-    double fromTop = (self.frame.size.height - size)/2;
-    double originSide = self.frame.size.width/49;
-    double additButton = originSide + size;
+- (void)autoLayoutSubviews {
+    for (UIView *view in self.subviews) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
     
-    CGRect frame1 = CGRectMake(originSide, fromTop, size, size);
-    self.phoneButton.frame = frame1;
+    NSDictionary *views = @{
+                            @"phoneButton"      :   self.phoneButton,
+                            @"emailButton"      :   self.emailButton,
+                            @"facebookButton"   :   self.facebookButton,
+                            @"twitterButton"    :   self.twitterButton,
+                            @"linkedInButton"   :   self.linkedInButton,
+                            @"personalButton"   :   self.personalSiteButton
+                            };
+
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[phoneButton]-5-[emailButton]-5-[facebookButton]-5-[twitterButton]-5-[linkedInButton]-5-[personalButton]-0-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[phoneButton]-5-|" options:0 metrics:nil views:views]];
     
-    CGRect frame2 = CGRectMake(originSide + additButton, fromTop, size, size);
-    self.emailButton.frame = frame2;
-    
-    CGRect frame3 = CGRectMake(originSide + 2*additButton, fromTop, size, size);
-    self.facebookButton.frame = frame3;
-    
-    CGRect frame4 = CGRectMake(originSide + 3*additButton, fromTop, size, size);
-    self.twitterButton.frame = frame4;
-    
-    CGRect frame5 = CGRectMake(originSide + 4*additButton, fromTop, size, size);
-    self.linkedInButton.frame = frame5;
-    
-    CGRect frame6 = CGRectMake(originSide + 5*additButton, fromTop, size, size);
-    self.personalSiteButton.frame = frame6;
+    for (UIButton *button in self.buttons) {
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+    }
+    for (int i = 1; i < self.buttons.count; ++i) {
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.buttons[i] attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.buttons[i-1] attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    }
 }
 
 @end

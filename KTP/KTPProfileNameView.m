@@ -12,23 +12,21 @@
 
 @implementation KTPProfileNameView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.backgroundColor = [UIColor KTPDarkGray];
         self.layer.masksToBounds = YES;
         [self loadLabel];
         [self loadProfileImageView];
-        [self setFrames];
-        [self loadLine];
+        [self autoLayoutSubviews];
     }
     return self;
 }
 
--(void)loadLabel {
+- (void)loadLabel {
     self.nameLabel = [UILabel new];
-    self.nameLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:30];
+    self.nameLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:[UIFont systemFontSize] * 2];
     self.nameLabel.numberOfLines = 2;
     [self addSubview:self.nameLabel];
 }
@@ -44,54 +42,41 @@
     [self addSubview:self.profileImageView];
 }
 
--(void)setFrames{
-    CGFloat size = self.frame.size.width * 0.3;
-    CGRect imageFrame = CGRectMake(20, 20, size, size);
-    self.profileImageView.frame = imageFrame;
+- (void)layoutSubviews {
     
-    CGRect labelFrame = CGRectMake(size+40, 20, self.frame.size.width - size+30, 60+10);
-    self.nameLabel.frame = labelFrame;
+    self.baseLayer = [CALayer new];
+    CGRect frame = self.bounds;
+    frame.size.height = self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + 10;
+    self.baseLayer.frame = frame;
+    self.baseLayer.backgroundColor = [UIColor KTPGreenNew].CGColor;
+    [self.layer insertSublayer:self.baseLayer below:self.nameLabel.layer];
+    
+    self.border = [CALayer new];
+    self.border.frame = CGRectOffset(self.baseLayer.bounds, 0, 5);
+    self.border.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.layer insertSublayer:self.border below:self.baseLayer];
 }
 
--(void)loadLine {
-    self.line = [CAShapeLayer new];
-    self.line.fillColor = [UIColor whiteColor].CGColor;
-    CGRect rect = CGRectMake(0, self.nameLabel.frame.size.height + self.nameLabel.frame.origin.y+10, self.frame.size.width, 5);
-    self.line.path = [UIBezierPath bezierPathWithRect:rect].CGPath;
-    [self.layer insertSublayer:self.line below:self.profileImageView.layer];
-    
-    self.colorBlock = [CAShapeLayer new];
-    self.colorBlock.fillColor = [UIColor KTPGreenNew].CGColor;
-    CGRect blockFrame = CGRectMake(0, 0, self.frame.size.width, self.nameLabel.frame.size.height+30);
-    self.colorBlock.path = [UIBezierPath bezierPathWithRect:blockFrame].CGPath;
-    [self.layer insertSublayer:self.colorBlock below:self.nameLabel.layer];
-    
-}
 
-//
-//-(void)autoLayoutSubviews {
-//    
-//    // Set translatesAutoresizingMaskIntoConstraints property to NO for all autolayout views
-//    for (UIView *view in self.subviews) {
-//        view.translatesAutoresizingMaskIntoConstraints = NO;
-//    }
-//    
-//    NSDictionary *views = @{
-//                            @"nameLabel"        :   self.nameLabel,
-//                            @"profileImageView" :   self.profileImageView,
-//                            };
-//    
-//    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-//    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.3 constant:0]];
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[profileImageView]" options:0 metrics:nil views:views]];
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[profileImageView]" options:0 metrics:nil views:views]];
-//    
-//    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.nameLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[nameLabel]" options:0 metrics:nil views:views]];
-//    
-//    
-//    
-//    
-//}
+- (void)autoLayoutSubviews {
+    
+    for (UIView *view in self.subviews) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    NSDictionary *views = @{
+                            @"nameLabel"        :   self.nameLabel,
+                            @"profileImageView" :   self.profileImageView,
+                            };
+    
+    /* profileImageView */
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[profileImageView]" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[profileImageView]" options:0 metrics:nil views:views]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.3 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    
+    /* nameLabel */
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-20-[nameLabel]-20-|" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
+}
 
 @end

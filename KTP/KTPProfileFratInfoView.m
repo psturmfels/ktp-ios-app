@@ -11,22 +11,29 @@
 
 @implementation KTPProfileFratInfoView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.layer.masksToBounds = NO;
-        [self loadLayers];
         [self loadLabels];
         [self autoLayoutSubviews];
     }
     return self;
 }
 
-
--(void)loadLayers {
+- (void)loadLabels {
+    self.statusLabel = [UILabel new];
+    self.roleLabel = [UILabel new];
+    self.pledgeClassLabel = [UILabel new];
+    self.statusLabel.font = self.roleLabel.font = self.pledgeClassLabel.font = [UIFont systemFontOfSize:15];
     
+    [self addSubview:self.statusLabel];
+    [self addSubview:self.roleLabel];
+    [self addSubview:self.pledgeClassLabel];
+}
+
+- (void)layoutSubviews {
     self.baseLayer = [CALayer new];
     self.baseLayer.frame = self.bounds;
     self.baseLayer.backgroundColor = [UIColor whiteColor].CGColor;
@@ -41,32 +48,15 @@
     self.border.cornerRadius = 10;
     self.border.masksToBounds = YES;
     
-    [self.layer addSublayer:self.border];
-    [self.layer addSublayer:self.baseLayer];
+    [self.layer insertSublayer:self.baseLayer below:self.statusLabel.layer];
+    [self.layer insertSublayer:self.border below:self.baseLayer];
 }
 
--(void)loadLabels {
-    self.statusLabel = [UILabel new];
-    self.statusLabel.font = [UIFont systemFontOfSize:15];
-    self.roleLabel = [UILabel new];
-    self.roleLabel.font = [UIFont systemFontOfSize:15];
-    self.pledgeClassLabel = [UILabel new];
-    self.pledgeClassLabel.font = [UIFont systemFontOfSize:15];
+- (void)autoLayoutSubviews {
     
-    [self addSubview:self.statusLabel];
-    [self addSubview:self.roleLabel];
-    [self addSubview:self.pledgeClassLabel];
-}
-
-
--(void)autoLayoutSubviews {
-    
-    // Set translatesAutoresizingMaskIntoConstraints property to NO for all autolayout views
     for (UIView *view in self.subviews) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
-    
-    
     
     NSDictionary *views = @{
                             @"statusLabel"          :   self.statusLabel,
@@ -74,14 +64,10 @@
                             @"pledgeClassLabel"     :   self.pledgeClassLabel
                             };
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[statusLabel]" options:0 metrics:nil views:views]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.statusLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.roleLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.statusLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pledgeClassLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self addConstraint: [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.roleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[statusLabel]-[roleLabel]" options:0 metrics:nil views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[roleLabel]-[pledgeClassLabel]" options:0 metrics:nil views:views]];
-    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[statusLabel]-20-|" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[statusLabel]-[roleLabel]-[pledgeClassLabel]-10-|" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.statusLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.roleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.roleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.pledgeClassLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
 }
 
 @end

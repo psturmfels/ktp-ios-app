@@ -12,8 +12,8 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *textLabel;
+
 @property (nonatomic, strong) CALayer *baseLayer;
 @property (nonatomic, strong) CALayer *border;
-
 
 @end

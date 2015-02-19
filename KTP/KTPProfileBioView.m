@@ -10,22 +10,29 @@
 
 @implementation KTPProfileBioView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.layer.masksToBounds = NO;
-        [self loadLayers];
         [self loadLabels];
         [self autoLayoutSubviews];
     }
     return self;
 }
 
--(void)loadLayers {
+- (void)loadLabels {
+    self.titleLabel = [UILabel labelWithText:@"Personal Bio"];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize] * 1.5];
+    [self addSubview:self.titleLabel];
     
+    self.textLabel = [UILabel new];
+    self.textLabel.numberOfLines = 0;
+    [self addSubview:self.textLabel];
+    
+}
+
+- (void)layoutSubviews {
     self.baseLayer = [CALayer new];
     self.baseLayer.frame = self.bounds;
     self.baseLayer.backgroundColor = [UIColor whiteColor].CGColor;
@@ -40,25 +47,12 @@
     self.border.cornerRadius = 10;
     self.border.masksToBounds = YES;
     
-    [self.layer addSublayer:self.border];
-    [self.layer addSublayer:self.baseLayer];
-}
-
--(void)loadLabels {
-    self.titleLabel = [UILabel labelWithText:@"Personal Bio:"];
-    self.titleLabel.font = [UIFont systemFontOfSize:19];
-    [self addSubview:self.titleLabel];
-    
-    self.textLabel = [UILabel new];
-    self.textLabel.numberOfLines = 0;
-    self.textLabel.font = [UIFont systemFontOfSize:15];
-    [self addSubview:self.textLabel];
-    
+    [self.layer insertSublayer:self.baseLayer below:self.titleLabel.layer];
+    [self.layer insertSublayer:self.border below:self.baseLayer];
 }
 
 -(void)autoLayoutSubviews {
     
-    // Set translatesAutoresizingMaskIntoConstraints property to NO for all autolayout views
     for (UIView *view in self.subviews) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -68,11 +62,9 @@
                             @"textLabel"    :   self.textLabel,
                             };
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.textLabel attribute:NSLayoutAttributeWidth multiplier:1.1 constant:0]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleLabel]" options:0 metrics:nil views:views]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.textLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[titleLabel]-5-[textLabel]" options:0 metrics:nil views:views]];
-
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[titleLabel]-10-|" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textLabel]-10-|" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[titleLabel]-5-[textLabel]-10-|" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
 }
 
 @end
