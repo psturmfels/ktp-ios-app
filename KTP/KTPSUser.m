@@ -31,7 +31,7 @@
 }
 
 + (KTPMember*)currentMember {
-    return [KTPSUser currentMember];
+    return [KTPSUser currentUser].member;
 }
 
 + (BOOL)currentUserIsAdmin {
