@@ -126,7 +126,7 @@
     }
     
     NSDictionary *pitch = @{
-                            @"member"       :   [KTPSUser currentUser].member._id,
+                            @"member"       :   [KTPSUser currentMember]._id,
                             @"title"        :   self.titleField.text,
                             @"description"  :   self.descriptionField.text
                             };

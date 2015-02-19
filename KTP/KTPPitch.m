@@ -86,7 +86,7 @@
  */
 - (BOOL)userDidVote {
     for (KTPPitchVote *vote in self.votes) {
-        if (vote.member == [KTPSUser currentUser].member) {
+        if (vote.member == [KTPSUser currentMember]) {
             return YES;
         }
     }

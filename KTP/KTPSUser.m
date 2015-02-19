@@ -30,6 +30,14 @@
     return user;
 }
 
++ (KTPMember*)currentMember {
+    return [KTPSUser currentMember];
+}
+
++ (BOOL)currentUserIsAdmin {
+    return [KTPSUser currentUserIsAdmin];
+}
+
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(void (^)(BOOL successful, NSError *error))block {
     // Login is performed asynchronously
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{

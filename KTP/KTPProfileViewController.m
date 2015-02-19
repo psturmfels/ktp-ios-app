@@ -72,7 +72,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if ([KTPSUser currentUser].member == self.member || [[KTPSUser currentUser].member.status isEqualToString:@"Eboard"]) {
+    if ([KTPSUser currentMember] == self.member || [KTPSUser currentUserIsAdmin]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                                                target:self
                                                                                                action:@selector(editButtonTapped)];
@@ -176,7 +176,9 @@
 - (void)loadSectionViews {
     
     self.nameView = [KTPProfileNameView new];
-    [self.nameView.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
+    if ([KTPSUser currentMember] == self.member || [KTPSUser currentUserIsAdmin]) {
+        [self.nameView.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
+    }
     [self.contentView addSubview:self.nameView];
     
     self.bioView = [KTPProfileBioView new];

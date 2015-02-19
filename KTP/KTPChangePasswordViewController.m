@@ -119,7 +119,7 @@
                                      appending:nil
                                     parameters:nil
                                   withJSONBody:@{
-                                                 @"account"         :   [KTPSUser currentUser].member.account,
+                                                 @"account"         :   [KTPSUser currentMember].account,
                                                  @"oldPassword"     :   self.passwordCurrent.text,
                                                  @"newPassword"     :   self.passwordNew.text,
                                                  @"confirmPassword" :   self.passwordConfirm.text

@@ -99,7 +99,7 @@
  Shows the profile of the logged in user as maintained by KTPSUser
  */
 - (void)showUserProfile {
-    [self showProfileWithMember:[KTPSUser currentUser].member];
+    [self showProfileWithMember:[KTPSUser currentMember]];
 }
 
 /*!

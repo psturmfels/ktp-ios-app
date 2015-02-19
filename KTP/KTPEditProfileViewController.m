@@ -204,7 +204,7 @@
             cell.isTextField = NO;
         }
     } else if (indexPath.section == 1) {
-        if (![[KTPSUser currentUser].member.status isEqualToString:@"Eboard"]) {
+        if (![KTPSUser currentUserIsAdmin]) {
             cell.textField.textColor = [UIColor lightGrayColor];
         }
     } else if (indexPath.section == 2) {
@@ -259,7 +259,7 @@
     if (indexPath.section == 0 && indexPath.row == 2) {
         [self showPicker:indexPath];
     } else if(indexPath.section == 1) {
-        if([[KTPSUser currentUser].member.status isEqualToString:@"Eboard"])  {
+        if([KTPSUser currentUserIsAdmin])  {
             [self showPicker:indexPath];
         }
     } else {

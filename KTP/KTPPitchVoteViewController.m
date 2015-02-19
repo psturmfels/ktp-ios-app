@@ -59,7 +59,7 @@
     if (_pitch != pitch) {
         _pitch = pitch;
         for (KTPPitchVote *vote in pitch.votes) {
-            if (vote.member == [KTPSUser currentUser].member) {
+            if (vote.member == [KTPSUser currentMember]) {
                 self.userVote = vote;
                 break;
             }
@@ -346,7 +346,7 @@
 }
 
 - (void)submitVote {
-    [self.pitch addVote:[[KTPPitchVote alloc] initWithMember:[KTPSUser currentUser].member
+    [self.pitch addVote:[[KTPPitchVote alloc] initWithMember:[KTPSUser currentMember]
                                              innovationScore:[self.innovationScoreLabel.text integerValue]
                                              usefulnessScore:[self.usefulnessScoreLabel.text integerValue]
                                                coolnessScore:[self.coolnessScoreLabel.text integerValue]]];
