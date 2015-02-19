@@ -124,10 +124,10 @@
     }
     
     if ((self.buttonsView.twitterButton.enabled = [self.member.twitter isNotNilOrEmpty])) {
-        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
-        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
+        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterWhiteLogo"] forState:UIControlStateNormal];
+        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterWhiteLogoHighlighted"] forState:UIControlStateHighlighted];
     } else {
-        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateNormal];
+        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterWhiteLogoHighlighted"] forState:UIControlStateNormal];
     }
     
     if ((self.buttonsView.linkedInButton.enabled = [self.member.linkedIn isNotNilOrEmpty])) {
