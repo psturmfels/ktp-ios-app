@@ -35,7 +35,7 @@
 }
 
 + (BOOL)currentUserIsAdmin {
-    return [KTPSUser currentUserIsAdmin];
+    return [[KTPSUser currentMember].status isEqualToString:@"Eboard"];
 }
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(void (^)(BOOL successful, NSError *error))block {
