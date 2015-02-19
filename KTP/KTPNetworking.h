@@ -22,7 +22,8 @@ typedef NS_ENUM(NSInteger, KTPRequestRoute) {
     KTPRequestRouteAPIPitches,          /*  /api/pitches/           */
     KTPRequestRouteAPIPledgeTasks,      /*  /api/pledgeTasks/       */
     KTPRequestRouteAPIPledgeMeetings,   /*  /api/pledgeMeetings/    */
-    KTPRequestRouteAPICommittees        /*  /api/committees/        */
+    KTPRequestRouteAPICommittees,       /*  /api/committees/        */
+    KTPRequestRouteIMGProfilePics       /*  /img/prof_pics/         */
 };
 
 typedef NS_ENUM(NSInteger, KTPContentType) {
@@ -71,6 +72,5 @@ typedef NS_ENUM(NSInteger, KTPContentType) {
                            withData:(NSData *)data
                         contentType:(KTPContentType)contentType
                               block:(void (^)(NSURLResponse *response, NSData *data, NSError *error))block;
-
 
 @end

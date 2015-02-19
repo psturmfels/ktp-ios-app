@@ -41,6 +41,8 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
             return @"/api/pledgeMeetings/";
         case KTPRequestRouteAPICommittees:
             return @"/api/committees/";
+        case KTPRequestRouteIMGProfilePics:
+            return @"/img/prof_pics/";
     }
 }
 

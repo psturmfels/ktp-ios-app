@@ -14,9 +14,14 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberUpdated:) name:KTPNotificationMemberUpdated object:self.member];
         [self loadSubviews];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*!
@@ -34,30 +39,16 @@
 #pragma mark - Load Views
 
 - (void)loadSubviews {
-    [self loadImage];
-    [self loadLabel];
-    [self loadDetailLabel];
+    [self loadData];
     [self autoLayoutSubviews];
 }
 
 /*!
- Loads the image view of the cell with the profile image of the cell's member.
+ Loads the imageView, textLabel, and detailTextLabel with the profile image, first/last name, and role of the cell's member, respectively.
  */
-- (void)loadImage {
+- (void)loadData {
     self.imageView.image = self.member.image;
-}
-
-/*!
- Loads the text label of the cell with the first and last name of the cell's member.
- */
-- (void)loadLabel {
     self.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.member.firstName, self.member.lastName];
-}
-
-/*!
- Loads the detail text label of the cell with the role of the cell's member.
- */
-- (void)loadDetailLabel {
     self.detailTextLabel.text = self.member.role;
 }
 
@@ -91,7 +82,16 @@
     /* detailTextLabel horizontal position and space */
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.detailTextLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[detailLabel]-0-|" options:0 metrics:nil views:views]];
-    
+}
+
+#pragma mark - Notification Handling
+
+- (void)memberUpdated:(NSNotification*)notification {
+    // Workaround -- image does not update right away if this instruction is not
+    // dispatched to the main queue
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadData];
+    });
 }
 
 @end

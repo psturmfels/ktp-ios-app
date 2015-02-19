@@ -18,6 +18,7 @@
                          lastName:(NSString*)lastName
                          uniqname:(NSString*)uniqname
                             image:(UIImage*)image
+                         imageURL:(NSString*)imageURL
                            gender:(NSString*)gender
                             major:(NSString*)major
                          hometown:(NSString*)hometown
@@ -42,10 +43,11 @@
 {
     self = [super init];
     if (self) {
-        self.image          = image                             ?   image           :   [UIImage imageNamed:@"UserPlaceholder"];
         self.firstName      = [firstName isNotNilOrEmpty]       ?   firstName       :   @"FIRSTNAME";
         self.lastName       = [lastName isNotNilOrEmpty]        ?   lastName        :   @"LASTNAME";
         self.uniqname       = [uniqname isNotNilOrEmpty]        ?   uniqname        :   @"UNIQNAME";
+        self.image          = image                             ?   image           :   [UIImage imageNamed:@"UserPlaceholder"];
+        self.imageURL       = imageURL                          ?   imageURL        :   @"";
         self.gender         = [gender isNotNilOrEmpty]          ?   gender          :   @"GENDER";
         self.major          = [major isNotNilOrEmpty]           ?   major           :   @"MAJOR";
         self.hometown       = [hometown isNotNilOrEmpty]        ?   hometown        :   @"HOMETOWN";
@@ -67,6 +69,16 @@
         self.account        = account;
         self._id            = _id;
         self.__v            = __v;
+
+        
+        [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteIMGProfilePics appending:[NSString stringWithFormat:@"%@.png", self.uniqname] parameters:nil withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+            if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
+                NSLog(@"Image could not be loaded");
+            } else {
+                self.image = [UIImage imageWithData:data];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberUpdated object:self];
+            }
+        }];
     }
     return self;
 }
@@ -128,11 +140,12 @@
  */
 - (NSDictionary*)JSONObject {
     // INCOMPLETE IMPLEMENTATION
-    // Need to add committees, main_committee, image
+    // Need to add committees, main_committee
     return @{
              @"first_name"          :   self.firstName,
              @"last_name"           :   self.lastName,
              @"uniqname"            :   self.uniqname,
+             @"prof_pic_url"        :   self.imageURL,
              @"year"                :   [NSNumber numberWithInteger:self.gradYear],
              @"gender"              :   self.gender,
              @"major"               :   self.major,

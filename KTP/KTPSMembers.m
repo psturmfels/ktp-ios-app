@@ -25,6 +25,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.queue = [NSOperationQueue new];
         [self reloadMembers];
     }
     return self;
@@ -57,7 +58,8 @@
         [self.membersArray addObject:[[KTPMember alloc] initWithFirstName:dict[@"first_name"]
                                                                  lastName:dict[@"last_name"]
                                                                  uniqname:dict[@"uniqname"]
-                                                                    image:dict[@"image"]
+                                                                    image:nil
+                                                                 imageURL:dict[@"prof_pic_url"]
                                                                    gender:dict[@"gender"]
                                                                     major:dict[@"major"]
                                                                  hometown:dict[@"hometown"]

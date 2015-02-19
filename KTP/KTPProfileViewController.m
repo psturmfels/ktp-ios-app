@@ -56,6 +56,7 @@
 - (void)setMember:(KTPMember *)member {
     if (_member != member) {
         _member = member;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberUpdated:) name:KTPNotificationMemberUpdated object:self.member];
     }
 }
 
@@ -348,6 +349,16 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Notification Handling
+
+- (void)memberUpdated:(NSNotification*)notification {
+    // Workaround -- image does not update right away if this instruction is not
+    // dispatched to the main queue
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.nameView.profileImageView.image = self.member.image;
+    });
 }
 
 @end
