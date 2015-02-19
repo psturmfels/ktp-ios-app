@@ -118,7 +118,7 @@
                                        toRoute:KTPRequestRouteAPIChangePassword
                                      appending:nil
                                     parameters:nil
-                                      withBody:@{
+                                  withJSONBody:@{
                                                  @"account"         :   [KTPSUser currentUser].member.account,
                                                  @"oldPassword"     :   self.passwordCurrent.text,
                                                  @"newPassword"     :   self.passwordNew.text,

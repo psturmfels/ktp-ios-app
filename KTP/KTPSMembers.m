@@ -32,7 +32,7 @@
 
 - (void)reloadMembers {
     // Requests all members sorted by first_name in ascending order
-    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteAPIMembers appending:nil parameters:@"populate=meetings&sort=first_name" withBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteAPIMembers appending:nil parameters:@"populate=meetings&sort=first_name" withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (!error) {
             NSError *error;
             NSArray *members = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];

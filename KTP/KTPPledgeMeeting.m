@@ -25,7 +25,7 @@
 #pragma mark - Update
 
 - (void)update:(void (^)(BOOL successful))block {
-    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIPledgeMeetings appending:self._id parameters:nil withBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIPledgeMeetings appending:self._id parameters:nil withJSONBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPledgeMeetingUpdateFailed object:self];
         }

@@ -25,6 +25,11 @@ typedef NS_ENUM(NSInteger, KTPRequestRoute) {
     KTPRequestRouteAPICommittees        /*  /api/committees/        */
 };
 
+typedef NS_ENUM(NSInteger, KTPContentType) {
+    KTPContentTypeJSON,                 /*  application/json        */
+    KTPContentTypePNG                   /*  image/png               */
+};
+
 /*!
  @class         KTPNetworking
  @description   The KTPNetworking class handles all network interaction with the KTP API and database.
@@ -38,14 +43,34 @@ typedef NS_ENUM(NSInteger, KTPRequestRoute) {
  @param         route       The route to send the request to
  @param         append      A string to append to the route
  @param         parameters  Any parameters to the request (separated by '&')
- @param         body        The body of the request
+ @param         body        The body of the request in JSON dictionary format
  @param         block       Block to forward response to
  */
 + (void)sendAsynchronousRequestType:(KTPRequestType)type
                             toRoute:(KTPRequestRoute)route
                           appending:(NSString*)append
                          parameters:(NSString*)parameters
-                           withBody:(NSDictionary*)body
+                       withJSONBody:(NSDictionary*)body
                               block:(void (^)(NSURLResponse *response, NSData *data, NSError *error))block;
+
+/*!
+ Sends an asynchronous NSURLRequest of the specified KTPRequestType to the specified API route/append with parameters. The response parameters are forwarded by calling block.
+ 
+ @param         type        The type of request
+ @param         route       The route to send the request to
+ @param         append      A string to append to the route
+ @param         parameters  Any parameters to the request (separated by '&')
+ @param         data        The data of the request
+ @param         contentType The content type of the data
+ @param         block       Block to forward response to
+ */
++ (void)sendAsynchronousRequestType:(KTPRequestType)requestType
+                            toRoute:(KTPRequestRoute)route
+                          appending:(NSString*)append
+                         parameters:(NSString*)parameters
+                           withData:(NSData *)data
+                        contentType:(KTPContentType)contentType
+                              block:(void (^)(NSURLResponse *, NSData *, NSError *))block;
+
 
 @end

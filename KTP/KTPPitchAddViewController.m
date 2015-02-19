@@ -135,7 +135,7 @@
                                        toRoute:KTPRequestRouteAPIPitches
                                      appending:nil
                                     parameters:nil
-                                      withBody:pitch
+                                  withJSONBody:pitch
                                          block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
             NSLog(@"Error adding pitch");

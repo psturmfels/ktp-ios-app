@@ -641,10 +641,10 @@
 				ORGANIZATIONNAME = "Kappa Theta Pi";
 				TargetAttributes = {
 					89855F05199B2BC2006E5A14 = {
-						DevelopmentTeam = QAZG2BYMD2;
+						DevelopmentTeam = VE9497R3WL;
 					};
 					89855F20199B2BC2006E5A14 = {
-						DevelopmentTeam = QAZG2BYMD2;
+						DevelopmentTeam = VE9497R3WL;
 						TestTargetID = 89855F05199B2BC2006E5A14;
 					};
 				};

@@ -50,7 +50,7 @@
  */
 - (void)addVote:(KTPPitchVote*)vote {
     [self.votes addObject:vote];
-    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePOST toRoute:KTPRequestRouteAPIPitches appending:[NSString stringWithFormat:@"%@/vote", self._id] parameters:nil withBody:[vote JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePOST toRoute:KTPRequestRouteAPIPitches appending:[NSString stringWithFormat:@"%@/vote", self._id] parameters:nil withJSONBody:[vote JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (!error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPitchVotedSuccess object:self userInfo:@{@"pitch" : self}];
         } else {
