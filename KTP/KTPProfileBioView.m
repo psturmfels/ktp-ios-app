@@ -23,12 +23,15 @@
 
 - (void)loadLabels {
     self.titleLabel = [UILabel labelWithText:@"Personal Bio"];
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize] * 1.5];
+    self.titleLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:[UIFont systemFontSize] * 1.5];
     [self addSubview:self.titleLabel];
     
     self.textLabel = [UILabel new];
+    self.textLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:[UIFont systemFontSize]];
     self.textLabel.numberOfLines = 0;
     [self addSubview:self.textLabel];
+    
+    self.textLabel.textColor = self.titleLabel.textColor = [UIColor KTPDarkGray];
     
 }
 

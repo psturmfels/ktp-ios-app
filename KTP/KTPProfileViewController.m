@@ -87,6 +87,7 @@
 }
 
 - (void)loadContent {
+    
     self.navigationItem.title = self.member.firstName;
     
     self.nameView.nameLabel.text = [NSString stringWithFormat:@"%@\n%@", self.member.firstName, self.member.lastName];
@@ -173,6 +174,7 @@
 }
 
 - (void)loadSectionViews {
+    
     self.nameView = [KTPProfileNameView new];
     [self.nameView.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
     [self.contentView addSubview:self.nameView];
@@ -200,6 +202,7 @@
     [self.buttonsView.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonsView.personalSiteButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(personalSiteButtonLongPressed)]];
     [self.contentView addSubview:self.buttonsView];
+    
 }
 
 - (void)autoLayoutSubviews {
@@ -223,7 +226,7 @@
     
     /* bioView */
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[bioView]-20-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[nameView]-20-[bioView]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[nameView]-10-[bioView]" options:0 metrics:nil views:views]];
     
     /* fratInfo */
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bioView]-20-[fratInfo]-20-[personalInfo]-20-[buttonsView]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];

@@ -26,7 +26,12 @@
 
 - (void)loadLabel {
     self.nameLabel = [UILabel new];
-    self.nameLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:[UIFont systemFontSize] * 2];
+    self.nameLabel.font = [UIFont fontWithName:@"Avenir-Heavy" size:[UIFont systemFontSize] * 2];
+    self.nameLabel.textColor = [UIColor KTPDarkGray];
+    self.nameLabel.layer.shadowColor = [UIColor whiteColor].CGColor;
+    self.nameLabel.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    self.nameLabel.layer.shadowOpacity = 1.0f;
+    self.nameLabel.layer.shadowRadius = 1.0f;
     self.nameLabel.numberOfLines = 2;
     [self addSubview:self.nameLabel];
 }

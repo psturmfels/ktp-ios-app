@@ -25,8 +25,8 @@
     self.majorLabel = [UILabel new];
     self.gradLabel = [UILabel new];
     self.hometownLabel = [UILabel new];
-    self.majorLabel.font = self.gradLabel.font = self.hometownLabel.font = [UIFont systemFontOfSize:15];
-    
+    self.majorLabel.font = self.gradLabel.font = self.hometownLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:[UIFont systemFontSize]];
+    self.majorLabel.textColor = self.gradLabel.textColor = self.hometownLabel.textColor = [UIColor KTPDarkGray];
     self.majorLabel.numberOfLines = 0;
     
     [self addSubview:self.majorLabel];

@@ -26,7 +26,8 @@
     self.statusLabel = [UILabel new];
     self.roleLabel = [UILabel new];
     self.pledgeClassLabel = [UILabel new];
-    self.statusLabel.font = self.roleLabel.font = self.pledgeClassLabel.font = [UIFont systemFontOfSize:15];
+    self.statusLabel.font = self.roleLabel.font = self.pledgeClassLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:[UIFont systemFontSize]];
+    self.statusLabel.textColor = self.roleLabel.textColor = self.pledgeClassLabel.textColor = [UIColor KTPDarkGray];
     
     [self addSubview:self.statusLabel];
     [self addSubview:self.roleLabel];
