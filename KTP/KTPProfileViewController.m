@@ -19,6 +19,8 @@
 #import "KTPProfileBioView.h"
 #import "KTPProfileButtonsView.h"
 
+#import "KTPNetworking.h"
+
 @interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -223,7 +225,15 @@
     UIImage *image = info[UIImagePickerControllerEditedImage];
     self.nameView.profileImageView.image = image;
     self.member.image = image;
-    [self.member update:nil];
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePOST toRoute:KTPRequestRouteAPIMembers appending:[NSString stringWithFormat:@"%@/upload_pic", self.member._id] parameters:nil withData:imageData contentType:KTPContentTypePNG block:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Image Upload Failed" message:@"Your image could not be saved" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

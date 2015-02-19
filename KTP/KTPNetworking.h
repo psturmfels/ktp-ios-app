@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger, KTPContentType) {
                          parameters:(NSString*)parameters
                            withData:(NSData *)data
                         contentType:(KTPContentType)contentType
-                              block:(void (^)(NSURLResponse *, NSData *, NSError *))block;
+                              block:(void (^)(NSURLResponse *response, NSData *data, NSError *error))block;
 
 
 @end
