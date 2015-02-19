@@ -215,6 +215,7 @@
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
         [self presentViewController:picker animated:YES completion:nil];
     }]];
     
@@ -223,7 +224,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = info[UIImagePickerControllerEditedImage];
+    UIImage *image = info[UIImagePickerControllerEditedImage] ? info[UIImagePickerControllerEditedImage] : info[UIImagePickerControllerOriginalImage];
     self.nameView.profileImageView.image = image;
     self.member.image = image;
     

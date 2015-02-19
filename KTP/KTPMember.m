@@ -70,15 +70,16 @@
         self._id            = _id;
         self.__v            = __v;
 
-        
-        [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteIMGProfilePics appending:[NSString stringWithFormat:@"%@.png", self.uniqname] parameters:nil withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
-            if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
-                NSLog(@"Image could not be loaded");
-            } else {
-                self.image = [UIImage imageWithData:data];
-                [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberUpdated object:self];
-            }
-        }];
+        if ([self.imageURL isNotNilOrEmpty]) {
+            [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteIMGProfilePics appending:[NSString stringWithFormat:@"%@.png", self.uniqname] parameters:nil withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+                if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
+                    NSLog(@"Image could not be loaded");
+                } else {
+                    self.image = [UIImage imageWithData:data];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberUpdated object:self];
+                }
+            }];
+        }
     }
     return self;
 }
