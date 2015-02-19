@@ -19,4 +19,10 @@
 +(UIColor *)KTPOpenGreen;
 +(UIColor *)KTPLightGray;
 
++(UIColor *)KTPBlueEFF;
++(UIColor *)KTPGreen8BF;
++(UIColor *)KTPGreen48F;
++(UIColor *)KTPGreenNew;
+
+
 @end

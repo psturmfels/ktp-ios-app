@@ -69,6 +69,11 @@
 		A8F483E21A7D366600B17E7F /* KTPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E11A7D366600B17E7F /* KTPTextView.m */; };
 		A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */; };
 		BF29208E1A92F9BC00EFE46A /* KTPEditProfileTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29208D1A92F9BC00EFE46A /* KTPEditProfileTableItem.m */; };
+		BF2920911A93C6A300EFE46A /* KTPProfileFratInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */; };
+		BF2920941A93EA8100EFE46A /* KTPProfilePersonalInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */; };
+		BF2920971A93F90700EFE46A /* KTPProfileNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920961A93F90700EFE46A /* KTPProfileNameView.m */; };
+		BF29209A1A940C0600EFE46A /* KTPProfileBioView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920991A940C0600EFE46A /* KTPProfileBioView.m */; };
+		BF29209D1A94262F00EFE46A /* KTPProfileButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */; };
 		BF6478881A91964E00717ABE /* KTPEditProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6478871A91964E00717ABE /* KTPEditProfileCell.m */; };
 		C6B8C8AF9F3F88C5FE6DDB97 /* libPods-KTP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E107C6DC1FF5353387CBC832 /* libPods-KTP.a */; };
 /* End PBXBuildFile section */
@@ -201,6 +206,16 @@
 		B0337AD64C6FF27F839A0238 /* Pods-KTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KTP/Pods-KTP.debug.xcconfig"; sourceTree = "<group>"; };
 		BF29208C1A92F9BC00EFE46A /* KTPEditProfileTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileTableItem.h; sourceTree = "<group>"; };
 		BF29208D1A92F9BC00EFE46A /* KTPEditProfileTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditProfileTableItem.m; sourceTree = "<group>"; };
+		BF29208F1A93C6A300EFE46A /* KTPProfileFratInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileFratInfoView.h; sourceTree = "<group>"; };
+		BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileFratInfoView.m; sourceTree = "<group>"; };
+		BF2920921A93EA8100EFE46A /* KTPProfilePersonalInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfilePersonalInfoView.h; sourceTree = "<group>"; };
+		BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfilePersonalInfoView.m; sourceTree = "<group>"; };
+		BF2920951A93F90700EFE46A /* KTPProfileNameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileNameView.h; sourceTree = "<group>"; };
+		BF2920961A93F90700EFE46A /* KTPProfileNameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileNameView.m; sourceTree = "<group>"; };
+		BF2920981A940C0600EFE46A /* KTPProfileBioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileBioView.h; sourceTree = "<group>"; };
+		BF2920991A940C0600EFE46A /* KTPProfileBioView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileBioView.m; sourceTree = "<group>"; };
+		BF29209B1A94262F00EFE46A /* KTPProfileButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileButtonsView.h; sourceTree = "<group>"; };
+		BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileButtonsView.m; sourceTree = "<group>"; };
 		BF6478861A91964E00717ABE /* KTPEditProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileCell.h; sourceTree = "<group>"; };
 		BF6478871A91964E00717ABE /* KTPEditProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditProfileCell.m; sourceTree = "<group>"; };
 		E107C6DC1FF5353387CBC832 /* libPods-KTP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KTP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,6 +447,16 @@
 			children = (
 				A87303A21A73AD200062B072 /* KTPProfileViewController.h */,
 				A87303A31A73AD200062B072 /* KTPProfileViewController.m */,
+				BF29209B1A94262F00EFE46A /* KTPProfileButtonsView.h */,
+				BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */,
+				BF2920981A940C0600EFE46A /* KTPProfileBioView.h */,
+				BF2920991A940C0600EFE46A /* KTPProfileBioView.m */,
+				BF29208F1A93C6A300EFE46A /* KTPProfileFratInfoView.h */,
+				BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */,
+				BF2920921A93EA8100EFE46A /* KTPProfilePersonalInfoView.h */,
+				BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */,
+				BF2920951A93F90700EFE46A /* KTPProfileNameView.h */,
+				BF2920961A93F90700EFE46A /* KTPProfileNameView.m */,
 				A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */,
 				A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */,
 				BF6478861A91964E00717ABE /* KTPEditProfileCell.h */,
@@ -616,10 +641,10 @@
 				ORGANIZATIONNAME = "Kappa Theta Pi";
 				TargetAttributes = {
 					89855F05199B2BC2006E5A14 = {
-						DevelopmentTeam = VE9497R3WL;
+						DevelopmentTeam = QAZG2BYMD2;
 					};
 					89855F20199B2BC2006E5A14 = {
-						DevelopmentTeam = VE9497R3WL;
+						DevelopmentTeam = QAZG2BYMD2;
 						TestTargetID = 89855F05199B2BC2006E5A14;
 					};
 				};
@@ -701,6 +726,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A83504B91A85BC4A00644B2A /* KTPSPledgeTasks.m in Sources */,
+				BF2920911A93C6A300EFE46A /* KTPProfileFratInfoView.m in Sources */,
+				BF2920941A93EA8100EFE46A /* KTPProfilePersonalInfoView.m in Sources */,
 				A835049A1A7FFA7900644B2A /* KTPSettingsDataSource.m in Sources */,
 				A883BE901A7AFE0D00139232 /* KTPPitchAddViewController.m in Sources */,
 				A83504AC1A8577DF00644B2A /* KTPPledgeTasksViewController.m in Sources */,
@@ -716,6 +743,7 @@
 				A835049D1A8005AB00644B2A /* KTPChangePasswordViewController.m in Sources */,
 				84380F971A919E9200A6A110 /* KTPPledgeMeetingsCell.swift in Sources */,
 				A83504B21A85785D00644B2A /* KTPPledgesViewController.m in Sources */,
+				BF29209D1A94262F00EFE46A /* KTPProfileButtonsView.m in Sources */,
 				A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */,
 				BF29208E1A92F9BC00EFE46A /* KTPEditProfileTableItem.m in Sources */,
 				A883BE7A1A79715A00139232 /* KTPPitchesViewController.m in Sources */,
@@ -741,6 +769,7 @@
 				89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */,
 				A83504B61A85BC3A00644B2A /* KTPPledgeTask.m in Sources */,
 				A80943661A6EEF3600B03647 /* KTPSlideMenuViewController.m in Sources */,
+				BF2920971A93F90700EFE46A /* KTPProfileNameView.m in Sources */,
 				A8C6D0601A7745CC00B7CAC0 /* KTPPledgingViewController.m in Sources */,
 				A8B2D6531A77F62100039724 /* KTPNetworking.m in Sources */,
 				A83504BC1A85BC6400644B2A /* KTPPledgeMeeting.m in Sources */,
@@ -752,6 +781,7 @@
 				A80943631A6EEE3600B03647 /* KTPRootViewController.m in Sources */,
 				A873039D1A7199560062B072 /* KTPSMembers.m in Sources */,
 				A8B2D64F1A7799E100039724 /* KTPSettingsViewController.m in Sources */,
+				BF29209A1A940C0600EFE46A /* KTPProfileBioView.m in Sources */,
 				89855F16199B2BC2006E5A14 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
