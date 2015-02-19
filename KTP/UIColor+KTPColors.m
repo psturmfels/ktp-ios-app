@@ -35,6 +35,11 @@
     return [UIColor colorWithRed:0.5 green:0.8 blue:0.6 alpha:1.0];
 }
 
++(UIColor *)KTPGreenNew
+{
+    return [UIColor colorWithRed:0.4 green:0.7 blue:0.5 alpha:1.0];
+}
+
 +(UIColor *)KTPBlue136
 {
     return [UIColor colorWithRed:0.1 green:0.3 blue:0.6 alpha:1.0];
@@ -48,6 +53,18 @@
 +(UIColor *)KTPLightGray
 {
     return [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+}
+
++(UIColor *)KTPBlueEFF {
+    return [UIColor colorWithRed:0xE3/0xFF green:0xF2/0xFF blue:0xFD alpha:1];
+}
+
++(UIColor *)KTPGreen8BF {
+    return [UIColor colorWithRed:0x8F/0xFF green:0xBB/0xFF blue:0xFF/0xFF alpha:1];
+}
+
++(UIColor *)KTPGreen48F {
+    return [UIColor colorWithRed:0x45/0xFF green:0x8F/0xFF blue:0xFF/0xFF alpha:1];
 }
 
 @end
