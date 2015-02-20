@@ -11,6 +11,7 @@
 NSString *const KTPNotificationMembersUpdated               = @"KTPNotificationMembersUpdated";
 NSString *const KTPNotificationMemberUpdated                = @"KTPNotificationMemberUpdated";
 NSString *const KTPNotificationMemberUpdateFailed           = @"KTPNotificationMemberUpdateFailed";
+NSString *const KTPNotificationMemberDeleted                = @"KTPNotificationMemberDeleted";
 NSString *const KTPNotificationUserLogout                   = @"KTPNotificationUserLogout";
 NSString *const KTPNotificationPitchesUpdated               = @"KTPNotificationPitchesUpdated";
 NSString *const KTPNotificationPitchVotedSuccess            = @"KTPNotificationPitchVotedSuccess";

@@ -38,6 +38,7 @@
         
         // Register for notification of members updated
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTableView) name:KTPNotificationMembersUpdated object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberDeleted:) name:KTPNotificationMemberDeleted object:nil];
     }
     return self;
 }
@@ -112,6 +113,12 @@
     self.filteredMembers = [KTPSMembers members].membersArray;
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];
+    [self resetSearchBar:self.searchBar];
+}
+
+- (void)memberDeleted:(NSNotification*)notification {
+    NSLog(@"member deleted");
+    [self.navigationController popToViewController:self animated:YES];
 }
 
 #pragma mark - UI action selectors

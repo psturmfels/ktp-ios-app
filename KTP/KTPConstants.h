@@ -15,6 +15,7 @@
 extern NSString *const KTPNotificationMembersUpdated;
 extern NSString *const KTPNotificationMemberUpdated;
 extern NSString *const KTPNotificationMemberUpdateFailed;
+extern NSString *const KTPNotificationMemberDeleted;
 extern NSString *const KTPNotificationUserLogout;
 extern NSString *const KTPNotificationPitchesUpdated;
 extern NSString *const KTPNotificationPitchVotedSuccess;

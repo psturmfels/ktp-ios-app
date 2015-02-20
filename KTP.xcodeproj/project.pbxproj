@@ -243,6 +243,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8417D4A41A97DA6800FA307C /* Custom Profile Section Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF29209B1A94262F00EFE46A /* KTPProfileButtonsView.h */,
+				BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */,
+				BF2920981A940C0600EFE46A /* KTPProfileBioView.h */,
+				BF2920991A940C0600EFE46A /* KTPProfileBioView.m */,
+				BF29208F1A93C6A300EFE46A /* KTPProfileFratInfoView.h */,
+				BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */,
+				BF2920921A93EA8100EFE46A /* KTPProfilePersonalInfoView.h */,
+				BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */,
+				BF2920951A93F90700EFE46A /* KTPProfileNameView.h */,
+				BF2920961A93F90700EFE46A /* KTPProfileNameView.m */,
+			);
+			name = "Custom Profile Section Views";
+			sourceTree = "<group>";
+		};
 		89581FB6199C6EA20033B5A4 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,16 +459,7 @@
 			children = (
 				A87303A21A73AD200062B072 /* KTPProfileViewController.h */,
 				A87303A31A73AD200062B072 /* KTPProfileViewController.m */,
-				BF29209B1A94262F00EFE46A /* KTPProfileButtonsView.h */,
-				BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */,
-				BF2920981A940C0600EFE46A /* KTPProfileBioView.h */,
-				BF2920991A940C0600EFE46A /* KTPProfileBioView.m */,
-				BF29208F1A93C6A300EFE46A /* KTPProfileFratInfoView.h */,
-				BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */,
-				BF2920921A93EA8100EFE46A /* KTPProfilePersonalInfoView.h */,
-				BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */,
-				BF2920951A93F90700EFE46A /* KTPProfileNameView.h */,
-				BF2920961A93F90700EFE46A /* KTPProfileNameView.m */,
+				8417D4A41A97DA6800FA307C /* Custom Profile Section Views */,
 				A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */,
 				A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */,
 				BF6478861A91964E00717ABE /* KTPEditProfileCell.h */,

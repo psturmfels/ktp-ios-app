@@ -22,11 +22,14 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic) NSMutableArray *fields;
-@property (nonatomic) NSArray *pickerChoices;
-@property (nonatomic) NSIndexPath *prevIndexPath;
-@property (nonatomic) NSIndexPath *curIndexPath;
-@property (nonatomic) UIView *activeField;
+@property (nonatomic, strong) NSMutableArray *fields;
+@property (nonatomic, strong) NSArray *pickerChoices;
+@property (nonatomic, strong) NSIndexPath *prevIndexPath;
+@property (nonatomic, strong) NSIndexPath *curIndexPath;
+@property (nonatomic, strong) UIView *activeField;
+
+@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UIButton *deleteMemberButton;
 
 @property (nonatomic) BOOL userDidMakeChanges; // flag to determine whether member update is necessary
 
@@ -57,8 +60,6 @@
     }
     return self;
 }
-
-
 
 -(void)initFields {
     
@@ -172,16 +173,45 @@
     self.tableView.dataSource = self;
     [self.tableView registerClass:[KTPEditProfileCell class] forCellReuseIdentifier:@"MemberEditCell"];
     self.tableView.allowsSelection = YES;
+    self.tableView.delaysContentTouches = NO;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.view addSubview:self.tableView];
+    
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.tableFooterView.frame.size.width, 100)];
+    self.deleteMemberButton = [UIButton new];
+    [self.deleteMemberButton setTitle:@"Delete Member" forState:UIControlStateNormal];
+    [self.deleteMemberButton addTarget:self action:@selector(deleteMemberButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    UIColor *normalColor = [UIColor colorWithRed:0xff/255.0 green:0x69/255.0 blue:0x69/255.0 alpha:1];
+    [self.deleteMemberButton setBackgroundImage:[UIImage imageWithColor:normalColor] forState:UIControlStateNormal];
+    [self.deleteMemberButton setBackgroundImage:[UIImage imageWithColor:[normalColor colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
+    self.deleteMemberButton.titleLabel.textColor = [UIColor whiteColor];
+    [self.footerView addSubview:self.deleteMemberButton];
+    [self autoLayoutFooterView];
+    
+    self.tableView.tableFooterView = self.footerView;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 0 && indexPath.row == 7) {
         return kStandardTableViewCellHeight * 4;
     } else {
         return kStandardTableViewCellHeight;
     }
+}
+
+- (void)autoLayoutFooterView {
+    self.deleteMemberButton.translatesAutoresizingMaskIntoConstraints = NO;
+    NSDictionary *views = @{
+                            @"deleteMemberButton"     :   self.deleteMemberButton
+                            };
+    
+    NSDictionary *metrics = @{
+                              @"deleteMemberButtonHeight"     :   [NSNumber numberWithFloat:kLargeButtonHeight]
+                              };
+    
+    [self.footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[deleteMemberButton]-10-|" options:0 metrics:nil views:views]];
+    [self.footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[deleteMemberButton(deleteMemberButtonHeight)]" options:0 metrics:metrics views:views]];
+    [self.footerView addConstraint:[NSLayoutConstraint constraintWithItem:self.deleteMemberButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.footerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -366,6 +396,26 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];
+}
+
+- (void)deleteMemberButtonTapped {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirm Delete" message:@"Are you sure you want to delete this member? This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeDELETE toRoute:KTPRequestRouteAPIMembers appending:self.member._id parameters:nil withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+            if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete Failed" message:@"The member was not deleted" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                [[KTPSMembers members] reloadMembers];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberDeleted object:self.member];
+                }];
+            }
+        }];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
