@@ -146,7 +146,6 @@
              @"first_name"          :   self.firstName,
              @"last_name"           :   self.lastName,
              @"uniqname"            :   self.uniqname,
-             @"prof_pic_url"        :   self.imageURL,
              @"year"                :   [NSNumber numberWithInteger:self.gradYear],
              @"gender"              :   self.gender,
              @"major"               :   self.major,
