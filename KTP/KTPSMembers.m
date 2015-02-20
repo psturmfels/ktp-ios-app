@@ -26,9 +26,16 @@
     self = [super init];
     if (self) {
         self.queue = [NSOperationQueue new];
+        self.sortType = (KTPMembersSortType)[[NSUserDefaults standardUserDefaults] integerForKey:@"membersSortType"];
         [self reloadMembers];
     }
     return self;
+}
+
+- (void)setSortType:(KTPMembersSortType)sortType {
+    _sortType = sortType;
+    [[NSUserDefaults standardUserDefaults] setInteger:sortType forKey:@"membersSortType"];
+    [self sortMembers];
 }
 
 - (void)reloadMembers {
@@ -94,7 +101,62 @@
         member.meetings = meetings;
         ++i;
     }
+    [self sortMembers];
     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMembersUpdated object:self];
+}
+
+- (void)sortMembers {
+    if (self.membersArray) {
+        NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+        switch (self.sortType) {
+            case KTPMembersSortTypeFirstName:
+                self.membersArray = [[self.membersArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]] mutableCopy];
+                break;
+            case KTPMembersSortTypeLastName:
+                self.membersArray = [[self.membersArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]] mutableCopy];
+                break;
+            case KTPMembersSortTypePledgeClass: {
+                NSComparisonResult (^pledgeClassComparator)(id, id) = ^NSComparisonResult(id obj1, id obj2) {
+                    NSInteger dif = [KTPGreekAlphabet indexOfObject:obj1] - [KTPGreekAlphabet indexOfObject:obj2];
+                    return dif / ABS(dif);
+                };
+                self.membersArray = [[self.membersArray sortedArrayUsingDescriptors:
+                                      @[[NSSortDescriptor sortDescriptorWithKey:@"pledgeClass" ascending:YES comparator:pledgeClassComparator],
+                                        firstNameSortDescriptor]] mutableCopy];
+                break;
+            }
+            case KTPMembersSortTypeStatus: {
+                NSComparisonResult (^statusComparator)(id, id) = ^NSComparisonResult(id obj1, id obj2) {
+                    NSInteger dif = [KTPStatusOptions indexOfObject:obj1] - [KTPStatusOptions indexOfObject:obj2];
+                    return dif / ABS(dif);
+                };
+                self.membersArray = [[self.membersArray sortedArrayUsingDescriptors:
+                                      @[[NSSortDescriptor sortDescriptorWithKey:@"status" ascending:YES comparator:statusComparator],
+                                        firstNameSortDescriptor]] mutableCopy];
+                break;
+            }
+            case KTPMembersSortTypeRole:{
+                NSComparisonResult (^roleComparator)(id, id) = ^NSComparisonResult(id obj1, id obj2) {
+                    NSInteger dif = [KTPRoleOptions indexOfObject:obj1] - [KTPRoleOptions indexOfObject:obj2];
+                    return dif / ABS(dif);
+                };
+                self.membersArray = [[self.membersArray sortedArrayUsingDescriptors:
+                                      @[[NSSortDescriptor sortDescriptorWithKey:@"role" ascending:YES comparator:roleComparator],
+                                        firstNameSortDescriptor]] mutableCopy];
+                break;
+            }
+            case KTPMembersSortTypeGradYear:
+                self.membersArray = [[self.membersArray sortedArrayUsingDescriptors:
+                                      @[[NSSortDescriptor sortDescriptorWithKey:@"gradYear" ascending:YES],
+                                        firstNameSortDescriptor]] mutableCopy];
+                break;
+            case KTPMembersSortTypeMajor:
+                self.membersArray = [[self.membersArray sortedArrayUsingDescriptors:
+                                      @[[NSSortDescriptor sortDescriptorWithKey:@"major" ascending:YES],
+                                        firstNameSortDescriptor]] mutableCopy];
+                break;
+        }
+    }
 }
 
 @end

@@ -14,6 +14,7 @@
 @interface KTPSMembers : NSObject
 
 @property (nonatomic, strong) NSMutableArray *membersArray;
+@property (nonatomic) KTPMembersSortType sortType;
 
 @property (nonatomic, strong) NSOperationQueue *queue;
 

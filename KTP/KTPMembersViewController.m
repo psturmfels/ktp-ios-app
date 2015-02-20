@@ -12,8 +12,9 @@
 #import "KTPMembersCell.h"
 #import "KTPMember.h"
 #import "KTPSUser.h"
+#import "KTPOptionSelectViewController.h"
 
-@interface KTPMembersViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface KTPMembersViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, KTPOptionSelectDelegate>
 
 @property (nonatomic, strong) NSMutableArray *filteredMembers;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -28,7 +29,7 @@
     self = [super init];
     if (self) {
         self.navigationItem.title = @"Members";
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ProfileIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(showUserProfile)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonTapped)];
 
         [self initTableView];
         [self initPullToRefresh];
@@ -96,13 +97,6 @@
 #pragma mark - Showing KTPProfileViewController
 
 /*!
- Shows the profile of the logged in user as maintained by KTPSUser
- */
-- (void)showUserProfile {
-    [self showProfileWithMember:[KTPSUser currentMember]];
-}
-
-/*!
  Initializes a KTPProfileViewController with a member and pushes it onto the navigation stack
  
  @param         member
@@ -125,6 +119,31 @@
 - (void)refreshMembers {
     [[KTPSMembers members] reloadMembers];
     [self resetSearchBar:self.searchBar];
+}
+
+- (void)sortButtonTapped {
+    NSArray *sortOptions = @[@"First Name", @"Last Name", @"Pledge Class", @"Status", @"Role", @"Grad Year", @"Major"];
+    
+    KTPOptionSelectViewController *vc = [[KTPOptionSelectViewController alloc] initWithOptions:sortOptions selected:[KTPSMembers members].sortType title:@"Sort Members"];
+    vc.optionSelectDelegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - KTPOptionSelectDelegate methods
+
+- (void)optionSelectViewController:(KTPOptionSelectViewController *)controller didSelectOptionAtIndex:(NSUInteger)index {
+    [KTPSMembers members].sortType = (KTPMembersSortType)index;
+    [self resetSearchBar:self.searchBar];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self updateTableView];
+}
+
+- (void)optionSelectViewControllerDidTapCancelButton:(KTPOptionSelectViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)optionSelectViewControllerDidTapDoneButton:(KTPOptionSelectViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - TableView

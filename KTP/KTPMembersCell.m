@@ -8,6 +8,7 @@
 
 #import "KTPMembersCell.h"
 #import "KTPMember.h"
+#import "KTPSMembers.h"
 
 @implementation KTPMembersCell
 
@@ -50,6 +51,25 @@
     self.imageView.image = self.member.image;
     self.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.member.firstName, self.member.lastName];
     self.detailTextLabel.text = self.member.role;
+    
+    switch ([KTPSMembers members].sortType) {
+        case KTPMembersSortTypeFirstName:
+        case KTPMembersSortTypeLastName:
+        case KTPMembersSortTypeRole:
+            break;
+        case KTPMembersSortTypePledgeClass:
+            self.detailTextLabel.text = [NSString stringWithFormat:@"(%@) %@", self.member.pledgeClass, self.detailTextLabel.text];
+            break;
+        case KTPMembersSortTypeStatus:
+            self.detailTextLabel.text = [NSString stringWithFormat:@"(%@) %@", self.member.status, self.detailTextLabel.text];
+            break;
+        case KTPMembersSortTypeGradYear:
+            self.detailTextLabel.text = [NSString stringWithFormat:@"(%ld) %@", (long)self.member.gradYear, self.detailTextLabel.text];
+            break;
+        case KTPMembersSortTypeMajor:
+            self.detailTextLabel.text = self.member.major;
+            break;
+    }
 }
 
 #pragma mark - Auto Layout
