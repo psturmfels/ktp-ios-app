@@ -31,6 +31,7 @@ extern NSString *const KTPNotificationPledgeMeetingUpdateFailed;
 #define kLargeButtonHeight              60
 
 typedef NS_ENUM(NSInteger, KTPViewType) {
+    KTPViewTypeMyProfile,
     KTPViewTypeMembers,
     KTPViewTypePledging,
     KTPViewTypeAnnouncements,

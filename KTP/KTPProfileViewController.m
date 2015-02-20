@@ -21,10 +21,11 @@
 
 #import "KTPNetworking.h"
 
-@interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface KTPProfileViewController () <UIImagePickerControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
+
 @property (nonatomic, strong) KTPProfileFratInfoView *fratInfo;
 @property (nonatomic, strong) KTPProfilePersonalInfoView *personalInfo;
 @property (nonatomic, strong) KTPProfileNameView *nameView;
@@ -38,8 +39,16 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithMember:(KTPMember*)member {
+- (instancetype)init {
     self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(membersUpdated:) name:KTPNotificationMembersUpdated object:nil];
+    }
+    return self;
+}
+
+- (instancetype)initWithMember:(KTPMember*)member {
+    self = [self init];
     if (self) {
         self.member = member;
     }
@@ -433,6 +442,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self loadContent];
     });
+}
+
+- (void)membersUpdated:(NSNotification*)notification {
+    if (!self.member) {
+        self.member = [KTPSUser currentMember];
+    }
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "KTPLoginViewController.h"
 #import "KTPSlideMenuViewController.h"
 
+#import "KTPProfileViewController.h"
 #import "KTPMembersViewController.h"
 #import "KTPPledgingViewController.h"
 #import "KTPAnnouncementsViewController.h"
@@ -48,7 +49,7 @@
         [self.slideMenuVC didMoveToParentViewController:self];
         
         // Init and add main nav as child VC
-        self.navVC = [[UINavigationController alloc] initWithRootViewController:[KTPMembersViewController new]];
+        self.navVC = [[UINavigationController alloc] initWithRootViewController:[[KTPProfileViewController alloc] initWithMember:[KTPSUser currentMember]]];
         self.navVC.delegate = self;
         [self addChildViewController:self.navVC];
         [self.navVC didMoveToParentViewController:self];
@@ -263,6 +264,11 @@
 - (void)didSelectSlideMenuCell:(KTPSlideMenuCell *)cell {
     UIViewController *baseVC = self.navVC.viewControllers[0];
     switch (cell.viewType) {
+        case KTPViewTypeMyProfile:
+            if (![baseVC isKindOfClass:[KTPProfileViewController class]]) {
+                self.navVC.viewControllers = @[[[KTPProfileViewController alloc] initWithMember:[KTPSUser currentMember]]];
+            }
+            break;
         case KTPViewTypeMembers:
             if (![baseVC isKindOfClass:[KTPMembersViewController class]]) {
                 self.navVC.viewControllers = @[[KTPMembersViewController new]];
