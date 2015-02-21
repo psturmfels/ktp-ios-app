@@ -17,6 +17,20 @@
 @property (nonatomic, strong) UIView *contentView;
 
 @property (nonatomic, strong) UILabel *titleDataLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
+
+@property (nonatomic, strong) UILabel *descriptionDataLabel;
+@property (nonatomic, strong) UILabel *descriptionLabel;
+
+@property (nonatomic, strong) UILabel *proofDataLabel;
+@property (nonatomic, strong) UILabel *proofLabel;
+
+@property (nonatomic, strong) UILabel *pointsDataLabel;
+@property (nonatomic, strong) UILabel *pointsLabel;
+
+
+
+
 
 @end
 
@@ -64,6 +78,9 @@
 
 - (void)loadContent {
     self.titleDataLabel.text = self.pledgeTask.taskTitle;
+    self.descriptionDataLabel.text = self.pledgeTask.taskDescription;
+    self.proofDataLabel.text = self.pledgeTask.proof;
+    self.pointsDataLabel.text = [NSString stringWithFormat:@"%.f/%.f",self.pledgeTask.pointsEarned,self.pledgeTask.points];
 }
 
 - (void)loadSubviews {
@@ -71,7 +88,14 @@
     [self loadContentView];
     
     // Content Views
+    [self loadTitleDataLabel];
     [self loadTitleLabel];
+    [self loadDescriptionDataLabel];
+    [self loadDescriptionLabel];
+    [self loadProofDataLabel];
+    [self loadProofLabel];
+    [self loadPointsDataLabel];
+    [self loadPointsLabel];
     
 }
 
@@ -89,12 +113,64 @@
     [self.scrollView addSubview:self.contentView];
 }
 
-- (void)loadTitleLabel{
+- (void)loadTitleDataLabel{
     self.titleDataLabel = [UILabel labelWithText:self.pledgeTask.taskTitle];
-    [self.titleDataLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.titleDataLabel setTextAlignment:NSTextAlignmentLeft];
     [self.titleDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
     self.titleDataLabel.numberOfLines = 0;
     [self.contentView addSubview:self.titleDataLabel];
+}
+
+- (void)loadTitleLabel{
+    self.titleLabel = [UILabel labelWithText:@"Task: "];
+    [self.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    self.titleLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.titleLabel];
+}
+
+- (void)loadDescriptionDataLabel{
+    self.descriptionDataLabel = [UILabel labelWithText:self.pledgeTask.taskDescription];
+    [self.descriptionDataLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.descriptionDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    self.descriptionDataLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.descriptionDataLabel];
+}
+
+- (void)loadDescriptionLabel{
+    self.descriptionLabel = [UILabel labelWithText:@"Description: "];
+    [self.descriptionLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    self.descriptionLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.descriptionLabel];
+}
+
+- (void)loadProofDataLabel{
+    self.proofDataLabel = [UILabel labelWithText:self.pledgeTask.proof];
+    [self.proofDataLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.proofDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    self.proofDataLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.proofDataLabel];
+}
+
+- (void)loadProofLabel{
+    self.proofLabel = [UILabel labelWithText:@"Proof: "];
+    [self.proofLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    self.proofLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.proofLabel];
+}
+
+- (void)loadPointsDataLabel{
+    self.pointsDataLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%.f/%.f",self.pledgeTask.pointsEarned,self.pledgeTask.points]];
+    [self.pointsDataLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.pointsDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    self.pointsDataLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.pointsDataLabel];
+}
+
+- (void)loadPointsLabel{
+    self.pointsLabel = [UILabel labelWithText:@"Points Earned: "];
+    [self.pointsLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    self.pointsLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.pointsLabel];
 }
 
 - (void)autoLayoutSubviews {
@@ -104,14 +180,40 @@
     
     // Label all views for autolayout
     NSDictionary *views = @{
-                            @"titleDataLabel"       :   self.titleDataLabel
+                            @"titleDataLabel"       :   self.titleDataLabel,
+                            @"titleLabel"           :   self.titleLabel,
+                            @"descriptionDataLabel" :   self.descriptionDataLabel,
+                            @"descriptionLabel"     :   self.descriptionLabel,
+                            @"proofDataLabel"       :   self.proofDataLabel,
+                            @"proofLabel"           :   self.proofLabel,
+                            @"pointsDataLabel"      :   self.pointsDataLabel,
+                            @"pointsLabel"          :   self.pointsLabel
                             };
     
     /* titleDataLabel */
 //    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleDataLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.titleDataLabel attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 //    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleDataLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleDataLabel]-10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[titleDataLabel]" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[titleLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[titleDataLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[titleLabel]-10-[titleDataLabel]" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[descriptionLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleDataLabel]-10-[descriptionLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[descriptionDataLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[descriptionLabel]-10-[descriptionDataLabel]" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[proofLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[descriptionDataLabel]-10-[proofLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[proofDataLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[proofLabel]-10-[proofDataLabel]" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pointsLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[proofDataLabel]-10-[pointsLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pointsDataLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pointsLabel]-10-[pointsDataLabel]" options:0 metrics:nil views:views]];
+    
     
     
 }
