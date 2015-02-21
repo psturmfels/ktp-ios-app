@@ -21,7 +21,10 @@
 @property (nonatomic, strong) KTPMember *member;
 @property (nonatomic, getter = isLoggedIn) BOOL loggedIn;
 
-+ (KTPSUser *)currentUser;
++ (KTPSUser*)currentUser;
++ (KTPMember*)currentMember;
+
++ (BOOL)currentUserIsAdmin;
 
 /*!
  Asynchronously logs in the user with their provided username and password. When the user is logged in or if an error occurred, block is called with the appropriate arguments.

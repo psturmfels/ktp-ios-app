@@ -30,6 +30,14 @@
     return user;
 }
 
++ (KTPMember*)currentMember {
+    return [KTPSUser currentUser].member;
+}
+
++ (BOOL)currentUserIsAdmin {
+    return [[KTPSUser currentMember].status isEqualToString:@"Eboard"];
+}
+
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(void (^)(BOOL successful, NSError *error))block {
     // Login is performed asynchronously
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -84,7 +92,7 @@
                                            toRoute:KTPRequestRouteAPILogin
                                          appending:nil
                                         parameters:nil
-                                          withBody:@{@"account"     :   possibleMember.account,
+                                      withJSONBody:@{@"account"     :   possibleMember.account,
                                                      @"password"    :   password}
                                              block:^(NSURLResponse *response, NSData *data, NSError *error)
         {

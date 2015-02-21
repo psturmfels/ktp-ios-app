@@ -126,7 +126,7 @@
     }
     
     NSDictionary *pitch = @{
-                            @"member"       :   [KTPSUser currentUser].member._id,
+                            @"member"       :   [KTPSUser currentMember]._id,
                             @"title"        :   self.titleField.text,
                             @"description"  :   self.descriptionField.text
                             };
@@ -135,7 +135,7 @@
                                        toRoute:KTPRequestRouteAPIPitches
                                      appending:nil
                                     parameters:nil
-                                      withBody:pitch
+                                  withJSONBody:pitch
                                          block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
             NSLog(@"Error adding pitch");

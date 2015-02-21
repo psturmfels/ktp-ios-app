@@ -13,42 +13,25 @@
 #import "KTPMember.h"
 #import "KTPSUser.h"
 #import "KTPEditProfileViewController.h"
+#import "KTPProfileFratInfoView.h"
+#import "KTPProfilePersonalInfoView.h"
+#import "KTPProfileNameView.h"
+#import "KTPProfileBioView.h"
+#import "KTPProfileButtonsView.h"
+
+#import "KTPNetworking.h"
 
 @interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
 
-// Public Member Info
-@property (nonatomic, strong) UIImageView *profileImageView;
-@property (nonatomic, strong) UILabel *majorLabel;
-@property (nonatomic, strong) UILabel *majorDataLabel;
-@property (nonatomic, strong) UILabel *gradLabel;
-@property (nonatomic, strong) UILabel *gradDataLabel;
-@property (nonatomic, strong) UILabel *hometownLabel;
-@property (nonatomic, strong) UILabel *hometownDataLabel;
-@property (nonatomic, strong) UIView *personalDividerView;
-@property (nonatomic, strong) UILabel *statusLabel;
-@property (nonatomic, strong) UILabel *statusDataLabel;
-@property (nonatomic, strong) UILabel *roleLabel;
-@property (nonatomic, strong) UILabel *roleDataLabel;
-@property (nonatomic, strong) UILabel *pledgeClassLabel;
-@property (nonatomic, strong) UILabel *pledgeClassDataLabel;
-@property (nonatomic, strong) UILabel *bioLabel;
-@property (nonatomic, strong) UILabel *bioDataLabel;
+@property (nonatomic, strong) KTPProfileFratInfoView *fratInfo;
+@property (nonatomic, strong) KTPProfilePersonalInfoView *personalInfo;
+@property (nonatomic, strong) KTPProfileNameView *nameView;
+@property (nonatomic, strong) KTPProfileBioView *bioView;
+@property (nonatomic, strong) KTPProfileButtonsView *buttonsView;
 
-@property (nonatomic, strong) UIButton *phoneButton;
-@property (nonatomic, strong) UIButton *emailButton;
-@property (nonatomic, strong) UIButton *facebookButton;
-@property (nonatomic, strong) UIButton *twitterButton;
-@property (nonatomic, strong) UIButton *linkedInButton;
-@property (nonatomic, strong) UIButton *personalSiteButton;
-
-// Private Member Info
-@property (nonatomic, strong) UILabel *comServLabel;
-@property (nonatomic, strong) UILabel *proDevLabel;
-@property (nonatomic, strong) UILabel *attendanceLabel;
-@property (nonatomic, strong) UILabel *testScoreLabel;
 
 @end
 
@@ -56,12 +39,24 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithMember:(KTPMember*)member {
+- (instancetype)init {
     self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(membersUpdated:) name:KTPNotificationMembersUpdated object:nil];
+    }
+    return self;
+}
+
+- (instancetype)initWithMember:(KTPMember*)member {
+    self = [self init];
     if (self) {
         self.member = member;
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Overriden Setters/Getters
@@ -74,18 +69,19 @@
 - (void)setMember:(KTPMember *)member {
     if (_member != member) {
         _member = member;
-        self.title = [NSString stringWithFormat:@"%@ %@", member.firstName, member.lastName];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberUpdated:) name:KTPNotificationMemberUpdated object:self.member];
+        [self loadContent];
     }
 }
 
-#pragma mark - Loading Subviews
+#pragma mark - UIViewController methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if ([KTPSUser currentUser].member == self.member) {
+    if ([KTPSUser currentMember] == self.member || [KTPSUser currentUserIsAdmin]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                                                target:self
                                                                                                action:@selector(editButtonTapped)];
@@ -96,8 +92,71 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self loadContent];
 }
+
+- (void)loadContent {
+    
+    self.navigationItem.title = self.member.firstName;
+    
+    self.nameView.nameLabel.text = [NSString stringWithFormat:@"%@\n%@", self.member.firstName, self.member.lastName];
+    self.nameView.profileImageView.image = self.member.image;
+    
+    self.bioView.textLabel.text = self.member.biography;
+    
+    self.fratInfo.statusLabel.text = [NSString stringWithFormat:@"Status: %@", self.member.status];
+    self.fratInfo.roleLabel.text = [NSString stringWithFormat:@"Role: %@", self.member.role];
+    self.fratInfo.pledgeClassLabel.text = [NSString stringWithFormat:@"Pledge Class: %@", self.member.pledgeClass];
+    
+    self.personalInfo.majorLabel.text = [NSString stringWithFormat:@"Major: %@", self.member.major];
+    self.personalInfo.gradLabel.text = [NSString stringWithFormat:@"Graduation Year: %ld", (long)self.member.gradYear];
+    self.personalInfo.hometownLabel.text = [NSString stringWithFormat:@"Hometown: %@", self.member.hometown];
+    
+    if ((self.buttonsView.phoneButton.enabled = [self.member.phoneNumber isNotNilOrEmpty])) {
+        [self.buttonsView.phoneButton setImage:[UIImage imageNamed:@"PhoneIcon"] forState:UIControlStateNormal];
+        [self.buttonsView.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.buttonsView.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.buttonsView.emailButton.enabled = [self.member.email isNotNilOrEmpty])) {
+        [self.buttonsView.emailButton setImage:[UIImage imageNamed:@"EmailIcon"] forState:UIControlStateNormal];
+        [self.buttonsView.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.buttonsView.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.buttonsView.facebookButton.enabled = [self.member.facebook isNotNilOrEmpty])) {
+        [self.buttonsView.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
+        [self.buttonsView.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.buttonsView.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.buttonsView.twitterButton.enabled = [self.member.twitter isNotNilOrEmpty])) {
+        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterWhiteLogo"] forState:UIControlStateNormal];
+        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterWhiteLogoHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.buttonsView.twitterButton setImage:[UIImage imageNamed:@"TwitterWhiteLogoHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.buttonsView.linkedInButton.enabled = [self.member.linkedIn isNotNilOrEmpty])) {
+        [self.buttonsView.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
+        [self.buttonsView.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.buttonsView.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateNormal];
+    }
+    
+    if ((self.buttonsView.personalSiteButton.enabled = [self.member.personalSite isNotNilOrEmpty])) {
+        [self.buttonsView.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIcon"] forState:UIControlStateNormal];
+        [self.buttonsView.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateHighlighted];
+    } else {
+        [self.buttonsView.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - Loading Subviews
 
 /*!
  Loads all subviews of self.scrollView
@@ -106,41 +165,14 @@
     // Container views
     [self loadScrollView];
     [self loadContentView];
-    
-    // Content views
-    [self loadProfileImageView];
-    [self loadMajorLabel];
-    [self loadGradLabel];
-    [self loadHometownLabel];
-    [self loadPersonalDividerView];
-    [self loadStatusLabel];
-    [self loadRoleLabel];
-    [self loadPledgeClassLabel];
-    [self loadBioLabel];
-    
-    [self loadPhoneButton];
-    [self loadEmailButton];
-    [self loadFacebookButton];
-    [self loadTwitterButton];
-    [self loadLinkedInButton];
-    [self loadPersonalSiteButton];
-}
-
-- (void)loadContent {
-    self.profileImageView.image = self.member.image;
-    self.majorDataLabel.text = self.member.major;
-    self.gradDataLabel.text = [NSString stringWithFormat:@"%ld",(long)self.member.gradYear];
-    self.hometownDataLabel.text = self.member.hometown;
-    self.statusDataLabel.text = self.member.status;
-    self.roleDataLabel.text = self.member.role;
-    self.pledgeClassDataLabel.text = self.member.pledgeClass;
-    self.bioDataLabel.text = self.member.biography;
+    [self loadSectionViews];
 }
 
 - (void)loadScrollView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.delaysContentTouches = NO;
+    self.scrollView.backgroundColor = [UIColor KTPDarkGray];
     [self.view addSubview:self.scrollView];
 }
 
@@ -151,345 +183,73 @@
     [self.scrollView addSubview:self.contentView];
 }
 
-#define PROFILE_IMAGE_RADIUS 10
-
-/*!
- Initializes and loads an image into profileImageView, and adds as subviews
- */
-- (void)loadProfileImageView {
-    self.profileImageView = [[UIImageView alloc] initWithImage:self.member.image];
-    self.profileImageView.layer.cornerRadius = PROFILE_IMAGE_RADIUS;
-    self.profileImageView.layer.masksToBounds = YES;
-    self.profileImageView.userInteractionEnabled = YES;
-    [self.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
-    [self.contentView addSubview:self.profileImageView];
-}
-
-/*!
- Initializes and loads majorLabel and majorDataLabel, and adds as subviews
- */
-- (void)loadMajorLabel {
-    self.majorLabel = [UILabel labelWithText:@"Major:"];
-    [self.contentView addSubview:self.majorLabel];
+- (void)loadSectionViews {
     
-    self.majorDataLabel = [UILabel labelWithText:self.member.major];
-    self.majorDataLabel.numberOfLines = 0;
-    [self.contentView addSubview:self.majorDataLabel];
-}
-
-/*!
- Initializes and loads gradLabel and gradDataLabel, and adds as subviews
- */
-- (void)loadGradLabel {
-    // Use "0000" as a default
-    self.gradLabel = [UILabel labelWithText:@"Grad Year:"];
-    [self.contentView addSubview:self.gradLabel];
+    self.nameView = [KTPProfileNameView new];
+    if ([KTPSUser currentMember] == self.member || [KTPSUser currentUserIsAdmin]) {
+        [self.nameView.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageTapped)]];
+    }
+    [self.contentView addSubview:self.nameView];
     
-    self.gradDataLabel = [UILabel new];
-    self.gradDataLabel.text = [NSString stringWithFormat:@"%ld",(long)self.member.gradYear];
-    if (self.member.gradYear == 0) {
-        self.gradDataLabel.text = @"0000";
-    }
-    [self.contentView addSubview:self.gradDataLabel];
-}
-
-/*!
- Initializes and loads hometownLabel and hometownDataLabel, and adds as subviews
- */
-- (void)loadHometownLabel {
-    self.hometownLabel = [UILabel labelWithText:@"Hometown:"];
-    [self.contentView addSubview:self.hometownLabel];
+    self.bioView = [KTPProfileBioView new];
+    [self.contentView addSubview:self.bioView];
     
-    self.hometownDataLabel = [UILabel labelWithText:self.member.hometown];
-    self.hometownDataLabel.numberOfLines = 0;
-    [self.contentView addSubview:self.hometownDataLabel];
-}
-
-- (void)loadPersonalDividerView {
-    self.personalDividerView = [UIView new];
-    self.personalDividerView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
-    [self.contentView addSubview:self.personalDividerView];
-}
-
-/*!
- Initializes and loads statusLabel and statusDataLabel, and adds as subviews
- */
-- (void)loadStatusLabel {
-    self.statusLabel = [UILabel labelWithText:@"Status:"];
-    [self.contentView addSubview:self.statusLabel];
+    self.fratInfo = [KTPProfileFratInfoView new];
+    [self.contentView addSubview:self.fratInfo];
     
-    self.statusDataLabel = [UILabel labelWithText:self.member.status];
-    [self.contentView addSubview:self.statusDataLabel];
-}
-
-/*!
- Initializes and loads roleLabel and roleDataLabel, and adds as subviews
- */
-- (void)loadRoleLabel {
-    self.roleLabel = [UILabel labelWithText:@"Role:"];
-    [self.contentView addSubview:self.roleLabel];
+    self.personalInfo = [KTPProfilePersonalInfoView new];
+    [self.contentView addSubview:self.personalInfo];
     
-    self.roleDataLabel = [UILabel labelWithText:self.member.role];
-    self.roleDataLabel.numberOfLines = 0;
-    [self.contentView addSubview:self.roleDataLabel];
-}
-
-/*!
- Initializes and loads pledgeClassLabel and pledgeClassDataLabel, and adds as subviews
- */
-- (void)loadPledgeClassLabel {
-    self.pledgeClassLabel = [UILabel labelWithText:@"Pledge Class:"];
-    [self.contentView addSubview:self.pledgeClassLabel];
+    self.buttonsView = [KTPProfileButtonsView new];
+    [self.buttonsView.phoneButton addTarget:self action:@selector(phoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.phoneButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(phoneButtonLongPressed)]];
+    [self.buttonsView.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.emailButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(emailButtonLongPressed)]];
+    [self.buttonsView.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.facebookButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(facebookButtonLongPressed)]];
+    [self.buttonsView.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.twitterButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(twitterButtonLongPressed)]];
+    [self.buttonsView.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.linkedInButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(linkedInButtonLongPressed)]];
+    [self.buttonsView.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView.personalSiteButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(personalSiteButtonLongPressed)]];
+    [self.contentView addSubview:self.buttonsView];
     
-    self.pledgeClassDataLabel = [UILabel labelWithText:self.member.pledgeClass];
-    [self.contentView addSubview:self.pledgeClassDataLabel];
 }
 
-/*!
- Initializes and loads bioLabel and bioDataLabel, and adds as subviews
- */
-- (void)loadBioLabel {
-    self.bioLabel = [UILabel labelWithText:@"Personal Bio:"];
-    [self.contentView addSubview:self.bioLabel];
-    
-    self.bioDataLabel = [UILabel labelWithText:self.member.biography];
-    self.bioDataLabel.numberOfLines = 0;
-    self.bioDataLabel.font = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
-    [self.contentView addSubview:self.bioDataLabel];
-}
-
-#define kLinkButtonCornerRadius 5
-
-- (void)loadPhoneButton {
-    self.phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.phoneButton addTarget:self action:@selector(phoneButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.phoneButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(phoneButtonLongPressed)]];
-    if ([self.member.phoneNumber isNotNilOrEmpty]) {
-        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIcon"] forState:UIControlStateNormal];
-        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.phoneButton.enabled = NO;
-        [self.phoneButton setImage:[UIImage imageNamed:@"PhoneIconHighlighted"] forState:UIControlStateNormal];
-    }
-    self.phoneButton.layer.cornerRadius = kLinkButtonCornerRadius;
-    self.phoneButton.layer.masksToBounds = YES;
-    [self.contentView addSubview:self.phoneButton];
-}
-
-- (void)loadEmailButton {
-    self.emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.emailButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(emailButtonLongPressed)]];
-    if ([self.member.email isNotNilOrEmpty]) {
-        [self.emailButton setImage:[UIImage imageNamed:@"EmailIcon"] forState:UIControlStateNormal];
-        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.emailButton.enabled = NO;
-        [self.emailButton setImage:[UIImage imageNamed:@"EmailIconHighlighted"] forState:UIControlStateNormal];
-    }
-    self.emailButton.layer.cornerRadius = kLinkButtonCornerRadius;
-    self.emailButton.layer.masksToBounds = YES;
-    [self.contentView addSubview:self.emailButton];
-}
-
-- (void)loadFacebookButton {
-    self.facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.facebookButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(facebookButtonLongPressed)]];
-    if ([self.member.facebook isNotNilOrEmpty]) {
-        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogo"] forState:UIControlStateNormal];
-        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.facebookButton.enabled = NO;
-        [self.facebookButton setImage:[UIImage imageNamed:@"FacebookLogoHighlighted"] forState:UIControlStateNormal];
-    }
-    self.facebookButton.layer.cornerRadius = kLinkButtonCornerRadius;
-    self.facebookButton.layer.masksToBounds = YES;
-    [self.contentView addSubview:self.facebookButton];
-}
-
-- (void)loadTwitterButton {
-    self.twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.twitterButton addTarget:self action:@selector(twitterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.twitterButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(twitterButtonLongPressed)]];
-    if ([self.member.twitter isNotNilOrEmpty]) {
-        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlue"] forState:UIControlStateNormal];
-        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.twitterButton.enabled = NO;
-        [self.twitterButton setImage:[UIImage imageNamed:@"TwitterLogoBlueHighlighted"] forState:UIControlStateNormal];
-    }
-    self.twitterButton.layer.cornerRadius = kLinkButtonCornerRadius;
-    self.twitterButton.layer.masksToBounds = YES;
-    [self.contentView addSubview:self.twitterButton];
-}
-
-- (void)loadLinkedInButton {
-    self.linkedInButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.linkedInButton addTarget:self action:@selector(linkedInButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.linkedInButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(linkedInButtonLongPressed)]];
-    if ([self.member.linkedIn isNotNilOrEmpty]) {
-        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogo"] forState:UIControlStateNormal];
-        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.linkedInButton.enabled = NO;
-        [self.linkedInButton setImage:[UIImage imageNamed:@"LinkedInLogoHighlighted"] forState:UIControlStateNormal];
-    }
-    self.linkedInButton.layer.cornerRadius = kLinkButtonCornerRadius;
-    self.linkedInButton.layer.masksToBounds = YES;
-    [self.contentView addSubview:self.linkedInButton];
-}
-
-- (void)loadPersonalSiteButton {
-    self.personalSiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.personalSiteButton addTarget:self action:@selector(personalSiteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.personalSiteButton addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(personalSiteButtonLongPressed)]];
-    if ([self.member.personalSite isNotNilOrEmpty]) {
-        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIcon"] forState:UIControlStateNormal];
-        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateHighlighted];
-    } else {
-        self.personalSiteButton.enabled = NO;
-        [self.personalSiteButton setImage:[UIImage imageNamed:@"PersonalSiteIconHighlighted"] forState:UIControlStateNormal];
-    }
-    self.personalSiteButton.layer.cornerRadius = kLinkButtonCornerRadius;
-    self.personalSiteButton.layer.masksToBounds = YES;
-    [self.contentView addSubview:self.personalSiteButton];
-}
-
-/*!
- Sets autolayout constraints on subviews of self.scrollView
- */
 - (void)autoLayoutSubviews {
     
-    // Set translatesAutoresizingMaskIntoConstraints property to NO for all autolayout views
     for (UIView *view in self.contentView.subviews) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
-
-    // Label all views for autolayout
+    
     NSDictionary *views = @{
-                            @"profileImageView"     :   self.profileImageView,
-                            @"majorLabel"           :   self.majorLabel,
-                            @"majorDataLabel"       :   self.majorDataLabel,
-                            @"gradLabel"            :   self.gradLabel,
-                            @"gradDataLabel"        :   self.gradDataLabel,
-                            @"hometownLabel"        :   self.hometownLabel,
-                            @"hometownDataLabel"    :   self.hometownDataLabel,
-                            @"personalDividerView"  :   self.personalDividerView,
-                            @"statusLabel"          :   self.statusLabel,
-                            @"statusDataLabel"      :   self.statusDataLabel,
-                            @"roleLabel"            :   self.roleLabel,
-                            @"roleDataLabel"        :   self.roleDataLabel,
-                            @"pledgeClassLabel"     :   self.pledgeClassLabel,
-                            @"pledgeClassDataLabel" :   self.pledgeClassDataLabel,
-                            @"bioLabel"             :   self.bioLabel,
-                            @"bioDataLabel"      :   self.bioDataLabel,
-                            @"phoneButton"          :   self.phoneButton,
-                            @"emailButton"          :   self.emailButton,
-                            @"facebookButton"       :   self.facebookButton,
-                            @"twitterButton"        :   self.twitterButton,
-                            @"linkedInButton"       :   self.linkedInButton,
-                            @"personalSiteButton"   :   self.personalSiteButton
+                            @"nameView"     :   self.nameView,
+                            @"bioView"      :   self.bioView,
+                            @"fratInfo"     :   self.fratInfo,
+                            @"personalInfo" :   self.personalInfo,
+                            @"buttonsView"  :   self.buttonsView
                             };
     
-    /* profileImageView */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.profileImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:0.3 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[profileImageView]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[profileImageView]" options:0 metrics:nil views:views]];
+    /* nameView */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[nameView]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[nameView]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.nameView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:self.view.frame.size.width * 0.4]];
     
-    /* majorLabel, gradLabel, hometownLabel left alignment */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[profileImageView]-10-[majorLabel]" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.majorLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.gradLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.gradLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.hometownLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    /* bioView */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[bioView]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[nameView]-10-[bioView]" options:0 metrics:nil views:views]];
     
-    /* label and data top alignment */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.majorLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.majorDataLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.gradLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.gradDataLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.hometownLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.hometownDataLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    /* fratInfo */
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bioView]-20-[fratInfo]-20-[personalInfo]-20-[buttonsView]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.fratInfo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.bioView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
-    /* majorDataLabel, gradDataLabel, hometownDataLabel left alignment */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.majorDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.gradDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.gradDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.hometownDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[hometownLabel(90)]-5-[hometownDataLabel]" options:0 metrics:nil views:views]];
+    /* personalInfo */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalInfo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.fratInfo attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
-    /* majorDataLabel, gradDataLabel, hometownDataLabel right space from containerView */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[majorDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[gradDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[hometownDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
+    /* buttonsView */
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.buttonsView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.personalInfo attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
-    /* major, grad, hometown label/data vertical spacing */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[majorDataLabel]-5-[gradLabel]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[gradDataLabel]-5-[hometownLabel]" options:0 metrics:nil views:views]];
-    
-    /* personalDivider */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalDividerView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.hometownLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalDividerView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.hometownDataLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[hometownDataLabel]-10-[personalDividerView(1)]" options:0 metrics:nil views:views]];
-    
-    /* pledgeClass, role, status labels positions */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[personalDividerView]-10-[pledgeClassLabel]" options:NSLayoutFormatAlignAllLeft metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pledgeClassDataLabel]-5-[roleLabel]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[roleDataLabel]-5-[statusLabel]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.roleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pledgeClassLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.statusLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.roleLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    
-    /* pledgeClass, role, status label/data vertical alignment */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[pledgeClassLabel(120)]-10-[pledgeClassDataLabel]" options:NSLayoutFormatAlignAllTop metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.roleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.roleDataLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.statusLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.statusDataLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    
-    /* pledgeClass, role, status data left alignment */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pledgeClassDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.roleDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.roleDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.statusDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    
-    /* pledgeClass, role, status data right space from containerView */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[pledgeClassDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[roleDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[statusDataLabel]-(>=5)-|" options:0 metrics:nil views:views]];
-    
-    /* bioLabel, bioDataLabel */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioLabel]-(>=5)-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[linkedInButton]-(>=20)-[bioLabel]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[statusLabel]-(>=20)-[bioLabel]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bioLabel]-[bioDataLabel]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bioDataLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.bioLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[bioDataLabel]-10-|" options:0 metrics:nil views:views]];
-    
-    /* phoneButton */
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[profileImageView]-10-[phoneButton]-10-[facebookButton]-10-[linkedInButton]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.phoneButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.phoneButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.phoneButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-    /* emailButton */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.profileImageView attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.emailButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-    /* facebookButton */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.phoneButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.facebookButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-    /* twitterButton */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.emailButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.emailButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.twitterButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.twitterButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-    /* linkedInButton */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.facebookButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.linkedInButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.linkedInButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-    /* personalSiteButton */
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.twitterButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.twitterButton attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.linkedInButton attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.personalSiteButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.personalSiteButton attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -514,6 +274,7 @@
     // Set the content size of scrollView to contentView's size
     self.scrollView.contentSize = self.contentView.frame.size;
 }
+     
 
 #pragma mark - UI action selectors
 
@@ -536,6 +297,7 @@
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
         [self presentViewController:picker animated:YES completion:nil];
     }]];
     
@@ -544,10 +306,18 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = info[UIImagePickerControllerEditedImage];
-    self.profileImageView.image = image;
+    UIImage *image = info[UIImagePickerControllerEditedImage] ? info[UIImagePickerControllerEditedImage] : info[UIImagePickerControllerOriginalImage];
+    self.nameView.profileImageView.image = image;
     self.member.image = image;
-    [self.member update:nil];
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePOST toRoute:KTPRequestRouteAPIMembers appending:[NSString stringWithFormat:@"%@/upload_pic", self.member._id] parameters:nil withData:imageData contentType:KTPContentTypePNG block:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Image Upload Failed" message:@"Your image could not be saved" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -664,5 +434,20 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Notification Handling
+
+- (void)memberUpdated:(NSNotification*)notification {
+    // Workaround -- image does not update right away if this instruction is not
+    // dispatched to the main queue
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadContent];
+    });
+}
+
+- (void)membersUpdated:(NSNotification*)notification {
+    if (!self.member) {
+        self.member = [KTPSUser currentMember];
+    }
+}
 
 @end

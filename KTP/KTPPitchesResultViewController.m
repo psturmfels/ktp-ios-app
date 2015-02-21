@@ -10,13 +10,19 @@
 #import "KTPPitchesResultCell.h"
 #import "KTPPitchesResultSortViewController.h"
 #import "KTPSPitches.h"
+#import "KTPOptionSelectViewController.h"
 
-@interface KTPPitchesResultViewController () <UITableViewDelegate, UITableViewDataSource, KTPPitchesResultSortDelegate>
+@interface KTPPitchesResultViewController () <UITableViewDelegate, UITableViewDataSource, KTPPitchesResultSortDelegate, KTPOptionSelectDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic) KTPPitchesResultSortType sortType;
+@property (nonatomic, strong) NSString *sortKey;
 
 @property (nonatomic, strong) NSArray *sortedPitches;
 @end
+
+NSString *const KTPPitchesSortKeyOverall    = @"overallScore";
+NSString *const KTPPitchesSortKeyInnovation = @"innovationScore";
+NSString *const KTPPitchesSortKeyUsefulness = @"usefulnessScore";
+NSString *const KTPPitchesSortKeyCoolness   = @"coolnessScore";
 
 @implementation KTPPitchesResultViewController
 
@@ -26,7 +32,7 @@
         self.navigationItem.title = @"Results";
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonTapped)];
-        self.sortType = KTPPitchesResultSortTypeOverall;
+        self.sortKey = KTPPitchesSortKeyOverall;
     }
     return self;
 }
@@ -72,40 +78,57 @@
 }
 
 - (void)sortButtonTapped {
-    KTPPitchesResultSortViewController *sortVC = [[KTPPitchesResultSortViewController alloc] initWithSortType:self.sortType];
-    sortVC.delegate = self;
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:sortVC];
-    [self presentViewController:navVC animated:YES completion:nil];
+    NSArray *options = @[@"Overall", @"Innovation", @"Usefulness", @"Coolness"];
+    KTPOptionSelectViewController *controller = [[KTPOptionSelectViewController alloc] initWithOptions:options
+                                                                                              selected:[options indexOfObject:[self sortOptionFromKey:self.sortKey]]
+                                                                                                 title:@"Sort"];
+    controller.optionSelectDelegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
-#pragma mark - KTPPitchesResultSortViewControllerDelegate methods
+#pragma mark - KTPOptionSelectDelegate methods
 
-- (void)pitchesResultSortViewControllerDidFinishWithSortType:(KTPPitchesResultSortType)sortType {
-    self.sortType = sortType;
+- (void)optionSelectViewController:(KTPOptionSelectViewController *)controller didSelectOptionWithValue:(id)value {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSString *selected = (NSString*)value;
+    if ([selected isEqualToString:@"Overall"]) {
+        self.sortKey = KTPPitchesSortKeyOverall;
+    } else if ([selected isEqualToString:@"Innovation"]) {
+        self.sortKey = KTPPitchesSortKeyInnovation;
+    } else if ([selected isEqualToString:@"Usefulness"]) {
+        self.sortKey = KTPPitchesSortKeyUsefulness;
+    } else {
+        self.sortKey = KTPPitchesSortKeyCoolness;
+    }
+}
+                                                 
+- (NSString*)sortOptionFromKey:(NSString*)key {
+    if ([key isEqualToString:KTPPitchesSortKeyOverall]) {
+        return @"Overall";
+    } else if ([key isEqualToString:KTPPitchesSortKeyInnovation]) {
+        return @"Innovation";
+    } else if ([key isEqualToString:KTPPitchesSortKeyUsefulness]) {
+        return @"Usefulness";
+    } else {
+        return @"Coolness";
+    }
 }
 
-- (void)setSortType:(KTPPitchesResultSortType)sortType {
-    if (_sortType != sortType) {
-        _sortType = sortType;
+- (void)optionSelectViewControllerDidTapCancelButton:(KTPOptionSelectViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)optionSelectViewControllerDidTapDoneButton:(KTPOptionSelectViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)setSortKey:(NSString *)sortKey {
+    if (_sortKey != sortKey) {
+        _sortKey = sortKey;
         
-        NSString *sortKey;
-        switch (sortType) {
-            case KTPPitchesResultSortTypeInnovation:
-                sortKey = @"innovationScore";
-                break;
-            case KTPPitchesResultSortTypeUsefulness:
-                sortKey = @"usefulnessScore";
-                break;
-            case KTPPitchesResultSortTypeCoolness:
-                sortKey = @"coolnessScore";
-                break;
-            case KTPPitchesResultSortTypeOverall:
-                sortKey = @"overallScore";
-                break;
-        }
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:sortKey ascending:NO];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:self.sortKey ascending:NO];
         self.sortedPitches = [[KTPSPitches pitches].pitchesArray sortedArrayUsingDescriptors:@[sortDescriptor]];
-                
         [self.tableView reloadData];
     }
 }

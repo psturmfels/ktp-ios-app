@@ -32,6 +32,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.tabBarController.navigationItem.title = @"Pledge Meetings";
 }
 
