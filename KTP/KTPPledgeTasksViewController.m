@@ -7,7 +7,7 @@
 //
 
 #import "KTPPledgeTasksViewController.h"
-#import "KTPPledgeTaskDetailViewController.h"
+#import "KTPPledgeTaskViewController.h"
 #import "KTP-Swift.h" // for KTPPledgeTasksCell
 #import "KTPSPledgeTasks.h"
 
@@ -111,7 +111,7 @@
  */
 - (void)showPledgeTaskDetailWithPledgeTask:(KTPPledgeTask*)pledgeTask {
     // Push a profile VC onto the navigation stack
-    [self.navigationController pushViewController:[[KTPPledgeTaskDetailViewController alloc] initWithPledgeTask:pledgeTask] animated:YES];
+    [self.navigationController pushViewController:[[KTPPledgeTaskViewController alloc] initWithPledgeTask:pledgeTask] animated:YES];
 }
 
 @end

@@ -1,17 +1,17 @@
 //
-//  KTPPledgeTaskDetailViewController.m
+//  KTPPledgeTaskViewController.m
 //  KTP
 //
 //  Created by Patrick Wilson on 2/16/15.
 //  Copyright (c) 2015 Kappa Theta Pi. All rights reserved.
 //
 
-#import "KTPPledgeTaskDetailViewController.h"
+#import "KTPPledgeTaskViewController.h"
 #import "KTPPledgeTask.h"
 
 
 
-@interface KTPPledgeTaskDetailViewController () <UINavigationControllerDelegate>
+@interface KTPPledgeTaskViewController () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
@@ -45,7 +45,7 @@
 
 
 
-@implementation KTPPledgeTaskDetailViewController
+@implementation KTPPledgeTaskViewController
 
 #pragma mark - Initialization
 

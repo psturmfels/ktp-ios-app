@@ -1,5 +1,5 @@
 //
-//  KTPPledgeTaskDetailViewController.h
+//  KTPPledgeTaskViewController.h
 //  KTP
 //
 //  Created by Patrick Wilson on 2/16/15.
@@ -10,7 +10,7 @@
 
 @class KTPPledgeTask;
 
-@interface KTPPledgeTaskDetailViewController : UIViewController
+@interface KTPPledgeTaskViewController : UIViewController
 
 @property (nonatomic, strong) KTPPledgeTask *pledgeTask;
 
