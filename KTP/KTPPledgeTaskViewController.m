@@ -8,7 +8,7 @@
 
 #import "KTPPledgeTaskViewController.h"
 #import "KTPPledgeTask.h"
-
+#import "KTPEditPledgeTaskViewController.h"
 
 
 @interface KTPPledgeTaskViewController () <UINavigationControllerDelegate>
@@ -49,8 +49,17 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithPledgeTask:(KTPPledgeTask *)pledgeTask {
+- (instancetype)init {
     self = [super init];
+    if (self) {
+        self.navigationItem.title = @"Task";
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonTapped)];
+    }
+    return self;
+}
+
+- (instancetype)initWithPledgeTask:(KTPPledgeTask *)pledgeTask {
+    self = [self init];
     if (self) {
         self.pledgeTask = pledgeTask;
     }
@@ -60,11 +69,11 @@
 #pragma mark - Overriden Setters/Getters
 
 /*!
- Overriden setter for member property. Sets the title of this VC to the first and last name of the member.
+ Overriden setter for member property.
  
  @param         member
  */
-- (void)setMember:(KTPPledgeTask *)pledgeTask {
+- (void)setPledgeTask:(KTPPledgeTask *)pledgeTask {
     if (_pledgeTask != pledgeTask) {
         _pledgeTask = pledgeTask;
     }
@@ -325,4 +334,11 @@
     // Set the content size of scrollView to contentView's size
     self.scrollView.contentSize = self.contentView.frame.size;
 }
+
+- (void)editButtonTapped {
+    KTPEditPledgeTaskViewController *editVC = [[KTPEditPledgeTaskViewController alloc] initWithPledgeTask:self.pledgeTask];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:editVC];
+    [self presentViewController:navVC animated:YES completion:nil];
+}
+
 @end

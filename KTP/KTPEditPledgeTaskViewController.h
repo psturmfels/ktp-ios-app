@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class KTPPledgeTask;
 
-@interface KTPEditPledgeTaskViewController : UIViewController
+@interface KTPEditPledgeTaskViewController : UITableViewController
+
+@property (nonatomic, strong) KTPPledgeTask *pledgeTask;
+
+- (instancetype)initWithPledgeTask:(KTPPledgeTask*)pledgeTask;
 
 @end
