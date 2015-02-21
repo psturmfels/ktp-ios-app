@@ -177,18 +177,20 @@
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.view addSubview:self.tableView];
     
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.tableFooterView.frame.size.width, 100)];
-    self.deleteMemberButton = [UIButton new];
-    [self.deleteMemberButton setTitle:@"Delete Member" forState:UIControlStateNormal];
-    [self.deleteMemberButton addTarget:self action:@selector(deleteMemberButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    UIColor *normalColor = [UIColor colorWithRed:0xff/255.0 green:0x69/255.0 blue:0x69/255.0 alpha:1];
-    [self.deleteMemberButton setBackgroundImage:[UIImage imageWithColor:normalColor] forState:UIControlStateNormal];
-    [self.deleteMemberButton setBackgroundImage:[UIImage imageWithColor:[normalColor colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
-    self.deleteMemberButton.titleLabel.textColor = [UIColor whiteColor];
-    [self.footerView addSubview:self.deleteMemberButton];
-    [self autoLayoutFooterView];
-    
-    self.tableView.tableFooterView = self.footerView;
+    if ([KTPSUser currentUserIsAdmin]) {
+        self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.tableFooterView.frame.size.width, 100)];
+        self.deleteMemberButton = [UIButton new];
+        [self.deleteMemberButton setTitle:@"Delete Member" forState:UIControlStateNormal];
+        [self.deleteMemberButton addTarget:self action:@selector(deleteMemberButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        UIColor *normalColor = [UIColor colorWithRed:0xff/255.0 green:0x69/255.0 blue:0x69/255.0 alpha:1];
+        [self.deleteMemberButton setBackgroundImage:[UIImage imageWithColor:normalColor] forState:UIControlStateNormal];
+        [self.deleteMemberButton setBackgroundImage:[UIImage imageWithColor:[normalColor colorWithAlphaComponent:0.5]] forState:UIControlStateHighlighted];
+        self.deleteMemberButton.titleLabel.textColor = [UIColor whiteColor];
+        [self.footerView addSubview:self.deleteMemberButton];
+        [self autoLayoutFooterView];
+        
+        self.tableView.tableFooterView = self.footerView;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
