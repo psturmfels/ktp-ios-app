@@ -28,6 +28,15 @@
 @property (nonatomic, strong) UILabel *pointsDataLabel;
 @property (nonatomic, strong) UILabel *pointsLabel;
 
+@property (nonatomic, strong) UILabel *minPledgeDataLabel;
+@property (nonatomic, strong) UILabel *minPledgeLabel;
+
+@property (nonatomic, strong) UILabel *repeatableDataLabel;
+@property (nonatomic, strong) UILabel *repeatableLabel;
+
+@property (nonatomic, strong) UILabel *pledgesInvolvedDataLabel;
+@property (nonatomic, strong) UILabel *pledgesInvolvedLabel;
+
 
 
 
@@ -81,6 +90,9 @@
     self.descriptionDataLabel.text = self.pledgeTask.taskDescription;
     self.proofDataLabel.text = self.pledgeTask.proof;
     self.pointsDataLabel.text = [NSString stringWithFormat:@"%.f/%.f",self.pledgeTask.pointsEarned,self.pledgeTask.points];
+    self.minPledgeDataLabel.text = [NSString stringWithFormat:@"%@",@(self.pledgeTask.minimumPledges)];
+    self.repeatableDataLabel.text = [NSString stringWithFormat:@"%@",(self.pledgeTask.repeatable?@"Yes":@"No")];
+    self.pledgesInvolvedDataLabel.text = [NSString stringWithFormat:@"%@",(([self.pledgeTask.pledges count]>0)?@"Some people actually did this":@"NA")];
 }
 
 - (void)loadSubviews {
@@ -96,6 +108,13 @@
     [self loadProofLabel];
     [self loadPointsDataLabel];
     [self loadPointsLabel];
+    [self loadMinPledgeDataLabel];
+    [self loadMinPledgeLabel];
+    [self loadRepeatableDataLabel];
+    [self loadRepeatableLabel];
+    [self loadPledgesInvolvedDataLabel];
+    [self loadPledgesInvolvedLabel];
+    
     
 }
 
@@ -173,6 +192,51 @@
     [self.contentView addSubview:self.pointsLabel];
 }
 
+- (void)loadMinPledgeDataLabel{
+    self.minPledgeDataLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@",@(self.pledgeTask.minimumPledges)]];
+    [self.minPledgeDataLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.minPledgeDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    self.minPledgeDataLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.minPledgeDataLabel];
+}
+
+- (void)loadMinPledgeLabel{
+    self.minPledgeLabel = [UILabel labelWithText:@"Min # of Pledges Required: "];
+    [self.minPledgeLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    self.minPledgeLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.minPledgeLabel];
+}
+
+- (void)loadRepeatableDataLabel{
+    self.repeatableDataLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@",(self.pledgeTask.repeatable?@"Yes":@"No")]];
+    [self.repeatableDataLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.repeatableDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    self.repeatableDataLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.repeatableDataLabel];
+}
+
+- (void)loadRepeatableLabel{
+    self.repeatableLabel = [UILabel labelWithText:@"Repeatable: "];
+    [self.repeatableLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    self.repeatableLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.repeatableLabel];
+}
+
+- (void)loadPledgesInvolvedDataLabel{
+    self.pledgesInvolvedDataLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@",(([self.pledgeTask.pledges count]>0)?@"Some people actually did this":@"NA")]];
+    [self.pledgesInvolvedDataLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.pledgesInvolvedDataLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    self.pledgesInvolvedDataLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.pledgesInvolvedDataLabel];
+}
+
+- (void)loadPledgesInvolvedLabel{
+    self.pledgesInvolvedLabel = [UILabel labelWithText:@"Pledges Involved: "];
+    [self.pledgesInvolvedLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    self.pledgesInvolvedLabel.numberOfLines = 0;
+    [self.contentView addSubview:self.pledgesInvolvedLabel];
+}
+
 - (void)autoLayoutSubviews {
     for (UIView *view in self.contentView.subviews) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -180,14 +244,20 @@
     
     // Label all views for autolayout
     NSDictionary *views = @{
-                            @"titleDataLabel"       :   self.titleDataLabel,
-                            @"titleLabel"           :   self.titleLabel,
-                            @"descriptionDataLabel" :   self.descriptionDataLabel,
-                            @"descriptionLabel"     :   self.descriptionLabel,
-                            @"proofDataLabel"       :   self.proofDataLabel,
-                            @"proofLabel"           :   self.proofLabel,
-                            @"pointsDataLabel"      :   self.pointsDataLabel,
-                            @"pointsLabel"          :   self.pointsLabel
+                            @"titleDataLabel"           :   self.titleDataLabel,
+                            @"titleLabel"               :   self.titleLabel,
+                            @"descriptionDataLabel"     :   self.descriptionDataLabel,
+                            @"descriptionLabel"         :   self.descriptionLabel,
+                            @"proofDataLabel"           :   self.proofDataLabel,
+                            @"proofLabel"               :   self.proofLabel,
+                            @"pointsDataLabel"          :   self.pointsDataLabel,
+                            @"pointsLabel"              :   self.pointsLabel,
+                            @"minPledgeDataLabel"       :   self.minPledgeDataLabel,
+                            @"minPledgeLabel"           :   self.minPledgeLabel,
+                            @"repeatableDataLabel"      :   self.repeatableDataLabel,
+                            @"repeatableLabel"          :   self.repeatableLabel,
+                            @"pledgesInvolvedDataLabel" :   self.pledgesInvolvedDataLabel,
+                            @"pledgesInvolvedLabel"     :   self.pledgesInvolvedLabel
                             };
     
     /* titleDataLabel */
@@ -213,6 +283,21 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[proofDataLabel]-10-[pointsLabel]" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pointsDataLabel]-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pointsLabel]-10-[pointsDataLabel]" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[minPledgeLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pointsDataLabel]-10-[minPledgeLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[minPledgeDataLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[minPledgeLabel]-10-[minPledgeDataLabel]" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[repeatableLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[minPledgeDataLabel]-10-[repeatableLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[repeatableDataLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[repeatableLabel]-10-[repeatableDataLabel]" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pledgesInvolvedLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[repeatableDataLabel]-10-[pledgesInvolvedLabel]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pledgesInvolvedDataLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[pledgesInvolvedLabel]-10-[pledgesInvolvedDataLabel]" options:0 metrics:nil views:views]];
     
     
     
