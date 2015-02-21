@@ -9,6 +9,7 @@
 #import "KTPPledgeTaskViewController.h"
 #import "KTPPledgeTask.h"
 #import "KTPEditPledgeTaskViewController.h"
+#import "KTPSUser.h"
 
 
 @interface KTPPledgeTaskViewController () <UINavigationControllerDelegate>
@@ -37,10 +38,6 @@
 @property (nonatomic, strong) UILabel *pledgesInvolvedDataLabel;
 @property (nonatomic, strong) UILabel *pledgesInvolvedLabel;
 
-
-
-
-
 @end
 
 
@@ -53,7 +50,10 @@
     self = [super init];
     if (self) {
         self.navigationItem.title = @"Task";
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonTapped)];
+        
+        if ([KTPSUser currentUserIsAdmin]) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonTapped)];
+        }
     }
     return self;
 }

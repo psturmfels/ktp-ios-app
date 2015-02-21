@@ -25,6 +25,15 @@
 + (KTPMember*)currentMember;
 
 + (BOOL)currentUserIsAdmin;
++ (BOOL)currentUserIsPresident;
++ (BOOL)currentUserIsVicePresident;
++ (BOOL)currentUserIsSecretary;
++ (BOOL)currentUserIsTreasurer;
++ (BOOL)currentUserIsDirTechnology;
++ (BOOL)currentUserIsDirProDev;
++ (BOOL)currentUserIsDirMembership;
++ (BOOL)currentUserIsDirMarketing;
++ (BOOL)currentUserIsDirEngagement;
 
 /*!
  Asynchronously logs in the user with their provided username and password. When the user is logged in or if an error occurred, block is called with the appropriate arguments.
