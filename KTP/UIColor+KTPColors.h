@@ -10,6 +10,8 @@
 
 @interface UIColor (KTPColors)
 
++ (UIColor*)colorWithHex:(NSInteger)hex alpha:(CGFloat)alpha;
+
 +(UIColor *)KTPGreen363;
 +(UIColor *)KTPGreen1F1;
 +(UIColor *)KTPGreen9F9;
@@ -18,5 +20,8 @@
 +(UIColor *)KTPDarkGray;
 +(UIColor *)KTPOpenGreen;
 +(UIColor *)KTPLightGray;
+
++(UIColor *)KTPGreenNew;
+
 
 @end

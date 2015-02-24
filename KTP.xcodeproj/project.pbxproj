@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842DF0861A932BB400846CCE /* KTPOptionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */; };
 		84380F971A919E9200A6A110 /* KTPPledgeMeetingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */; };
+		84B3FCE61A99047700D694E3 /* KTPEditPledgeTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B3FCE51A99047700D694E3 /* KTPEditPledgeTaskViewController.m */; };
 		89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F67199B2E230033B5A4 /* KTPBlockView.m */; };
 		89581F70199B2E230033B5A4 /* UIColor+KTPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F69199B2E230033B5A4 /* UIColor+KTPColors.m */; };
 		89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89581F72199B33100033B5A4 /* KTPRequirementsViewController.m */; };
@@ -31,7 +33,6 @@
 		89C541D41A92E7BA0002FC54 /* KTPPledgeMeetingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C541D31A92E7BA0002FC54 /* KTPPledgeMeetingsCell.m */; };
 		A80943631A6EEE3600B03647 /* KTPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A80943621A6EEE3600B03647 /* KTPRootViewController.m */; };
 		A80943661A6EEF3600B03647 /* KTPSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A80943651A6EEF3600B03647 /* KTPSlideMenuViewController.m */; };
-		A809436A1A6EF5CD00B03647 /* KTPSlideMenuDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A80943691A6EF5CD00B03647 /* KTPSlideMenuDataSource.m */; };
 		A809436D1A6EF98600B03647 /* KTPSlideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A809436C1A6EF98600B03647 /* KTPSlideMenuCell.m */; };
 		A83504971A7EE25A00644B2A /* KTPSPitches.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504961A7EE25A00644B2A /* KTPSPitches.m */; };
 		A835049A1A7FFA7900644B2A /* KTPSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504991A7FFA7900644B2A /* KTPSettingsDataSource.m */; };
@@ -42,12 +43,10 @@
 		A83504A91A81720E00644B2A /* KTPPitchesResultSortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504A81A81720E00644B2A /* KTPPitchesResultSortViewController.m */; };
 		A83504AC1A8577DF00644B2A /* KTPPledgeTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504AB1A8577DF00644B2A /* KTPPledgeTasksViewController.m */; };
 		A83504AF1A8577F200644B2A /* KTPPledgeMeetingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504AE1A8577F200644B2A /* KTPPledgeMeetingsViewController.m */; };
-		A83504B21A85785D00644B2A /* KTPPledgesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504B11A85785D00644B2A /* KTPPledgesViewController.m */; };
 		A83504B61A85BC3A00644B2A /* KTPPledgeTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504B51A85BC3A00644B2A /* KTPPledgeTask.m */; };
 		A83504B91A85BC4A00644B2A /* KTPSPledgeTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504B81A85BC4A00644B2A /* KTPSPledgeTasks.m */; };
 		A83504BC1A85BC6400644B2A /* KTPPledgeMeeting.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */; };
 		A83504BF1A85C75C00644B2A /* KTPSPledgeMeetings.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504BE1A85C75C00644B2A /* KTPSPledgeMeetings.m */; };
-		A83504C21A869DFF00644B2A /* KTPPledgeTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */; };
 		A83504C51A86A31900644B2A /* KTPPledgeTasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */; };
 		A873039D1A7199560062B072 /* KTPSMembers.m in Sources */ = {isa = PBXBuildFile; fileRef = A873039C1A7199560062B072 /* KTPSMembers.m */; };
 		A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A87303A01A72C2A80062B072 /* KTPConstants.m */; };
@@ -68,6 +67,13 @@
 		A8C6D0601A7745CC00B7CAC0 /* KTPPledgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C6D05F1A7745CC00B7CAC0 /* KTPPledgingViewController.m */; };
 		A8F483E21A7D366600B17E7F /* KTPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E11A7D366600B17E7F /* KTPTextView.m */; };
 		A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */; };
+		BF29208E1A92F9BC00EFE46A /* KTPEditProfileTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29208D1A92F9BC00EFE46A /* KTPEditProfileTableItem.m */; };
+		BF2920911A93C6A300EFE46A /* KTPProfileFratInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */; };
+		BF2920941A93EA8100EFE46A /* KTPProfilePersonalInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */; };
+		BF2920971A93F90700EFE46A /* KTPProfileNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920961A93F90700EFE46A /* KTPProfileNameView.m */; };
+		BF29209A1A940C0600EFE46A /* KTPProfileBioView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2920991A940C0600EFE46A /* KTPProfileBioView.m */; };
+		BF29209D1A94262F00EFE46A /* KTPProfileButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */; };
+		BF6478881A91964E00717ABE /* KTPEditProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6478871A91964E00717ABE /* KTPEditProfileCell.m */; };
 		C6B8C8AF9F3F88C5FE6DDB97 /* libPods-KTP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E107C6DC1FF5353387CBC832 /* libPods-KTP.a */; };
 /* End PBXBuildFile section */
 
@@ -83,7 +89,11 @@
 
 /* Begin PBXFileReference section */
 		75A2B277C32F40D9CDD7CC7A /* Pods-KTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.release.xcconfig"; path = "Pods/Target Support Files/Pods-KTP/Pods-KTP.release.xcconfig"; sourceTree = "<group>"; };
+		842DF0841A932BB400846CCE /* KTPOptionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPOptionSelectViewController.h; sourceTree = "<group>"; };
+		842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPOptionSelectViewController.m; sourceTree = "<group>"; };
 		84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTPPledgeMeetingsCell.swift; sourceTree = "<group>"; };
+		84B3FCE41A99047700D694E3 /* KTPEditPledgeTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditPledgeTaskViewController.h; sourceTree = "<group>"; };
+		84B3FCE51A99047700D694E3 /* KTPEditPledgeTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditPledgeTaskViewController.m; sourceTree = "<group>"; };
 		89581F66199B2E230033B5A4 /* KTPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPBlockView.h; sourceTree = "<group>"; };
 		89581F67199B2E230033B5A4 /* KTPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPBlockView.m; sourceTree = "<group>"; };
 		89581F68199B2E230033B5A4 /* UIColor+KTPColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KTPColors.h"; sourceTree = "<group>"; };
@@ -99,7 +109,7 @@
 		897E8F1419AE51FB001C849F /* KTPAnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPAnnouncementsViewController.h; sourceTree = "<group>"; };
 		897E8F1519AE51FB001C849F /* KTPAnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPAnnouncementsViewController.m; sourceTree = "<group>"; };
 		897E8F1719AE544F001C849F /* KTPSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSUser.h; sourceTree = "<group>"; };
-		897E8F1819AE544F001C849F /* KTPSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSUser.m; sourceTree = "<group>"; };
+		897E8F1819AE544F001C849F /* KTPSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPSUser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		89855F06199B2BC2006E5A14 /* KTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89855F09199B2BC2006E5A14 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89855F0B199B2BC2006E5A14 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -122,8 +132,6 @@
 		A80943621A6EEE3600B03647 /* KTPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPRootViewController.m; sourceTree = "<group>"; };
 		A80943641A6EEF3600B03647 /* KTPSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSlideMenuViewController.h; sourceTree = "<group>"; };
 		A80943651A6EEF3600B03647 /* KTPSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSlideMenuViewController.m; sourceTree = "<group>"; };
-		A80943681A6EF5CD00B03647 /* KTPSlideMenuDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSlideMenuDataSource.h; sourceTree = "<group>"; };
-		A80943691A6EF5CD00B03647 /* KTPSlideMenuDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSlideMenuDataSource.m; sourceTree = "<group>"; };
 		A809436B1A6EF98600B03647 /* KTPSlideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSlideMenuCell.h; sourceTree = "<group>"; };
 		A809436C1A6EF98600B03647 /* KTPSlideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSlideMenuCell.m; sourceTree = "<group>"; };
 		A83504951A7EE25A00644B2A /* KTPSPitches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSPitches.h; sourceTree = "<group>"; };
@@ -131,9 +139,9 @@
 		A83504981A7FFA7900644B2A /* KTPSettingsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSettingsDataSource.h; sourceTree = "<group>"; };
 		A83504991A7FFA7900644B2A /* KTPSettingsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSettingsDataSource.m; sourceTree = "<group>"; };
 		A835049B1A8005AB00644B2A /* KTPChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPChangePasswordViewController.h; sourceTree = "<group>"; };
-		A835049C1A8005AB00644B2A /* KTPChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPChangePasswordViewController.m; sourceTree = "<group>"; };
+		A835049C1A8005AB00644B2A /* KTPChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPChangePasswordViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileViewController.h; sourceTree = "<group>"; };
-		A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditProfileViewController.m; sourceTree = "<group>"; };
+		A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPEditProfileViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A83504A11A81529E00644B2A /* KTPPitchesResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesResultViewController.h; sourceTree = "<group>"; };
 		A83504A21A81529E00644B2A /* KTPPitchesResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesResultViewController.m; sourceTree = "<group>"; };
 		A83504A41A81567E00644B2A /* KTPPitchesResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesResultCell.h; sourceTree = "<group>"; };
@@ -144,8 +152,6 @@
 		A83504AB1A8577DF00644B2A /* KTPPledgeTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeTasksViewController.m; sourceTree = "<group>"; };
 		A83504AD1A8577F200644B2A /* KTPPledgeMeetingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPledgeMeetingsViewController.h; sourceTree = "<group>"; };
 		A83504AE1A8577F200644B2A /* KTPPledgeMeetingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeMeetingsViewController.m; sourceTree = "<group>"; };
-		A83504B01A85785D00644B2A /* KTPPledgesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPledgesViewController.h; sourceTree = "<group>"; };
-		A83504B11A85785D00644B2A /* KTPPledgesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgesViewController.m; sourceTree = "<group>"; };
 		A83504B41A85BC3A00644B2A /* KTPPledgeTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPledgeTask.h; sourceTree = "<group>"; };
 		A83504B51A85BC3A00644B2A /* KTPPledgeTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeTask.m; sourceTree = "<group>"; };
 		A83504B71A85BC4A00644B2A /* KTPSPledgeTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSPledgeTasks.h; sourceTree = "<group>"; };
@@ -154,8 +160,6 @@
 		A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeMeeting.m; sourceTree = "<group>"; };
 		A83504BD1A85C75C00644B2A /* KTPSPledgeMeetings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSPledgeMeetings.h; sourceTree = "<group>"; };
 		A83504BE1A85C75C00644B2A /* KTPSPledgeMeetings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSPledgeMeetings.m; sourceTree = "<group>"; };
-		A83504C01A869DFF00644B2A /* KTPPledgeTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPledgeTaskViewController.h; sourceTree = "<group>"; };
-		A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeTaskViewController.m; sourceTree = "<group>"; };
 		A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KTP-Bridging-Header.h"; sourceTree = "<group>"; };
 		A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTPPledgeTasksCell.swift; sourceTree = "<group>"; };
 		A873039B1A7199560062B072 /* KTPSMembers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSMembers.h; sourceTree = "<group>"; };
@@ -163,7 +167,7 @@
 		A873039F1A72C2A80062B072 /* KTPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPConstants.h; sourceTree = "<group>"; };
 		A87303A01A72C2A80062B072 /* KTPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPConstants.m; sourceTree = "<group>"; };
 		A87303A21A73AD200062B072 /* KTPProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileViewController.h; sourceTree = "<group>"; };
-		A87303A31A73AD200062B072 /* KTPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileViewController.m; sourceTree = "<group>"; };
+		A87303A31A73AD200062B072 /* KTPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPProfileViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A883BE751A78E26300139232 /* NSString+KTPStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KTPStrings.h"; sourceTree = "<group>"; };
 		A883BE761A78E26300139232 /* NSString+KTPStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KTPStrings.m"; sourceTree = "<group>"; };
 		A883BE781A79715A00139232 /* KTPPitchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesViewController.h; sourceTree = "<group>"; };
@@ -171,13 +175,13 @@
 		A883BE821A7AC2B300139232 /* KTPPitchesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchesCell.h; sourceTree = "<group>"; };
 		A883BE831A7AC2B300139232 /* KTPPitchesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchesCell.m; sourceTree = "<group>"; };
 		A883BE851A7AC74F00139232 /* KTPPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitch.h; sourceTree = "<group>"; };
-		A883BE861A7AC74F00139232 /* KTPPitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitch.m; sourceTree = "<group>"; };
+		A883BE861A7AC74F00139232 /* KTPPitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPPitch.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A883BE881A7AC85F00139232 /* KTPPitchVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchVote.h; sourceTree = "<group>"; };
 		A883BE891A7AC85F00139232 /* KTPPitchVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchVote.m; sourceTree = "<group>"; };
 		A883BE8B1A7ACEC800139232 /* KTPPitchVoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchVoteViewController.h; sourceTree = "<group>"; };
-		A883BE8C1A7ACEC800139232 /* KTPPitchVoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchVoteViewController.m; sourceTree = "<group>"; };
+		A883BE8C1A7ACEC800139232 /* KTPPitchVoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPPitchVoteViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A883BE8E1A7AFE0D00139232 /* KTPPitchAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPitchAddViewController.h; sourceTree = "<group>"; };
-		A883BE8F1A7AFE0D00139232 /* KTPPitchAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPitchAddViewController.m; sourceTree = "<group>"; };
+		A883BE8F1A7AFE0D00139232 /* KTPPitchAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPPitchAddViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A8B2D64D1A7799E100039724 /* KTPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSettingsViewController.h; sourceTree = "<group>"; };
 		A8B2D64E1A7799E100039724 /* KTPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSettingsViewController.m; sourceTree = "<group>"; };
 		A8B2D6511A77F62100039724 /* KTPNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPNetworking.h; sourceTree = "<group>"; };
@@ -185,7 +189,7 @@
 		A8B2D6571A78386600039724 /* UIImage+KTPImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KTPImages.h"; sourceTree = "<group>"; };
 		A8B2D6581A78386600039724 /* UIImage+KTPImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KTPImages.m"; sourceTree = "<group>"; };
 		A8C1DAFC1A15ADA300298FF9 /* KTPMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPMembersViewController.h; sourceTree = "<group>"; };
-		A8C1DAFD1A15ADA300298FF9 /* KTPMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPMembersViewController.m; sourceTree = "<group>"; };
+		A8C1DAFD1A15ADA300298FF9 /* KTPMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPMembersViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A8C1DAFF1A15ADF700298FF9 /* KTPMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPMember.h; sourceTree = "<group>"; };
 		A8C1DB001A15ADF700298FF9 /* KTPMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPMember.m; sourceTree = "<group>"; };
 		A8C6D05B1A745C7000B7CAC0 /* KTPMembersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPMembersCell.h; sourceTree = "<group>"; };
@@ -197,6 +201,20 @@
 		A8F483E71A7D6F3000B17E7F /* UILabel+KTPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+KTPLabel.h"; sourceTree = "<group>"; };
 		A8F483E81A7D6F3000B17E7F /* UILabel+KTPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+KTPLabel.m"; sourceTree = "<group>"; };
 		B0337AD64C6FF27F839A0238 /* Pods-KTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KTP/Pods-KTP.debug.xcconfig"; sourceTree = "<group>"; };
+		BF29208C1A92F9BC00EFE46A /* KTPEditProfileTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileTableItem.h; sourceTree = "<group>"; };
+		BF29208D1A92F9BC00EFE46A /* KTPEditProfileTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditProfileTableItem.m; sourceTree = "<group>"; };
+		BF29208F1A93C6A300EFE46A /* KTPProfileFratInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileFratInfoView.h; sourceTree = "<group>"; };
+		BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileFratInfoView.m; sourceTree = "<group>"; };
+		BF2920921A93EA8100EFE46A /* KTPProfilePersonalInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfilePersonalInfoView.h; sourceTree = "<group>"; };
+		BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfilePersonalInfoView.m; sourceTree = "<group>"; };
+		BF2920951A93F90700EFE46A /* KTPProfileNameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileNameView.h; sourceTree = "<group>"; };
+		BF2920961A93F90700EFE46A /* KTPProfileNameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileNameView.m; sourceTree = "<group>"; };
+		BF2920981A940C0600EFE46A /* KTPProfileBioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileBioView.h; sourceTree = "<group>"; };
+		BF2920991A940C0600EFE46A /* KTPProfileBioView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileBioView.m; sourceTree = "<group>"; };
+		BF29209B1A94262F00EFE46A /* KTPProfileButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPProfileButtonsView.h; sourceTree = "<group>"; };
+		BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPProfileButtonsView.m; sourceTree = "<group>"; };
+		BF6478861A91964E00717ABE /* KTPEditProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileCell.h; sourceTree = "<group>"; };
+		BF6478871A91964E00717ABE /* KTPEditProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPEditProfileCell.m; sourceTree = "<group>"; };
 		E107C6DC1FF5353387CBC832 /* libPods-KTP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KTP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -225,6 +243,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8417D4A41A97DA6800FA307C /* Custom Profile Section Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF29209B1A94262F00EFE46A /* KTPProfileButtonsView.h */,
+				BF29209C1A94262F00EFE46A /* KTPProfileButtonsView.m */,
+				BF2920981A940C0600EFE46A /* KTPProfileBioView.h */,
+				BF2920991A940C0600EFE46A /* KTPProfileBioView.m */,
+				BF29208F1A93C6A300EFE46A /* KTPProfileFratInfoView.h */,
+				BF2920901A93C6A300EFE46A /* KTPProfileFratInfoView.m */,
+				BF2920921A93EA8100EFE46A /* KTPProfilePersonalInfoView.h */,
+				BF2920931A93EA8100EFE46A /* KTPProfilePersonalInfoView.m */,
+				BF2920951A93F90700EFE46A /* KTPProfileNameView.h */,
+				BF2920961A93F90700EFE46A /* KTPProfileNameView.m */,
+			);
+			name = "Custom Profile Section Views";
+			sourceTree = "<group>";
+		};
 		89581FB6199C6EA20033B5A4 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +359,7 @@
 				89A1553C19AE599400DE7346 /* RequirementsView */,
 				89581FB9199C6EC30033B5A4 /* AnnouncementsView */,
 				A8B2D6501A7799E600039724 /* SettingsView */,
+				A8A234501A933B020020E51D /* OptionSelectView */,
 				89581FB7199C6EB10033B5A4 /* Custom Views */,
 				89581FB6199C6EA20033B5A4 /* Categories */,
 				89855F1B199B2BC2006E5A14 /* Images.xcassets */,
@@ -386,8 +422,6 @@
 			children = (
 				A80943641A6EEF3600B03647 /* KTPSlideMenuViewController.h */,
 				A80943651A6EEF3600B03647 /* KTPSlideMenuViewController.m */,
-				A80943681A6EF5CD00B03647 /* KTPSlideMenuDataSource.h */,
-				A80943691A6EF5CD00B03647 /* KTPSlideMenuDataSource.m */,
 				A809436B1A6EF98600B03647 /* KTPSlideMenuCell.h */,
 				A809436C1A6EF98600B03647 /* KTPSlideMenuCell.m */,
 			);
@@ -425,8 +459,13 @@
 			children = (
 				A87303A21A73AD200062B072 /* KTPProfileViewController.h */,
 				A87303A31A73AD200062B072 /* KTPProfileViewController.m */,
+				8417D4A41A97DA6800FA307C /* Custom Profile Section Views */,
 				A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */,
 				A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */,
+				BF6478861A91964E00717ABE /* KTPEditProfileCell.h */,
+				BF6478871A91964E00717ABE /* KTPEditProfileCell.m */,
+				BF29208C1A92F9BC00EFE46A /* KTPEditProfileTableItem.h */,
+				BF29208D1A92F9BC00EFE46A /* KTPEditProfileTableItem.m */,
 			);
 			name = ProfileView;
 			sourceTree = "<group>";
@@ -479,6 +518,15 @@
 			name = PitchesView;
 			sourceTree = "<group>";
 		};
+		A8A234501A933B020020E51D /* OptionSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				842DF0841A932BB400846CCE /* KTPOptionSelectViewController.h */,
+				842DF0851A932BB400846CCE /* KTPOptionSelectViewController.m */,
+			);
+			name = OptionSelectView;
+			sourceTree = "<group>";
+		};
 		A8B2D6501A7799E600039724 /* SettingsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,15 +560,15 @@
 				A83504AA1A8577DF00644B2A /* KTPPledgeTasksViewController.h */,
 				A83504AB1A8577DF00644B2A /* KTPPledgeTasksViewController.m */,
 				A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */,
-				A83504C01A869DFF00644B2A /* KTPPledgeTaskViewController.h */,
-				A83504C11A869DFF00644B2A /* KTPPledgeTaskViewController.m */,
+				8B0E2D631A92E6CA000D5177 /* KTPPledgeTaskViewController.h */,
+				8B0E2D641A92E6CA000D5177 /* KTPPledgeTaskViewController.m */,
+				84B3FCE41A99047700D694E3 /* KTPEditPledgeTaskViewController.h */,
+				84B3FCE51A99047700D694E3 /* KTPEditPledgeTaskViewController.m */,
 				A83504AD1A8577F200644B2A /* KTPPledgeMeetingsViewController.h */,
 				A83504AE1A8577F200644B2A /* KTPPledgeMeetingsViewController.m */,
 				89C541D21A92E7BA0002FC54 /* KTPPledgeMeetingsCell.h */,
 				89C541D31A92E7BA0002FC54 /* KTPPledgeMeetingsCell.m */,
 				84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */,
-				A83504B01A85785D00644B2A /* KTPPledgesViewController.h */,
-				A83504B11A85785D00644B2A /* KTPPledgesViewController.m */,
 			);
 			name = PledgingView;
 			sourceTree = "<group>";
@@ -682,6 +730,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A83504B91A85BC4A00644B2A /* KTPSPledgeTasks.m in Sources */,
+				BF2920911A93C6A300EFE46A /* KTPProfileFratInfoView.m in Sources */,
+				BF2920941A93EA8100EFE46A /* KTPProfilePersonalInfoView.m in Sources */,
 				A835049A1A7FFA7900644B2A /* KTPSettingsDataSource.m in Sources */,
 				A883BE901A7AFE0D00139232 /* KTPPitchAddViewController.m in Sources */,
 				A83504AC1A8577DF00644B2A /* KTPPledgeTasksViewController.m in Sources */,
@@ -690,15 +740,16 @@
 				A8C6D05D1A745C7000B7CAC0 /* KTPMembersCell.m in Sources */,
 				A8C1DAFE1A15ADA300298FF9 /* KTPMembersViewController.m in Sources */,
 				A883BE871A7AC74F00139232 /* KTPPitch.m in Sources */,
-				A809436A1A6EF5CD00B03647 /* KTPSlideMenuDataSource.m in Sources */,
-				A83504C21A869DFF00644B2A /* KTPPledgeTaskViewController.m in Sources */,
 				A83504A31A81529E00644B2A /* KTPPitchesResultViewController.m in Sources */,
 				897E8F1619AE51FB001C849F /* KTPAnnouncementsViewController.m in Sources */,
 				A835049D1A8005AB00644B2A /* KTPChangePasswordViewController.m in Sources */,
 				84380F971A919E9200A6A110 /* KTPPledgeMeetingsCell.swift in Sources */,
-				A83504B21A85785D00644B2A /* KTPPledgesViewController.m in Sources */,
+				BF29209D1A94262F00EFE46A /* KTPProfileButtonsView.m in Sources */,
 				A8F483E91A7D6F3000B17E7F /* UILabel+KTPLabel.m in Sources */,
+				BF29208E1A92F9BC00EFE46A /* KTPEditProfileTableItem.m in Sources */,
 				A883BE7A1A79715A00139232 /* KTPPitchesViewController.m in Sources */,
+				84B3FCE61A99047700D694E3 /* KTPEditPledgeTaskViewController.m in Sources */,
+				BF6478881A91964E00717ABE /* KTPEditProfileCell.m in Sources */,
 				A8C1DB011A15ADF700298FF9 /* KTPMember.m in Sources */,
 				A883BE8A1A7AC85F00139232 /* KTPPitchVote.m in Sources */,
 				A8B2D6591A78386600039724 /* UIImage+KTPImages.m in Sources */,
@@ -706,6 +757,7 @@
 				A83504A01A807A5500644B2A /* KTPEditProfileViewController.m in Sources */,
 				A83504A61A81567E00644B2A /* KTPPitchesResultCell.m in Sources */,
 				A8F483E21A7D366600B17E7F /* KTPTextView.m in Sources */,
+				8B0E2D651A92E6CA000D5177 /* KTPPledgeTaskViewController.m in Sources */,
 				897E8F1919AE544F001C849F /* KTPSUser.m in Sources */,
 				A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */,
 				A809436D1A6EF98600B03647 /* KTPSlideMenuCell.m in Sources */,
@@ -720,17 +772,20 @@
 				89581F73199B33100033B5A4 /* KTPRequirementsViewController.m in Sources */,
 				A83504B61A85BC3A00644B2A /* KTPPledgeTask.m in Sources */,
 				A80943661A6EEF3600B03647 /* KTPSlideMenuViewController.m in Sources */,
+				BF2920971A93F90700EFE46A /* KTPProfileNameView.m in Sources */,
 				A8C6D0601A7745CC00B7CAC0 /* KTPPledgingViewController.m in Sources */,
 				A8B2D6531A77F62100039724 /* KTPNetworking.m in Sources */,
 				A83504BC1A85BC6400644B2A /* KTPPledgeMeeting.m in Sources */,
 				89581F6F199B2E230033B5A4 /* KTPBlockView.m in Sources */,
 				A87303A41A73AD200062B072 /* KTPProfileViewController.m in Sources */,
+				842DF0861A932BB400846CCE /* KTPOptionSelectViewController.m in Sources */,
 				A883BE8D1A7ACEC800139232 /* KTPPitchVoteViewController.m in Sources */,
 				A83504BF1A85C75C00644B2A /* KTPSPledgeMeetings.m in Sources */,
 				A80943631A6EEE3600B03647 /* KTPRootViewController.m in Sources */,
 				A873039D1A7199560062B072 /* KTPSMembers.m in Sources */,
 				89C541D41A92E7BA0002FC54 /* KTPPledgeMeetingsCell.m in Sources */,
 				A8B2D64F1A7799E100039724 /* KTPSettingsViewController.m in Sources */,
+				BF29209A1A940C0600EFE46A /* KTPProfileBioView.m in Sources */,
 				89855F16199B2BC2006E5A14 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

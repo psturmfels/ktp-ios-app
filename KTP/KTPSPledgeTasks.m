@@ -31,7 +31,7 @@
 }
 
 - (void)reloadPledgeTasks {
-    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteAPIPledgeTasks appending:nil parameters:@"sort=-points" withBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteAPIPledgeTasks appending:nil parameters:@"sort=-points" withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPledgeTasksUpdateFailed object:self];
         } else {

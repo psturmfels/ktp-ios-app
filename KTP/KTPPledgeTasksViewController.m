@@ -7,6 +7,7 @@
 //
 
 #import "KTPPledgeTasksViewController.h"
+#import "KTPPledgeTaskViewController.h"
 #import "KTP-Swift.h" // for KTPPledgeTasksCell
 #import "KTPSPledgeTasks.h"
 
@@ -50,6 +51,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.tabBarController.navigationItem.title = @"Pledge Tasks";
 }
 
@@ -66,6 +68,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kStandardTableViewCellHeight;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    KTPPledgeTask *selectedPledgeTask = [KTPSPledgeTasks pledgeTasks].pledgeTasksArray[indexPath.row];
+    [self showPledgeTaskDetailWithPledgeTask:selectedPledgeTask];
+    
+}
+
 
 #pragma mark - UITableViewDataSource methods
 
@@ -90,6 +100,18 @@
 
 - (void)refreshPledgeTasks {
     [[KTPSPledgeTasks pledgeTasks] reloadPledgeTasks];
+}
+
+#pragma mark - Showing KTPPledgeTaskView
+
+/*!
+ Initializes a KTPPledgeTaskViewController with a PledgeTask and pushes it onto the navigation stack
+ 
+ @param         member
+ */
+- (void)showPledgeTaskDetailWithPledgeTask:(KTPPledgeTask*)pledgeTask {
+    // Push a profile VC onto the navigation stack
+    [self.navigationController pushViewController:[[KTPPledgeTaskViewController alloc] initWithPledgeTask:pledgeTask] animated:YES];
 }
 
 @end

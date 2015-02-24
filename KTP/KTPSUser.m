@@ -30,6 +30,50 @@
     return user;
 }
 
++ (KTPMember*)currentMember {
+    return [KTPSUser currentUser].member;
+}
+
++ (BOOL)currentUserIsAdmin {
+    return [[KTPSUser currentMember].status isEqualToString:@"Eboard"];
+}
+
++ (BOOL)currentUserIsPresident {
+    return [[KTPSUser currentMember].role isEqualToString:@"President"];
+}
+
++ (BOOL)currentUserIsVicePresident {
+    return [[KTPSUser currentMember].role isEqualToString:@"Vice President"];
+}
+
++ (BOOL)currentUserIsSecretary {
+    return [[KTPSUser currentMember].role isEqualToString:@"Secretary"];
+}
+
++ (BOOL)currentUserIsTreasurer {
+    return [[KTPSUser currentMember].role isEqualToString:@"Treasurer"];
+}
+
++ (BOOL)currentUserIsDirTechnology {
+    return [[KTPSUser currentMember].role isEqualToString:@"Director of Technology"];
+}
+
++ (BOOL)currentUserIsDirProDev {
+    return [[KTPSUser currentMember].role isEqualToString:@"Director of Professional Development"];
+}
+
++ (BOOL)currentUserIsDirMembership {
+    return [[KTPSUser currentMember].role isEqualToString:@"Director of Membership"];
+}
+
++ (BOOL)currentUserIsDirMarketing {
+    return [[KTPSUser currentMember].role isEqualToString:@"Director of Marketing"];
+}
+
++ (BOOL)currentUserIsDirEngagement {
+    return [[KTPSUser currentMember].role isEqualToString:@"Director of Engagement"];
+}
+
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(void (^)(BOOL successful, NSError *error))block {
     // Login is performed asynchronously
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -84,7 +128,7 @@
                                            toRoute:KTPRequestRouteAPILogin
                                          appending:nil
                                         parameters:nil
-                                          withBody:@{@"account"     :   possibleMember.account,
+                                      withJSONBody:@{@"account"     :   possibleMember.account,
                                                      @"password"    :   password}
                                              block:^(NSURLResponse *response, NSData *data, NSError *error)
         {

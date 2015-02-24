@@ -7,11 +7,11 @@
 //
 
 #import "KTPSlideMenuViewController.h"
-#import "KTPSlideMenuDataSource.h"
+#import "KTPSlideMenuCell.h"
 
-@interface KTPSlideMenuViewController () <UITableViewDelegate>
+@interface KTPSlideMenuViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) KTPSlideMenuDataSource *dataSource;
+@property (nonatomic, strong) NSArray *cellDictArray;
 
 @end
 
@@ -22,15 +22,23 @@
     if (self) {
         self.menuTableView = [UITableView new];
         self.menuTableView.delegate = self;
+        self.menuTableView.dataSource = self;
         
-        self.dataSource = [KTPSlideMenuDataSource new];
-        self.menuTableView.dataSource = self.dataSource;
+        self.cellDictArray = @[
+                               @{ @"cellTitle"  :   @"My Profile",      @"cellViewType"  :  [NSNumber numberWithInteger:KTPViewTypeMyProfile]       },
+                               @{ @"cellTitle"  :   @"Members",         @"cellViewType"  :  [NSNumber numberWithInteger:KTPViewTypeMembers]         },
+                               @{ @"cellTitle"  :   @"Pledging",        @"cellViewType"  :  [NSNumber numberWithInteger:KTPViewTypePledging]        },
+                               @{ @"cellTitle"  :   @"Announcements",   @"cellViewType"  :  [NSNumber numberWithInteger:KTPViewTypeAnnouncements]   },
+                               @{ @"cellTitle"  :   @"Pitches",         @"cellViewType"  :  [NSNumber numberWithInteger:KTPViewTypePitches]         },
+                               @{ @"cellTitle"  :   @"Settings",        @"cellViewType"  :  [NSNumber numberWithInteger:KTPViewTypeSettings]        }
+                               ];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     
@@ -42,13 +50,27 @@
     [self.view addSubview:self.menuTableView];
 }
 
+#pragma mark - UITableViewDelegate methods
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     // Call delegate method if implemented
     if ([self.delegate respondsToSelector:@selector(didSelectSlideMenuCell:)]) {
         [self.delegate didSelectSlideMenuCell:(KTPSlideMenuCell*)[tableView cellForRowAtIndexPath:indexPath]];
     }
+}
+
+#pragma mark - UITableViewDataSource methods
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.cellDictArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    KTPSlideMenuCell *cell = [KTPSlideMenuCell new];
+    cell.textLabel.text = self.cellDictArray[indexPath.row][@"cellTitle"];
+    cell.viewType = [self.cellDictArray[indexPath.row][@"cellViewType"] integerValue];
+    return cell;
 }
 
 @end

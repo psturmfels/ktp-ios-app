@@ -41,14 +41,53 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
             return @"/api/pledgeMeetings/";
         case KTPRequestRouteAPICommittees:
             return @"/api/committees/";
+        case KTPRequestRouteIMGProfilePics:
+            return @"/img/prof_pics/";
     }
 }
 
-+ (void)sendAsynchronousRequestType:(KTPRequestType)type toRoute:(KTPRequestRoute)route appending:(NSString*)append parameters:(NSString*)parameters withBody:(NSDictionary *)body block:(void (^)(NSURLResponse *, NSData *, NSError *))block {
++ (NSString*)contentTypeToString:(KTPContentType)type {
+    switch (type) {
+        case KTPContentTypeJSON:
+            return @"application/json";
+        case KTPContentTypePNG:
+            return @"image/png";
+    }
+}
+
++ (void)sendAsynchronousRequestType:(KTPRequestType)type
+                            toRoute:(KTPRequestRoute)route
+                          appending:(NSString*)append
+                         parameters:(NSString*)parameters
+                       withJSONBody:(NSDictionary *)body
+                              block:(void (^)(NSURLResponse *, NSData *, NSError *))block
+{
+    NSData *data;
+    NSError *error;
+    if (body) {
+        data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
+    }
     
-    NSString *requestType = [KTPNetworking requestTypeToString:type];
-    NSString *requestRoute = [KTPNetworking requestRouteToString:route];
-    NSMutableString *requestURLString = [NSMutableString stringWithFormat:@"http://kappathetapi.com%@", requestRoute];
+    if (!error) {
+        [KTPNetworking sendAsynchronousRequestType:type toRoute:route appending:append parameters:parameters withData:data contentType:KTPContentTypeJSON block:block];
+    } else {
+        NSLog(@"JSON Serialization Failed");
+        block(nil, nil, error);
+    }
+}
+
++ (void)sendAsynchronousRequestType:(KTPRequestType)requestType
+                            toRoute:(KTPRequestRoute)route
+                          appending:(NSString*)append
+                         parameters:(NSString*)parameters
+                           withData:(NSData *)data
+                        contentType:(KTPContentType)contentType
+                              block:(void (^)(NSURLResponse *, NSData *, NSError *))block
+{
+    NSString *requestTypeString = [KTPNetworking requestTypeToString:requestType];
+    NSString *requestRouteString = [KTPNetworking requestRouteToString:route];
+    NSString *contentTypeString = [KTPNetworking contentTypeToString:contentType];
+    NSMutableString *requestURLString = [NSMutableString stringWithFormat:@"http://kappathetapi.com%@", requestRouteString];
     if (append) {
         [requestURLString appendString:append];
     }
@@ -58,23 +97,14 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
     NSURL *requestURL = [NSURL URLWithString:requestURLString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
     request.allHTTPHeaderFields = @{@"x-access-token"   : KTP_API_TOKEN,
-                                    @"Content-Type"     : @"application/json"};
-    request.HTTPMethod = requestType;
+                                    @"Content-Type"     : contentTypeString};
+    request.HTTPMethod = requestTypeString;
+    request.HTTPBody = data;
     
-    NSError *error;
-    if (body) {
-        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
-    }
-    
-    if (!error) {
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//            NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
-            block(response, data, connectionError);
-        }];
-    } else {
-        NSLog(@"JSON Serialization Failed");
-        block(nil, nil, error);
-    }
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        //            NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
+        block(response, data, connectionError);
+    }];
 }
 
 @end
