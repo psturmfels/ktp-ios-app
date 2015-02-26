@@ -40,7 +40,10 @@ class KTPPledgeTasksCell: UITableViewCell {
             "pointsLabel" : pointsLabel
         ];
         
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-\(separatorInset.left)-[titleLabel]-10-[pointsLabel(40)]-0-|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views));
+        titleLabel.setContentCompressionResistancePriority(250, forAxis: .Horizontal);
+        pointsLabel.setContentCompressionResistancePriority(750, forAxis: .Horizontal);
+        
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-\(separatorInset.left)-[titleLabel]-10-[pointsLabel]-0-|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views));
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[titleLabel]-0-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views));
     }
     
@@ -52,7 +55,7 @@ class KTPPledgeTasksCell: UITableViewCell {
     
     func loadLabelValues() {
         titleLabel.text = task!.taskTitle;
-        pointsLabel.text = "\(Int(task!.points))";
+        pointsLabel.text = "\(Int(task!.pointsEarned))/\(Int(task!.points))";
     }
     
 }

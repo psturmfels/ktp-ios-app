@@ -17,6 +17,10 @@
 @implementation KTPTextView
 
 - (instancetype)init {
+    return [self initWithPlaceholder:nil];
+}
+
+- (instancetype)initWithPlaceholder:(NSString*)placeholder {
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange) name:UITextViewTextDidChangeNotification object:self];
@@ -24,13 +28,9 @@
         UIEdgeInsets textEdgeInsets = self.textContainerInset;
         textEdgeInsets.left = -5;   // removes the space between the left edge of the view and the beginning of the text
         self.textContainerInset = textEdgeInsets;
-    }
-    return self;
-}
-
-- (instancetype)initWithPlaceholder:(NSString*)placeholder {
-    self = [self init];
-    if (self) {
+        
+        [self loadPlaceholderLabel];
+        
         self.placeholder = placeholder;
     }
     return self;
@@ -39,9 +39,8 @@
 - (void)setPlaceholder:(NSString *)placeholder {
     if (_placeholder != placeholder) {
         _placeholder = placeholder;
-        if (!self.placeholderLabel) {
-            [self loadPlaceholderLabel];
-        }
+        
+        self.placeholderLabel.text = placeholder;
     }
 }
 
@@ -52,7 +51,6 @@
 
 - (void)loadPlaceholderLabel {
     self.placeholderLabel = [UILabel new];
-    self.placeholderLabel.text = self.placeholder;
     self.placeholderLabel.textColor = [UIColor colorWithWhite:0.8 alpha:1];
     self.placeholderLabel.numberOfLines = 0;
     self.placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -75,7 +73,7 @@
  Called after the textview's text has changed.
  */
 - (void)textDidChange {
-    self.placeholderLabel.hidden = ![self.text isEmpty];
+    self.placeholderLabel.hidden = [self.text isNotNilOrEmpty];
 }
 
 @end
