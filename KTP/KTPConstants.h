@@ -25,12 +25,13 @@ extern NSString *const KTPNotificationPledgeTaskUpdateFailed;
 extern NSString *const KTPNotificationPledgeTasksUpdateFailed;
 extern NSString *const KTPNotificationPledgeMeetingUpdateFailed;
 
+extern CGFloat const kSlideAnimationDuration;
+extern CGFloat const kMainViewShadowOpacity;
+extern CGFloat const kStandardTableViewCellHeight;
+extern CGFloat const kContentViewBottomPadding;
+extern CGFloat const kLargeButtonHeight;
+
 #define kSlideMenuWidth                 [UIScreen mainScreen].bounds.size.width * 0.8
-#define kSlideAnimationDuration         0.2
-#define kMainViewShadowOpacity          0.8
-#define kStandardTableViewCellHeight    44
-#define kContentViewBottomPadding       20
-#define kLargeButtonHeight              60
 
 #define KTPGreekAlphabet                @[@"Alpha", @"Beta", @"Gamma", @"Delta", @"Epsilon", @"Zeta", @"Eta", @"Theta", @"Iota", @"Kappa", @"Lambda", @"Mu", @"Nu", @"Xi", @"Omicron", @"Pi", @"Rho", @"Sigma", @"Tau", @"Upsilon", @"Phi", @"Chi", @"Psi", @"Omega"]
 #define KTPStatusOptions                @[@"Eboard", @"Active", @"Inactive", @"Probation", @"Pledge", @"Alumni"]
