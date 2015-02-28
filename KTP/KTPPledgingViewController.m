@@ -9,6 +9,7 @@
 #import "KTPPledgingViewController.h"
 #import "KTPSPledgeTasks.h"
 
+#import "KTPPledgeOverviewViewController.h"
 #import "KTPPledgeTasksViewController.h"
 #import "KTPPledgeMeetingsViewController.h"
 
@@ -22,9 +23,10 @@
         
         self.tabBar.translucent = NO;
         
+        UIViewController *pledgeOverviewVC = [KTPPledgeOverviewViewController new];
         UIViewController *pledgeTasksVC = [KTPPledgeTasksViewController new];
         UIViewController *pledgeMeetingsVC = [KTPPledgeMeetingsViewController new];
-        self.viewControllers = @[pledgeTasksVC, pledgeMeetingsVC];
+        self.viewControllers = @[pledgeOverviewVC, pledgeTasksVC, pledgeMeetingsVC];
     }
     return self;
 }
