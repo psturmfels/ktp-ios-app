@@ -11,11 +11,16 @@
 #import "KTPNetworking.h"
 #import "KTPMember.h"
 
+@interface KTPSPledgeTasks ()
+@property (nonatomic, readwrite) CGFloat totalPointsEarned;
+@end
+
 @implementation KTPSPledgeTasks
 
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.totalPointsNeeded = 500; // default
         [self reloadPledgeTasks];
     }
     return self;
@@ -63,6 +68,12 @@
                                                                       pledges:pledges
                                                                           _id:pledgeTask[@"_id"]]];
     }
+    CGFloat earned = 0;
+    for (KTPPledgeTask *task in self.pledgeTasksArray) {
+        earned += task.pointsEarned;
+    }
+    self.totalPointsEarned = earned;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPledgeTasksUpdated object:self];
 }
 
