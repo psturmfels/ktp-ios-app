@@ -294,6 +294,7 @@
 		89581FB7199C6EB10033B5A4 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				A8D448EE1AA57F500097BDEC /* TextInputTableViewCell */,
 				89581F66199B2E230033B5A4 /* KTPBlockView.h */,
 				89581F67199B2E230033B5A4 /* KTPBlockView.m */,
 				897E8F0819AE477C001C849F /* KTPTextField.h */,
@@ -363,9 +364,6 @@
 				A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */,
 				89855F18199B2BC2006E5A14 /* KTPAppDelegate.h */,
 				89855F19199B2BC2006E5A14 /* KTPAppDelegate.m */,
-				A847A51E1A9EBC990078C1DE /* KTPTextInputTableViewCell.h */,
-				A847A51F1A9EBC990078C1DE /* KTPTextInputTableViewCell.m */,
-				A8D448EA1AA5617E0097BDEC /* PieChart */,
 				A883BE7F1A7AC0E100139232 /* Constants */,
 				A883BE801A7AC0EA00139232 /* Networking */,
 				89581FB8199C6EB80033B5A4 /* User */,
@@ -382,6 +380,7 @@
 				89581FB9199C6EC30033B5A4 /* AnnouncementsView */,
 				A8B2D6501A7799E600039724 /* SettingsView */,
 				A8A234501A933B020020E51D /* OptionSelectView */,
+				A8D448EA1AA5617E0097BDEC /* PieChart */,
 				89581FB7199C6EB10033B5A4 /* Custom Views */,
 				89581FB6199C6EA20033B5A4 /* Categories */,
 				89855F1B199B2BC2006E5A14 /* Images.xcassets */,
@@ -577,18 +576,9 @@
 			children = (
 				A8C6D05E1A7745CC00B7CAC0 /* KTPPledgingViewController.h */,
 				A8C6D05F1A7745CC00B7CAC0 /* KTPPledgingViewController.m */,
-				A847A5211A9F029E0078C1DE /* KTPPledgeOverviewViewController.h */,
-				A847A5221A9F029E0078C1DE /* KTPPledgeOverviewViewController.m */,
-				A83504AA1A8577DF00644B2A /* KTPPledgeTasksViewController.h */,
-				A83504AB1A8577DF00644B2A /* KTPPledgeTasksViewController.m */,
-				A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */,
-				8B0E2D631A92E6CA000D5177 /* KTPPledgeTaskViewController.h */,
-				8B0E2D641A92E6CA000D5177 /* KTPPledgeTaskViewController.m */,
-				84B3FCE41A99047700D694E3 /* KTPEditPledgeTaskViewController.h */,
-				84B3FCE51A99047700D694E3 /* KTPEditPledgeTaskViewController.m */,
-				A83504AD1A8577F200644B2A /* KTPPledgeMeetingsViewController.h */,
-				A83504AE1A8577F200644B2A /* KTPPledgeMeetingsViewController.m */,
-				84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */,
+				A8D448EB1AA57EFE0097BDEC /* Overview */,
+				A8D448EC1AA57F180097BDEC /* Pledge Tasks */,
+				A8D448ED1AA57F240097BDEC /* Pledge Meetings */,
 			);
 			name = PledgingView;
 			sourceTree = "<group>";
@@ -614,6 +604,48 @@
 				A8D448691AA276820097BDEC /* KTPPieChart.m */,
 			);
 			name = PieChart;
+			sourceTree = "<group>";
+		};
+		A8D448EB1AA57EFE0097BDEC /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				A847A5211A9F029E0078C1DE /* KTPPledgeOverviewViewController.h */,
+				A847A5221A9F029E0078C1DE /* KTPPledgeOverviewViewController.m */,
+			);
+			name = Overview;
+			sourceTree = "<group>";
+		};
+		A8D448EC1AA57F180097BDEC /* Pledge Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				A83504AA1A8577DF00644B2A /* KTPPledgeTasksViewController.h */,
+				A83504AB1A8577DF00644B2A /* KTPPledgeTasksViewController.m */,
+				A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */,
+				8B0E2D631A92E6CA000D5177 /* KTPPledgeTaskViewController.h */,
+				8B0E2D641A92E6CA000D5177 /* KTPPledgeTaskViewController.m */,
+				84B3FCE41A99047700D694E3 /* KTPEditPledgeTaskViewController.h */,
+				84B3FCE51A99047700D694E3 /* KTPEditPledgeTaskViewController.m */,
+			);
+			name = "Pledge Tasks";
+			sourceTree = "<group>";
+		};
+		A8D448ED1AA57F240097BDEC /* Pledge Meetings */ = {
+			isa = PBXGroup;
+			children = (
+				A83504AD1A8577F200644B2A /* KTPPledgeMeetingsViewController.h */,
+				A83504AE1A8577F200644B2A /* KTPPledgeMeetingsViewController.m */,
+				84380F961A919E9200A6A110 /* KTPPledgeMeetingsCell.swift */,
+			);
+			name = "Pledge Meetings";
+			sourceTree = "<group>";
+		};
+		A8D448EE1AA57F500097BDEC /* TextInputTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A847A51E1A9EBC990078C1DE /* KTPTextInputTableViewCell.h */,
+				A847A51F1A9EBC990078C1DE /* KTPTextInputTableViewCell.m */,
+			);
+			name = TextInputTableViewCell;
 			sourceTree = "<group>";
 		};
 		A8F483E61A7D65DC00B17E7F /* Pitches */ = {
