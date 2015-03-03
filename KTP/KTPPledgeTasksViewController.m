@@ -53,6 +53,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.navigationItem.title = @"Pledge Tasks";
+    
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    if (self.tableView.frame.origin.y < statusBarHeight + navBarHeight) {
+        CGRect frame = self.tableView.frame;
+        frame.origin.y += statusBarHeight + navBarHeight;
+        frame.size.height -= frame.origin.y;
+        self.tableView.frame = frame;
+    }
 }
 
 #pragma mark - Loading Subviews
