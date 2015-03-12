@@ -18,7 +18,7 @@
 @property (nonatomic, strong)   NSString    *firstName;
 @property (nonatomic, strong)   NSString    *lastName;
 @property (nonatomic, strong)   NSString    *uniqname;
-@property (nonatomic, strong)   UIImage     *image;
+@property (nonatomic, strong)   id          image;      // Type: UIImage or FLAnimatedImage
 @property (nonatomic, strong)   NSString    *imageURL;
 @property (nonatomic)           NSInteger   gradYear;
 @property (nonatomic, strong)   NSString    *gender;

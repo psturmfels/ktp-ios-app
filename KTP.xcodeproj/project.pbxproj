@@ -46,6 +46,9 @@
 		A83504B91A85BC4A00644B2A /* KTPSPledgeTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504B81A85BC4A00644B2A /* KTPSPledgeTasks.m */; };
 		A83504BC1A85BC6400644B2A /* KTPPledgeMeeting.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */; };
 		A83504C51A86A31900644B2A /* KTPPledgeTasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */; };
+		A8350B531AB147A000FFACE1 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A8350B501AB147A000FFACE1 /* FLAnimatedImage.m */; };
+		A8350B541AB147A000FFACE1 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8350B521AB147A000FFACE1 /* FLAnimatedImageView.m */; };
+		A8350B581AB15FE300FFACE1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A8350B571AB15FE300FFACE1 /* LICENSE */; };
 		A847A5201A9EBC990078C1DE /* KTPTextInputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A847A51F1A9EBC990078C1DE /* KTPTextInputTableViewCell.m */; };
 		A847A5231A9F029E0078C1DE /* KTPPledgeOverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A847A5221A9F029E0078C1DE /* KTPPledgeOverviewViewController.m */; };
 		A873039D1A7199560062B072 /* KTPSMembers.m in Sources */ = {isa = PBXBuildFile; fileRef = A873039C1A7199560062B072 /* KTPSMembers.m */; };
@@ -164,6 +167,11 @@
 		A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPPledgeMeeting.m; sourceTree = "<group>"; };
 		A83504C31A86A31800644B2A /* KTP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KTP-Bridging-Header.h"; sourceTree = "<group>"; };
 		A83504C41A86A31900644B2A /* KTPPledgeTasksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTPPledgeTasksCell.swift; sourceTree = "<group>"; };
+		A8350B4F1AB147A000FFACE1 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
+		A8350B501AB147A000FFACE1 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
+		A8350B511AB147A000FFACE1 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		A8350B521AB147A000FFACE1 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
+		A8350B571AB15FE300FFACE1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A847A51E1A9EBC990078C1DE /* KTPTextInputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPTextInputTableViewCell.h; sourceTree = "<group>"; };
 		A847A51F1A9EBC990078C1DE /* KTPTextInputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPTextInputTableViewCell.m; sourceTree = "<group>"; };
 		A847A5211A9F029E0078C1DE /* KTPPledgeOverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPPledgeOverviewViewController.h; sourceTree = "<group>"; };
@@ -326,6 +334,7 @@
 		89855EFD199B2BC2006E5A14 = {
 			isa = PBXGroup;
 			children = (
+				A8350B4E1AB147A000FFACE1 /* FLAnimatedImage */,
 				A8D448D51AA528C40097BDEC /* MagicPie */,
 				89855F0F199B2BC2006E5A14 /* KTP */,
 				89855F28199B2BC2006E5A14 /* KTPTests */,
@@ -460,6 +469,18 @@
 				A83504BB1A85BC6400644B2A /* KTPPledgeMeeting.m */,
 			);
 			name = Pledging;
+			sourceTree = "<group>";
+		};
+		A8350B4E1AB147A000FFACE1 /* FLAnimatedImage */ = {
+			isa = PBXGroup;
+			children = (
+				A8350B571AB15FE300FFACE1 /* LICENSE */,
+				A8350B4F1AB147A000FFACE1 /* FLAnimatedImage.h */,
+				A8350B501AB147A000FFACE1 /* FLAnimatedImage.m */,
+				A8350B511AB147A000FFACE1 /* FLAnimatedImageView.h */,
+				A8350B521AB147A000FFACE1 /* FLAnimatedImageView.m */,
+			);
+			path = FLAnimatedImage;
 			sourceTree = "<group>";
 		};
 		A873039E1A71AE820062B072 /* Members */ = {
@@ -748,6 +769,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8350B581AB15FE300FFACE1 /* LICENSE in Resources */,
 				89855F14199B2BC2006E5A14 /* InfoPlist.strings in Resources */,
 				89855F1C199B2BC2006E5A14 /* Images.xcassets in Resources */,
 			);
@@ -809,6 +831,7 @@
 				A83504AC1A8577DF00644B2A /* KTPPledgeTasksViewController.m in Sources */,
 				897E8F1019AE4D3D001C849F /* KTPLoginViewController.m in Sources */,
 				89855F1A199B2BC2006E5A14 /* KTPAppDelegate.m in Sources */,
+				A8350B531AB147A000FFACE1 /* FLAnimatedImage.m in Sources */,
 				A8D448E71AA52B090097BDEC /* MPPieLayer.m in Sources */,
 				A8C6D05D1A745C7000B7CAC0 /* KTPMembersCell.m in Sources */,
 				A8C1DAFE1A15ADA300298FF9 /* KTPMembersViewController.m in Sources */,
@@ -835,6 +858,7 @@
 				897E8F1919AE544F001C849F /* KTPSUser.m in Sources */,
 				A87303A11A72C2A80062B072 /* KTPConstants.m in Sources */,
 				A809436D1A6EF98600B03647 /* KTPSlideMenuCell.m in Sources */,
+				A8350B541AB147A000FFACE1 /* FLAnimatedImageView.m in Sources */,
 				A883BE771A78E26300139232 /* NSString+KTPStrings.m in Sources */,
 				A83504AF1A8577F200644B2A /* KTPPledgeMeetingsViewController.m in Sources */,
 				A847A5231A9F029E0078C1DE /* KTPPledgeOverviewViewController.m in Sources */,

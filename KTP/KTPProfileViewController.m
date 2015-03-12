@@ -19,6 +19,8 @@
 #import "KTPProfileBioView.h"
 #import "KTPProfileButtonsView.h"
 
+#import "FLAnimatedImage.h"
+
 #import "KTPNetworking.h"
 
 @interface KTPProfileViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
@@ -101,7 +103,12 @@
     self.navigationItem.title = self.member.firstName;
     
     self.nameView.nameLabel.text = [NSString stringWithFormat:@"%@\n%@", self.member.firstName, self.member.lastName];
-    self.nameView.profileImageView.image = self.member.image;
+    
+    if ([self.member.image isKindOfClass:[UIImage class]]) {
+        self.nameView.profileImageView.image = self.member.image;
+    } else if ([self.member.image isKindOfClass:[FLAnimatedImage class]]) {
+        self.nameView.profileImageView.animatedImage = self.member.image;
+    }
     
     self.bioView.textLabel.text = self.member.biography;
     
@@ -308,6 +315,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = info[UIImagePickerControllerEditedImage] ? info[UIImagePickerControllerEditedImage] : info[UIImagePickerControllerOriginalImage];
     self.nameView.profileImageView.image = image;
+    self.nameView.profileImageView.animatedImage = nil;
     self.member.image = image;
     
     NSData *imageData = UIImagePNGRepresentation(image);

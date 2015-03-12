@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class FLAnimatedImageView;
+
 @interface KTPProfileNameView : UIView
 
-@property (nonatomic, strong) UIImageView *profileImageView;
+@property (nonatomic, strong) FLAnimatedImageView *profileImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 
 @property (nonatomic, strong) CALayer *border;

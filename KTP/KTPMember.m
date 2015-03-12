@@ -9,6 +9,7 @@
 #import "KTPMember.h"
 #import "KTPSMembers.h"
 #import "KTPNetworking.h"
+#import "FLAnimatedImage.h"
 
 @implementation KTPMember
 
@@ -75,7 +76,11 @@
                 if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
                     NSLog(@"Image could not be loaded");
                 } else {
-                    self.image = [UIImage imageWithData:data];
+                    if ([[self.imageURL substringFromIndex:(self.imageURL.length - 3)] isEqualToString:@"gif"]) {
+                        self.image = [FLAnimatedImage animatedImageWithGIFData:data];
+                    } else {
+                        self.image = [UIImage imageWithData:data];
+                    }
                     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberUpdated object:self];
                 }
             }];
