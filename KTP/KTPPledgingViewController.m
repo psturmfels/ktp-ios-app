@@ -23,10 +23,14 @@
         
         self.tabBar.translucent = NO;
         
-        UIViewController *pledgeOverviewVC = [KTPPledgeOverviewViewController new];
-        UIViewController *pledgeTasksVC = [KTPPledgeTasksViewController new];
-        UIViewController *pledgeMeetingsVC = [KTPPledgeMeetingsViewController new];
+        UINavigationController *pledgeOverviewVC = [[UINavigationController alloc] initWithRootViewController:[KTPPledgeOverviewViewController new]];
+        UINavigationController *pledgeTasksVC = [[UINavigationController alloc] initWithRootViewController:[KTPPledgeTasksViewController new]];
+        UINavigationController *pledgeMeetingsVC = [[UINavigationController alloc] initWithRootViewController:[KTPPledgeMeetingsViewController new]];
         self.viewControllers = @[pledgeOverviewVC, pledgeTasksVC, pledgeMeetingsVC];
+        
+        for (UINavigationController *navVC in self.viewControllers) {
+            navVC.navigationBar.tintColor = [UIColor KTPNavigationBarTintColor];
+        }
     }
     return self;
 }
@@ -35,6 +39,5 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
 }
-
 
 @end

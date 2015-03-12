@@ -29,15 +29,11 @@
         self.contentView = [UIView new];
         
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Overview" image:[UIImage imageNamed:@"ChartIcon"] tag:0];
+        self.navigationItem.title = @"Overview";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pledgeTasksDidUpdate) name:KTPNotificationPledgeTasksUpdated object:nil];
     }
     return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tabBarController.navigationItem.title = @"Overview";
 }
 
 - (void)viewDidAppear:(BOOL)animated {

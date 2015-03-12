@@ -9,6 +9,7 @@
 #import "KTPRootViewController.h"
 #import "KTPLoginViewController.h"
 #import "KTPSlideMenuViewController.h"
+#import "KTPMainContainerViewController.h"
 
 #import "KTPProfileViewController.h"
 #import "KTPMembersViewController.h"
@@ -21,11 +22,11 @@
 
 #import "KTPSUser.h"
 
-@interface KTPRootViewController () <KTPSlideMenuDelegate, UIGestureRecognizerDelegate, UINavigationControllerDelegate>
+@interface KTPRootViewController () <KTPSlideMenuDelegate, UIGestureRecognizerDelegate, UINavigationControllerDelegate, UITabBarControllerDelegate>
 
 @property (nonatomic, strong) KTPLoginViewController *loginVC;
 @property (nonatomic, strong) KTPSlideMenuViewController *slideMenuVC;
-@property (nonatomic, strong) UINavigationController *navVC;
+@property (nonatomic, strong) KTPMainContainerViewController *mainContainerVC;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
@@ -48,11 +49,13 @@
         [self addChildViewController:self.slideMenuVC];
         [self.slideMenuVC didMoveToParentViewController:self];
         
-        // Init and add main nav as child VC
-        self.navVC = [[UINavigationController alloc] initWithRootViewController:[[KTPProfileViewController alloc] initWithMember:[KTPSUser currentMember]]];
-        self.navVC.delegate = self;
-        [self addChildViewController:self.navVC];
-        [self.navVC didMoveToParentViewController:self];
+        // Init and add main container as child VC
+        self.mainContainerVC = [KTPMainContainerViewController new];
+        self.mainContainerVC.mainVC
+            = [[UINavigationController alloc] initWithRootViewController:[[KTPProfileViewController alloc] initWithMember:[KTPSUser currentMember]]];
+        [(UINavigationController*)self.mainContainerVC.mainVC setDelegate:self];
+        [self addChildViewController:self.mainContainerVC];
+        [self.mainContainerVC didMoveToParentViewController:self];
         
         // Observe logout notifications
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -67,15 +70,13 @@
     return self;
 }
 
-#pragma mark - View Setup
+#pragma mark - UIViewController methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navVC.navigationBar.tintColor = [UIColor blackColor];
-    
     // Setup shadow for main view
-    self.navVC.view.layer.shadowOpacity = kMainViewShadowOpacity;
+    self.mainContainerVC.view.layer.shadowOpacity = kMainViewShadowOpacity;
     
     [self setupTapRecognizer];
     [self setupPanRecognizer];
@@ -87,26 +88,10 @@
     [self resetLogin];
 }
 
-/*!
- Loads and presents the login view if there is no user logged in.
- */
-- (void)resetLogin {
-    if (![KTPSUser currentUser].isLoggedIn) {
-        [[KTPSUser currentUser] loginWithSession:^(BOOL successful, NSError *error) {
-            if (!successful) {
-                self.loginVC = [KTPLoginViewController new];
-                [self presentViewController:self.loginVC animated:YES completion:^{
-                    [self loadSubviews];
-                }];
-            } else {
-                [self loadSubviews];
-            }
-        }];
-    }
-}
+#pragma mark - Loading subviews
 
 /*!
- Loads the subviews of the root VC (the menu and the default view).
+ Loads the subviews of the root VC (the menu and the main view).
  */
 - (void)loadSubviews {
     if (![self.view.subviews containsObject:self.slideMenuVC.view]) {
@@ -114,18 +99,25 @@
     }
     [self.view sendSubviewToBack:self.slideMenuVC.view];
     
-    if (![self.view.subviews containsObject:self.navVC.view]) {
-        [self.view addSubview:self.navVC.view];
+    if (![self.view.subviews containsObject:self.mainContainerVC.view]) {
+        [self.view addSubview:self.mainContainerVC.view];
     }
     
-    [self.view insertSubview:self.navVC.view aboveSubview:self.slideMenuVC.view];
+    [self.view insertSubview:self.mainContainerVC.view aboveSubview:self.slideMenuVC.view];
     
     // Setup menu button
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MenuIcon"]
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(toggleMenu)];
-    [self.navVC.viewControllers[0] navigationItem].leftBarButtonItem = menuButton;
+    if (self.mainContainerVC.mainIsTabBarController) {
+        UIViewController *vc = [(UITabBarController*)self.mainContainerVC.mainVC viewControllers][0];
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            [[(UINavigationController*)vc viewControllers][0] navigationItem].leftBarButtonItem = menuButton;
+        }
+    } else {
+        [self.mainContainerVC.topVC navigationItem].leftBarButtonItem = menuButton;
+    }
 }
 
 #pragma mark - Tap/Gesture
@@ -136,7 +128,7 @@
 - (void)setupTapRecognizer {
     if (!self.tapRecognizer) {
         self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMenu)];
-        [self.navVC.view addGestureRecognizer:self.tapRecognizer];
+        [self.mainContainerVC.view addGestureRecognizer:self.tapRecognizer];
         self.tapRecognizer.enabled = self.menuIsShowing;
     }
 }
@@ -146,7 +138,7 @@
         self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveMainViewWithPan:)];
         self.panRecognizer.delegate = self;
         self.panRecognizer.minimumNumberOfTouches = 1;
-        [self.navVC.view addGestureRecognizer:self.panRecognizer];
+        [self.mainContainerVC.view addGestureRecognizer:self.panRecognizer];
     }
 }
 
@@ -207,11 +199,6 @@
     }
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    // Only enable pan recognition if viewing bottom of navVC
-    self.panRecognizer.enabled = (viewController == self.navVC.viewControllers[0]);
-}
-
 #pragma mark - Slide Menu
 
 - (void)toggleMenu {
@@ -226,7 +213,7 @@
     
     // after menu has been opened or closed
     self.tapRecognizer.enabled = self.menuIsShowing;
-    self.navVC.topViewController.view.userInteractionEnabled = !self.menuIsShowing;
+    self.mainContainerVC.topVC.view.userInteractionEnabled = !self.menuIsShowing;
     self.slideMenuVC.menuTableView.scrollsToTop = self.menuIsShowing;
 }
 
@@ -236,7 +223,7 @@
     ^{
         CGRect frame = self.view.frame;
         frame.origin.x += kSlideMenuWidth;
-        self.navVC.view.frame = frame;
+        self.mainContainerVC.view.frame = frame;
     }
                      completion:nil];
 }
@@ -245,7 +232,7 @@
     [UIView animateWithDuration:kSlideAnimationDuration
                      animations:
      ^{
-         self.navVC.view.frame = self.view.frame;
+         self.mainContainerVC.view.frame = self.view.frame;
      }
                      completion:nil];
 }
@@ -256,51 +243,77 @@
 //     ^{
 //         CGRect frame = self.view.frame;
 //         frame.origin.x -= kSlideMenuWidth;
-//         self.navVC.view.frame = frame;
+//         self.mainContainerVC.view.frame = frame;
 //     }
 //                     completion:nil];
 //}
 
 - (void)didSelectSlideMenuCell:(KTPSlideMenuCell *)cell {
-    UIViewController *baseVC = self.navVC.viewControllers[0];
+    UIViewController *baseVC = self.mainContainerVC.topVC;
     switch (cell.viewType) {
         case KTPViewTypeMyProfile:
             if (![baseVC isKindOfClass:[KTPProfileViewController class]]) {
-                self.navVC.viewControllers = @[[[KTPProfileViewController alloc] initWithMember:[KTPSUser currentMember]]];
+                self.mainContainerVC.mainVC = [[UINavigationController alloc] initWithRootViewController:[[KTPProfileViewController alloc] initWithMember:[KTPSUser currentMember]]];
             }
             break;
         case KTPViewTypeMembers:
             if (![baseVC isKindOfClass:[KTPMembersViewController class]]) {
-                self.navVC.viewControllers = @[[KTPMembersViewController new]];
+                self.mainContainerVC.mainVC = [[UINavigationController alloc] initWithRootViewController:[KTPMembersViewController new]];
             }
             break;
         case KTPViewTypePledging:
             if (![baseVC isKindOfClass:[KTPPledgingViewController class]]) {
-                self.navVC.viewControllers = @[[KTPPledgingViewController new]];
+                self.mainContainerVC.mainVC = [KTPPledgingViewController new];
             }
             break;
         case KTPViewTypeAnnouncements:
             if (![baseVC isKindOfClass:[KTPAnnouncementsViewController class]]) {
-                self.navVC.viewControllers = @[[KTPAnnouncementsViewController new]];
+                self.mainContainerVC.mainVC = [[UINavigationController alloc] initWithRootViewController:[KTPAnnouncementsViewController new]];
             }
             break;
         case KTPViewTypeSettings:
             if (![baseVC isKindOfClass:[KTPSettingsViewController class]]) {
-                self.navVC.viewControllers = @[[KTPSettingsViewController new]];
+                self.mainContainerVC.mainVC = [[UINavigationController alloc] initWithRootViewController:[KTPSettingsViewController new]];
             }
             break;
         case KTPViewTypePitches:
             if (![baseVC isKindOfClass:[KTPPitchesViewController class]]) {
-                self.navVC.viewControllers = @[[KTPPitchesViewController new]];
+                self.mainContainerVC.mainVC = [[UINavigationController alloc] initWithRootViewController:[KTPPitchesViewController new]];
             }
             break;
         default:
             break;
     }
-    if (baseVC != self.navVC.viewControllers[0]) {
+    if (self.mainContainerVC.mainIsNavigationController) {
+        [(UINavigationController*)self.mainContainerVC.mainVC setDelegate:self];
+    } else if (self.mainContainerVC.mainIsTabBarController) {
+        [(UITabBarController*)self.mainContainerVC.mainVC setDelegate:self];
+    }
+    
+    if (baseVC != self.mainContainerVC.topVC) {
         [self loadSubviews];
     }
     [self toggleMenu];
+}
+
+#pragma mark - Notification handling
+
+/**
+ * Loads and presents the login view if there is no user logged in.
+ */
+- (void)resetLogin {
+    if (![KTPSUser currentUser].isLoggedIn) {
+        [[KTPSUser currentUser] loginWithSession:^(BOOL successful, NSError *error) {
+            if (!successful) {
+                self.loginVC = [KTPLoginViewController new];
+                [self presentViewController:self.loginVC animated:YES completion:^{
+                    [self loadSubviews];
+                }];
+            } else {
+                [self loadSubviews];
+            }
+        }];
+    }
 }
 
 - (void)memberUpdateFailed {
@@ -309,6 +322,32 @@
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - UINavigationControllerDelegate methods
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // Only enable pan recognition if viewing bottom of navigation controller
+    self.panRecognizer.enabled = (navigationController.viewControllers.count <= 1);
+}
+
+#pragma mark - UITabBarControllerDelegate methods
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController*)viewController;
+        [navVC setDelegate:self];
+        self.panRecognizer.enabled = [navVC viewControllers].count <= 1;
+        
+        // Setup menu button if necessary
+        if (![navVC.viewControllers[0] navigationItem].leftBarButtonItem) {
+            UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MenuIcon"]
+                                                                           style:UIBarButtonItemStylePlain
+                                                                          target:self
+                                                                          action:@selector(toggleMenu)];
+            [navVC.viewControllers[0] navigationItem].leftBarButtonItem = menuButton;
+        }
+    }
 }
 
 @end
