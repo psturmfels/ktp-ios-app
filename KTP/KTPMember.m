@@ -71,7 +71,7 @@
         self.__v            = __v;
 
         if ([self.imageURL isNotNilOrEmpty]) {
-            [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteIMGProfilePics appending:[NSString stringWithFormat:@"%@.png", self.uniqname] parameters:nil withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+            [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:self.imageURL withData:nil contentType:0 block:^(NSURLResponse *response, NSData *data, NSError *error) {
                 if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
                     NSLog(@"Image could not be loaded");
                 } else {

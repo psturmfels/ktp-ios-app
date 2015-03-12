@@ -22,8 +22,7 @@ typedef NS_ENUM(NSInteger, KTPRequestRoute) {
     KTPRequestRouteAPIPitches,          /*  /api/pitches/           */
     KTPRequestRouteAPIPledgeTasks,      /*  /api/pledgeTasks/       */
     KTPRequestRouteAPIPledgeMeetings,   /*  /api/pledgeMeetings/    */
-    KTPRequestRouteAPICommittees,       /*  /api/committees/        */
-    KTPRequestRouteIMGProfilePics       /*  /img/prof_pics/         */
+    KTPRequestRouteAPICommittees        /*  /api/committees/        */
 };
 
 typedef NS_ENUM(NSInteger, KTPContentType) {
@@ -47,7 +46,7 @@ typedef NS_ENUM(NSInteger, KTPContentType) {
  @param         body        The body of the request in JSON dictionary format
  @param         block       Block to forward response to
  */
-+ (void)sendAsynchronousRequestType:(KTPRequestType)type
++ (void)sendAsynchronousRequestType:(KTPRequestType)requestType
                             toRoute:(KTPRequestRoute)route
                           appending:(NSString*)append
                          parameters:(NSString*)parameters
@@ -61,7 +60,7 @@ typedef NS_ENUM(NSInteger, KTPContentType) {
  @param         route       The route to send the request to
  @param         append      A string to append to the route
  @param         parameters  Any parameters to the request (separated by '&')
- @param         data        The data of the request
+ @param         data        The body data of the request
  @param         contentType The content type of the data
  @param         block       Block to forward response to
  */
@@ -72,5 +71,20 @@ typedef NS_ENUM(NSInteger, KTPContentType) {
                            withData:(NSData *)data
                         contentType:(KTPContentType)contentType
                               block:(void (^)(NSURLResponse *response, NSData *data, NSError *error))block;
+
+/**
+ * Sends an asynchronous NSURLRequest of the specified KTPRequestType to the specified API route. The route should NOT included http://www.kappathetapi.com, but should include anything (complete path with parameters) that comes after that (e.g. /api/members/:id?sort=-first_name)
+ *
+ * @param   requestType     The type of request
+ * @param   route           The route to send the request to
+ * @param   data            The body data of the request
+ * @param   contentType     The content type of the data
+ * @param   block           Block to forward response to
+ */
++ (void)sendAsynchronousRequestType:(KTPRequestType)requestType
+                            toRoute:(NSString*)route
+                           withData:(NSData*)data
+                        contentType:(KTPContentType)contentType
+                              block:(void (^)(NSURLResponse*, NSData*, NSError*))block;
 
 @end

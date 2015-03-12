@@ -41,8 +41,6 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
             return @"/api/pledgeMeetings/";
         case KTPRequestRouteAPICommittees:
             return @"/api/committees/";
-        case KTPRequestRouteIMGProfilePics:
-            return @"/img/prof_pics/";
     }
 }
 
@@ -55,7 +53,7 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
     }
 }
 
-+ (void)sendAsynchronousRequestType:(KTPRequestType)type
++ (void)sendAsynchronousRequestType:(KTPRequestType)requestType
                             toRoute:(KTPRequestRoute)route
                           appending:(NSString*)append
                          parameters:(NSString*)parameters
@@ -69,7 +67,7 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
     }
     
     if (!error) {
-        [KTPNetworking sendAsynchronousRequestType:type toRoute:route appending:append parameters:parameters withData:data contentType:KTPContentTypeJSON block:block];
+        [KTPNetworking sendAsynchronousRequestType:requestType toRoute:route appending:append parameters:parameters withData:data contentType:KTPContentTypeJSON block:block];
     } else {
         NSLog(@"JSON Serialization Failed");
         block(nil, nil, error);
@@ -84,16 +82,31 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
                         contentType:(KTPContentType)contentType
                               block:(void (^)(NSURLResponse *, NSData *, NSError *))block
 {
-    NSString *requestTypeString = [KTPNetworking requestTypeToString:requestType];
-    NSString *requestRouteString = [KTPNetworking requestRouteToString:route];
-    NSString *contentTypeString = [KTPNetworking contentTypeToString:contentType];
-    NSMutableString *requestURLString = [NSMutableString stringWithFormat:@"http://kappathetapi.com%@", requestRouteString];
+    NSMutableString *requestRouteString = [[KTPNetworking requestRouteToString:route] mutableCopy];
     if (append) {
-        [requestURLString appendString:append];
+        [requestRouteString appendString:append];
     }
     if (parameters) {
-        [requestURLString appendFormat:@"?%@", parameters];
+        [requestRouteString appendFormat:@"?%@", parameters];
     }
+    
+    [KTPNetworking sendAsynchronousRequestType:requestType
+                                       toRoute:requestRouteString
+                                      withData:data
+                                   contentType:contentType
+                                         block:block];
+}
+
++ (void)sendAsynchronousRequestType:(KTPRequestType)requestType
+                            toRoute:(NSString*)route
+                           withData:(NSData*)data
+                        contentType:(KTPContentType)contentType
+                              block:(void (^)(NSURLResponse*, NSData*, NSError*))block
+{
+    NSString *requestTypeString = [KTPNetworking requestTypeToString:requestType];
+    NSString *contentTypeString = [KTPNetworking contentTypeToString:contentType];
+    
+    NSString *requestURLString = [NSString stringWithFormat:@"http://kappathetapi.com%@", route];
     NSURL *requestURL = [NSURL URLWithString:requestURLString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
     request.allHTTPHeaderFields = @{@"x-access-token"   : KTP_API_TOKEN,
@@ -102,8 +115,7 @@ NSString *const KTP_API_TOKEN = @"5af9a24515589a73d0fa687e69cbaaa15918f833";
     request.HTTPBody = data;
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        //            NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]);
-        block(response, data, connectionError);
+        !block ?: block(response, data, connectionError);
     }];
 }
 
