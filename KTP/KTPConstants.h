@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, KTPViewType) {
     KTPViewTypeAnnouncements,
     KTPViewTypeSettings,
     KTPViewTypePitches
-
+};
 typedef NS_ENUM(NSInteger, KTPMembersSortType) {
     KTPMembersSortTypeFirstName,
     KTPMembersSortTypeLastName,
@@ -53,4 +53,4 @@ typedef NS_ENUM(NSInteger, KTPMembersSortType) {
     KTPMembersSortTypeRole,
     KTPMembersSortTypeGradYear,
     KTPMembersSortTypeMajor
-};};
+};

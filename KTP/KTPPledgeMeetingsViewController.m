@@ -13,8 +13,15 @@
 #import "KTPSMembers.h"
 #import "KTPProfileViewController.h"
 #import "KTPMember.h"
+#import "KTPPledgeMeeting.h"
+
+#import "NSIndexSet+KTPHelpers.h"
 
 @interface KTPPledgeMeetingsViewController ()
+
+@property (nonatomic, weak) NSArray *meetings;
+@property (nonatomic) NSMutableIndexSet *completedMeetingIdxes;
+@property (nonatomic) NSMutableIndexSet *incompletedMeetingIdxes;
 
 @end
 
@@ -31,6 +38,16 @@
     if (self) {
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Meetings" image:[UIImage imageNamed:@"MeetingTabBarIcon"] tag:1];
         self.navigationItem.title = @"Pledge Meetings";
+        self.completedMeetingIdxes = [NSMutableIndexSet indexSet];
+        self.incompletedMeetingIdxes = [NSMutableIndexSet indexSet];
+        self.meetings = [KTPSUser currentMember].meetings;
+        [self.meetings enumerateObjectsUsingBlock:^(KTPPledgeMeeting *meeting, NSUInteger idx, BOOL *stop) {
+            if (meeting.complete) {
+                [self.completedMeetingIdxes addIndex:idx];
+            } else {
+                [self.incompletedMeetingIdxes addIndex:idx];
+            }
+        }];
     }
     return self;
 }
@@ -62,19 +79,26 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     KTPPledgeMeetingsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    KTPPledgeMeeting *meeting;
     if (indexPath.section == 1) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        meeting = [self.meetings objectAtIndex:[self.completedMeetingIdxes indexAtIndex:indexPath.row]];
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        meeting = [self.meetings objectAtIndex:[self.incompletedMeetingIdxes indexAtIndex:indexPath.row]];
     }
-    KTPMember *m = [[KTPSMembers members].membersArray objectAtIndex:indexPath.row];
-    [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", m.firstName, m.lastName]];
+    if ([[KTPSUser currentMember].status isEqualToString:@"Pledge"]) {
+        [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", meeting.active.firstName, meeting.active.lastName]];
+    } else {
+        [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", meeting.pledge.firstName, meeting.pledge.lastName]];
+    }
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [KTPSMembers members].membersArray.count;
-    //[KTPSUser curUser].member.meetings.count;
+//    return [KTPSMembers members].membersArray.count;
+    return (section == 0) ? self.incompletedMeetingIdxes.count : self.completedMeetingIdxes.count;
+//    return [KTPSUser currentMember].meetings.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -86,8 +110,8 @@
         KTPPledgeMeetingsCell *cell = (KTPPledgeMeetingsCell *)[tableView cellForRowAtIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
-        //    KTPMember *other = [meetings objectAtIndex:indexPath.row].member;
-        KTPMember *m = [[KTPSMembers members].membersArray objectAtIndex:indexPath.row];
+        KTPPledgeMeeting *meeting = [self.meetings objectAtIndex:indexPath.row];
+        KTPMember *m = ([[KTPSUser currentMember].status isEqualToString:@"Pledge"]) ? meeting.active : meeting.pledge;
         KTPProfileViewController *vc = [[KTPProfileViewController alloc] initWithMember:m];
         [self.navigationController pushViewController:vc animated:YES];
     }
