@@ -23,5 +23,6 @@
 
 +(UIColor *)KTPGreenNew;
 
++ (UIColor*)KTPNavigationBarTintColor;
 
 @end

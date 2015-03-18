@@ -9,6 +9,7 @@
 #import "KTPMember.h"
 #import "KTPSMembers.h"
 #import "KTPNetworking.h"
+#import "FLAnimatedImage.h"
 
 @implementation KTPMember
 
@@ -71,11 +72,15 @@
         self.__v            = __v;
 
         if ([self.imageURL isNotNilOrEmpty]) {
-            [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:KTPRequestRouteIMGProfilePics appending:[NSString stringWithFormat:@"%@.png", self.uniqname] parameters:nil withJSONBody:nil block:^(NSURLResponse *response, NSData *data, NSError *error) {
+            [KTPNetworking sendAsynchronousRequestType:KTPRequestTypeGET toRoute:self.imageURL withData:nil contentType:0 block:^(NSURLResponse *response, NSData *data, NSError *error) {
                 if (error || [(NSHTTPURLResponse*)response statusCode] >= 300) {
                     NSLog(@"Image could not be loaded");
                 } else {
-                    self.image = [UIImage imageWithData:data];
+                    if ([[self.imageURL substringFromIndex:(self.imageURL.length - 3)] isEqualToString:@"gif"]) {
+                        self.image = [FLAnimatedImage animatedImageWithGIFData:data];
+                    } else {
+                        self.image = [UIImage imageWithData:data];
+                    }
                     [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationMemberUpdated object:self];
                 }
             }];

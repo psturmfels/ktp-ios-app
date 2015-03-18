@@ -8,6 +8,8 @@
 
 #import "KTPProfileNameView.h"
 
+#import "FLAnimatedImage.h"
+
 #define PROFILE_IMAGE_RADIUS 10
 
 @implementation KTPProfileNameView
@@ -37,7 +39,7 @@
 }
 
 - (void)loadProfileImageView {
-    self.profileImageView = [UIImageView new];
+    self.profileImageView = [FLAnimatedImageView new];
     self.profileImageView.layer.cornerRadius = PROFILE_IMAGE_RADIUS;
     self.profileImageView.backgroundColor = [UIColor whiteColor];
     self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;

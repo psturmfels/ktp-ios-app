@@ -9,6 +9,7 @@
 #import "KTPPledgingViewController.h"
 #import "KTPSPledgeTasks.h"
 
+#import "KTPPledgeOverviewViewController.h"
 #import "KTPPledgeTasksViewController.h"
 #import "KTPPledgeMeetingsViewController.h"
 
@@ -22,9 +23,14 @@
         
         self.tabBar.translucent = NO;
         
-        UIViewController *pledgeTasksVC = [KTPPledgeTasksViewController new];
-        UIViewController *pledgeMeetingsVC = [KTPPledgeMeetingsViewController new];
-        self.viewControllers = @[pledgeTasksVC, pledgeMeetingsVC];
+        UINavigationController *pledgeOverviewVC = [[UINavigationController alloc] initWithRootViewController:[KTPPledgeOverviewViewController new]];
+        UINavigationController *pledgeTasksVC = [[UINavigationController alloc] initWithRootViewController:[KTPPledgeTasksViewController new]];
+        UINavigationController *pledgeMeetingsVC = [[UINavigationController alloc] initWithRootViewController:[KTPPledgeMeetingsViewController new]];
+        self.viewControllers = @[pledgeOverviewVC, pledgeTasksVC, pledgeMeetingsVC];
+        
+        for (UINavigationController *navVC in self.viewControllers) {
+            navVC.navigationBar.tintColor = [UIColor KTPNavigationBarTintColor];
+        }
     }
     return self;
 }
@@ -33,6 +39,5 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
 }
-
 
 @end

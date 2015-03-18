@@ -30,6 +30,7 @@
     self = [super init];
     if (self) {
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Meetings" image:[UIImage imageNamed:@"MeetingTabBarIcon"] tag:1];
+        self.navigationItem.title = @"Pledge Meetings";
     }
     return self;
 }

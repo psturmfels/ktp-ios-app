@@ -7,6 +7,7 @@
 //
 
 #import "KTPPledgeTask.h"
+#import "KTPNetworking.h"
 
 @implementation KTPPledgeTask
 
@@ -33,6 +34,29 @@
         self._id = _id;
     }
     return self;
+}
+
+- (void)update:(void (^)(BOOL successful))block {
+    [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePUT toRoute:KTPRequestRouteAPIPledgeTasks appending:self._id parameters:nil withJSONBody:[self JSONObject] block:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KTPNotificationPledgeTaskUpdateFailed object:self];
+        }
+        if (block) {
+            block(!error);
+        }
+    }];
+}
+
+- (NSDictionary*)JSONObject {
+    return @{
+             @"title"           :   self.taskTitle,
+             @"description"     :   self.taskDescription,
+             @"proof"           :   self.proof,
+             @"points"          :   [NSNumber numberWithFloat:self.points],
+             @"points_earned"   :   [NSNumber numberWithFloat:self.pointsEarned],
+             @"minimum_pledges" :   [NSNumber numberWithUnsignedInteger:self.minimumPledges],
+             @"repeatable"      :   [NSNumber numberWithBool:self.repeatable]
+             };
 }
 
 @end

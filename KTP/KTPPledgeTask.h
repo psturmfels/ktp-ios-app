@@ -30,4 +30,10 @@
                       pledges:(NSMutableArray*)pledges
                           _id:(NSString*)_id;
 
+
+/*!
+ Update's this pledge task's information in the database. Calls block after update is complete.
+ */
+- (void)update:(void (^)(BOOL successful))block;
+
 @end

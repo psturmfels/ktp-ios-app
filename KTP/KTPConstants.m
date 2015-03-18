@@ -17,5 +17,12 @@ NSString *const KTPNotificationPitchesUpdated               = @"KTPNotificationP
 NSString *const KTPNotificationPitchVotedSuccess            = @"KTPNotificationPitchVotedSuccess";
 NSString *const KTPNotificationPitchVotedFailure            = @"KTPNotificationPitchVotedFailure";
 NSString *const KTPNotificationPledgeTasksUpdated           = @"KTPNotificationPledgeTasksUpdated";
+NSString *const KTPNotificationPledgeTaskUpdateFailed       = @"KTPNotificationPledgeTaskUpdateFailed";
 NSString *const KTPNotificationPledgeTasksUpdateFailed      = @"KTPNotificationPledgeTasksUpdateFailed";
 NSString *const KTPNotificationPledgeMeetingUpdateFailed    = @"KTPNotificationPledgeMeetingUpdateFailed";
+
+CGFloat const kSlideAnimationDuration       = 0.2f;
+CGFloat const kMainViewShadowOpacity        = 0.8f;
+CGFloat const kStandardTableViewCellHeight  = 44.0f;
+CGFloat const kContentViewBottomPadding     = 22.0f;
+CGFloat const kLargeButtonHeight            = 60.0f;
