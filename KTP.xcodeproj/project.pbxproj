@@ -36,7 +36,6 @@
 		A80943661A6EEF3600B03647 /* KTPSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A80943651A6EEF3600B03647 /* KTPSlideMenuViewController.m */; };
 		A809436D1A6EF98600B03647 /* KTPSlideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A809436C1A6EF98600B03647 /* KTPSlideMenuCell.m */; };
 		A83504971A7EE25A00644B2A /* KTPSPitches.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504961A7EE25A00644B2A /* KTPSPitches.m */; };
-		A835049A1A7FFA7900644B2A /* KTPSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504991A7FFA7900644B2A /* KTPSettingsDataSource.m */; };
 		A835049D1A8005AB00644B2A /* KTPChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A835049C1A8005AB00644B2A /* KTPChangePasswordViewController.m */; };
 		A83504A01A807A5500644B2A /* KTPEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A835049F1A807A5500644B2A /* KTPEditProfileViewController.m */; };
 		A83504A31A81529E00644B2A /* KTPPitchesResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83504A21A81529E00644B2A /* KTPPitchesResultViewController.m */; };
@@ -150,8 +149,6 @@
 		A809436C1A6EF98600B03647 /* KTPSlideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSlideMenuCell.m; sourceTree = "<group>"; };
 		A83504951A7EE25A00644B2A /* KTPSPitches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSPitches.h; sourceTree = "<group>"; };
 		A83504961A7EE25A00644B2A /* KTPSPitches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSPitches.m; sourceTree = "<group>"; };
-		A83504981A7FFA7900644B2A /* KTPSettingsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPSettingsDataSource.h; sourceTree = "<group>"; };
-		A83504991A7FFA7900644B2A /* KTPSettingsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTPSettingsDataSource.m; sourceTree = "<group>"; };
 		A835049B1A8005AB00644B2A /* KTPChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPChangePasswordViewController.h; sourceTree = "<group>"; };
 		A835049C1A8005AB00644B2A /* KTPChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KTPChangePasswordViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A835049E1A807A5500644B2A /* KTPEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTPEditProfileViewController.h; sourceTree = "<group>"; };
@@ -586,8 +583,6 @@
 			children = (
 				A8B2D64D1A7799E100039724 /* KTPSettingsViewController.h */,
 				A8B2D64E1A7799E100039724 /* KTPSettingsViewController.m */,
-				A83504981A7FFA7900644B2A /* KTPSettingsDataSource.h */,
-				A83504991A7FFA7900644B2A /* KTPSettingsDataSource.m */,
 				A835049B1A8005AB00644B2A /* KTPChangePasswordViewController.h */,
 				A835049C1A8005AB00644B2A /* KTPChangePasswordViewController.m */,
 			);
@@ -758,9 +753,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Kappa Theta Pi";
 				TargetAttributes = {
-					89855F05199B2BC2006E5A14 = {
-						DevelopmentTeam = K7DT288WPK;
-					};
 					89855F20199B2BC2006E5A14 = {
 						TestTargetID = 89855F05199B2BC2006E5A14;
 					};
@@ -847,7 +839,6 @@
 				A83504B91A85BC4A00644B2A /* KTPSPledgeTasks.m in Sources */,
 				BF2920911A93C6A300EFE46A /* KTPProfileFratInfoView.m in Sources */,
 				BF2920941A93EA8100EFE46A /* KTPProfilePersonalInfoView.m in Sources */,
-				A835049A1A7FFA7900644B2A /* KTPSettingsDataSource.m in Sources */,
 				A883BE901A7AFE0D00139232 /* KTPPitchAddViewController.m in Sources */,
 				A83504AC1A8577DF00644B2A /* KTPPledgeTasksViewController.m in Sources */,
 				897E8F1019AE4D3D001C849F /* KTPLoginViewController.m in Sources */,

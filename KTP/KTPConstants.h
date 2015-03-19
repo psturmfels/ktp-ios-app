@@ -12,6 +12,7 @@
  KTPConstants contains all global constants and is automatically included in every file.
  */
 
+// Notification names
 extern NSString *const KTPNotificationMembersUpdated;
 extern NSString *const KTPNotificationMemberUpdated;
 extern NSString *const KTPNotificationMemberUpdateFailed;
@@ -25,6 +26,18 @@ extern NSString *const KTPNotificationPledgeTaskUpdateFailed;
 extern NSString *const KTPNotificationPledgeTasksUpdateFailed;
 extern NSString *const KTPNotificationPledgeMeetingUpdateFailed;
 
+// Session keys
+extern NSString *const KTPSessionKeyLoggedInMemberID;
+extern NSString *const KTPSessionKeyLastLogin;
+extern NSString *const KTPSessionKeySessionIsValid;
+
+// User settings keys
+extern NSString *const KTPUserSettingsKeyUseTouchID;
+
+// Internal settings keys
+extern NSString *const KTPSettingsKeyTouchIDPrompted;
+
+// UI element constants
 extern CGFloat const kSlideAnimationDuration;
 extern CGFloat const kMainViewShadowOpacity;
 extern CGFloat const kStandardTableViewCellHeight;

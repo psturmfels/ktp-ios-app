@@ -7,18 +7,18 @@
 //
 
 #import "KTPSettingsViewController.h"
-#import "KTPSettingsDataSource.h"
 #import "KTPSUser.h"
 
 #import "KTPChangePasswordViewController.h"
 
-@interface KTPSettingsViewController () <UITableViewDelegate>
+@interface KTPSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) KTPSettingsDataSource *dataSource;
 
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) UIButton *logoutButton;
+
+@property (nonatomic, strong) UISwitch *touchIDSwitch;
 @end
 
 @implementation KTPSettingsViewController
@@ -29,9 +29,18 @@
     self = [super init];
     if (self) {
         self.navigationItem.title = @"Settings";
+        
+        [self initTouchIDSwitch];
+        
         [self initLogoutButton];
     }
     return self;
+}
+
+- (void)initTouchIDSwitch {
+    self.touchIDSwitch = [UISwitch new];
+    self.touchIDSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:KTPUserSettingsKeyUseTouchID];
+    [self.touchIDSwitch addTarget:self action:@selector(touchIDSwitchSelected) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)initLogoutButton {
@@ -57,8 +66,7 @@
 - (void)loadTableView {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
-    self.dataSource = [KTPSettingsDataSource new];
-    self.tableView.dataSource = self.dataSource;
+    self.tableView.dataSource = self;
     self.tableView.delaysContentTouches = NO;
     [self.view addSubview:self.tableView];
     
@@ -87,7 +95,7 @@
     [self.footerView addConstraint:[NSLayoutConstraint constraintWithItem:self.logoutButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.footerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
 
-#pragma mark - UITableViewDelegate Methods
+#pragma mark - UITableViewDelegate methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -105,6 +113,68 @@
         default:
             break;
     }
+}
+
+#pragma mark - UITableViewDataSource methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return 1;
+        case 1:
+            return 1;
+        default:
+            return 0;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [UITableViewCell new];
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Change Password";
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 1:
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Use Touch ID";
+                    cell.accessoryView = self.touchIDSwitch;
+                    break;
+                default:
+                    break;
+            }
+        default:
+            break;
+    }
+    return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"Account Setup";
+        case 1:
+            return @"Device Settings";
+        default:
+            return nil;
+    }
+}
+
+#pragma mark - UI action selectors
+
+- (void)touchIDSwitchSelected {
+    [[NSUserDefaults standardUserDefaults] setBool:self.touchIDSwitch.on forKey:KTPUserSettingsKeyUseTouchID];
 }
 
 @end

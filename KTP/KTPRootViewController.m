@@ -86,6 +86,21 @@
     [super viewDidAppear:animated];
     
     [self resetLogin];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:KTPSettingsKeyTouchIDPrompted] &&
+        ![defaults boolForKey:KTPUserSettingsKeyUseTouchID] &&
+        [KTPSUser currentUser].loggedIn) {
+//        [defaults setBool:YES forKey:KTPSettingsKeyTouchIDPrompted];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Touch ID"
+                                                                       message:@"Enable Touch ID for future logins? You can change this setting later."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Enable" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [defaults setBool:YES forKey:KTPUserSettingsKeyUseTouchID];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 #pragma mark - Loading subviews

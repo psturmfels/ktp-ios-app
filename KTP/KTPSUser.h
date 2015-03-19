@@ -39,18 +39,25 @@
 /*!
  Asynchronously logs in the user with their provided username and password. When the user is logged in or if an error occurred, block is called with the appropriate arguments.
  
- @param         username
- @param         password
- @param         block
+ @param         username    KTP account username
+ @param         password    KTP account password
+ @param         block       Callback after login finishes
  */
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(void (^)(BOOL successful, NSError *error))block;
 
 /*!
  Synchronously logs in the user if they have a valid session active. When the user is logged in or if an error occurred, block is called with the appropriate arguments.
  
- @param         block
+ @param         block       Callback after login finishes
  */
 - (void)loginWithSession:(void (^)(BOOL successful, NSError *error))block;
+
+/*!
+ Synchronously logs in the user if they have logged in before (intended to be called after verification of Touch ID). When the user is logged in or if an error occurred, block is called with the appropriate arguments.
+ 
+ @param         block       Callback after login finishes
+ */
+- (void)loginWithTouchID:(void (^)(BOOL successful, NSError *error))block;
 
 /*!
  Logs out the user
@@ -58,3 +65,11 @@
 - (void)logout;
 
 @end
+
+extern NSString *const KTPLoginErrorInvalidUsername;
+extern NSString *const KTPLoginErrorInvalidPassword;
+extern NSString *const KTPLoginErrorInvalidSession;
+extern NSString *const KTPLoginErrorTouchIDFailed;
+extern NSString *const KTPLoginErrorLoginFailed;
+
+

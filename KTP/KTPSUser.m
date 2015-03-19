@@ -11,6 +11,8 @@
 #import "KTPMember.h"
 #import "KTPNetworking.h"
 
+#import <LocalAuthentication/LocalAuthentication.h>
+
 @implementation KTPSUser
 
 - (instancetype)init {
@@ -83,7 +85,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         NSDictionary *errorUserInfo = @{@"username" : username, @"password" : password};
-        NSError *error = [[NSError alloc] initWithDomain:@"KTPInvalidUsernameError" code:-1 userInfo:errorUserInfo];    // default error
+        NSError *error = [[NSError alloc] initWithDomain:KTPLoginErrorInvalidUsername code:-1 userInfo:errorUserInfo];    // default error
         
         // Create a block for error action
         void (^errorBlock)(NSError *error) = ^(NSError *error) {
@@ -96,13 +98,13 @@
         // Breakdown username into components
         NSArray *usernameComponents = [username componentsSeparatedByString:@"@"];
         
-        /* Check if username is in invalid format */
+        // Check if username is in invalid format
         if (usernameComponents.count > 2 || usernameComponents.count < 1) {
             errorBlock(error);
             return;
         }
         
-        /* Check if username exists */
+        // Check if username exists
         BOOL usernameFound = NO;
         KTPMember *possibleMember;
         NSString *uniqname = usernameComponents[0];
@@ -118,7 +120,7 @@
             return;
         }
         
-        /* If a domain was entered, check if the domain is @umich.edu */
+        // If a domain was entered, check if the domain is @umich.edu
         if (usernameComponents.count == 2) {
             NSString *domain = usernameComponents[1];
             if (![domain isEqualToString:@"umich.edu"]) {
@@ -127,7 +129,7 @@
             }
         }
         
-        /* Check if password is correct for this user */
+        // Check if password is correct for this user
         [KTPNetworking sendAsynchronousRequestType:KTPRequestTypePOST
                                            toRoute:KTPRequestRouteAPILogin
                                          appending:nil
@@ -141,22 +143,14 @@
             
             // Check if response was valid
             if ([string isEqualToString:@"success\n"]) {
-                /* This point reached only if username and password were both correct */
+                // This point reached only if username and password were both correct
+                
                 // Use NSUserDefaults as session management
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                [defaults setObject:possibleMember._id forKey:@"loggedInMemberId"];
-                [defaults setObject:[NSDate date] forKey:@"lastLogin"];
-                [defaults synchronize];
-                self.member = [KTPMember memberWithUniqname:uniqname];
-                
-                self.loggedIn = YES;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    block(YES, nil);
-                });
+                [defaults setObject:possibleMember._id forKey:KTPSessionKeyLoggedInMemberID];
+                [self login:block];
             } else {
-                NSLog(@"%@", string);
-                
-                NSError *error = [[NSError alloc] initWithDomain:@"KTPInvalidPasswordError" code:-1 userInfo:errorUserInfo];
+                NSError *error = [[NSError alloc] initWithDomain:KTPLoginErrorInvalidPassword code:-1 userInfo:errorUserInfo];
                 errorBlock(error);
                 return;
             }
@@ -168,25 +162,56 @@
     
     // Use NSUserDefaults as session management
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *loggedInMemberId = [defaults stringForKey:@"loggedInMemberId"];
-    NSDate *lastLogin = [defaults objectForKey:@"lastLogin"];
+    NSDate *lastLogin = [defaults objectForKey:KTPSessionKeyLastLogin];
     
     // Check if user is not logged in, or the time since last login has exceeded the session length
     NSTimeInterval secondsPerWeek = SESSION_LENGTH_DAYS * 24 * 60 * 60; // days * hours * minutes * seconds
-    if (!loggedInMemberId || [loggedInMemberId isEqualToString:@""] || [[NSDate date] timeIntervalSinceDate:lastLogin] > secondsPerWeek) {
-        [defaults setObject:nil forKey:@"loggedInMemberId"];
+    if (![defaults boolForKey:KTPSessionKeySessionIsValid] || [[NSDate date] timeIntervalSinceDate:lastLogin] > secondsPerWeek) {
+        [defaults setBool:NO forKey:KTPSessionKeySessionIsValid];
         if (block) {
-            block(NO, [NSError errorWithDomain:@"KTPSessionEndedError" code:-1 userInfo:nil]);
+            block(NO, [NSError errorWithDomain:KTPLoginErrorTouchIDFailed code:-1 userInfo:nil]);
         }
         return;
+    } else {
+        [self login:block];
     }
+}
+
+- (void)loginWithTouchID:(void (^)(BOOL, NSError *))block {
     
-    /* This point reached only if session is valid */
-    [defaults setObject:[NSDate date] forKey:@"lastLogin"];
+    LAContext *context = [LAContext new];
+    NSError *error = nil;
+    
+    // Use NSUserDefaults as session management
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults boolForKey:KTPUserSettingsKeyUseTouchID] &&
+        [[defaults objectForKey:KTPSessionKeyLoggedInMemberID] isNotNilOrEmpty] &&
+        [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:@"Authenticate to log into your KTP Account" reply:^(BOOL success, NSError *error) {
+            if (success) {
+                [self login:block];
+            } else {
+                if (block) {
+                    block(NO, [NSError errorWithDomain:KTPLoginErrorTouchIDFailed code:-1 userInfo:nil]);
+                }
+            }
+        }];
+    } else {
+        block(NO, [NSError errorWithDomain:KTPLoginErrorLoginFailed code:-1 userInfo:nil]);
+    }
+}
+
+- (void)login:(void (^)(BOOL, NSError *))block {
+    self.loggedIn = YES;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSDate date] forKey:KTPSessionKeyLastLogin];
+    [defaults setBool:YES forKey:KTPSessionKeySessionIsValid];
     [defaults synchronize];
     [self updateMember];
     
-    self.loggedIn = YES;
     if (block) {
         block(YES, nil);
     }
@@ -195,7 +220,7 @@
 - (void)logout {
     // Use NSUserDefaults as session management
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:nil forKey:@"loggedInMemberId"];
+    [defaults setBool:NO forKey:KTPSessionKeySessionIsValid];
     self.loggedIn = NO;
     self.member = nil;
     
@@ -207,7 +232,13 @@
  Updates the member associated with this user. Usually called when updates are made to the member data maintained in KTPSMembers.
  */
 - (void)updateMember {
-    self.member = [KTPMember memberWithID:[[NSUserDefaults standardUserDefaults] stringForKey:@"loggedInMemberId"]];
+    self.member = [KTPMember memberWithID:[[NSUserDefaults standardUserDefaults] stringForKey:KTPSessionKeyLoggedInMemberID]];
 }
 
 @end
+
+NSString *const KTPLoginErrorInvalidUsername    = @"KTPLoginErrorInvalidUsername";
+NSString *const KTPLoginErrorInvalidPassword    = @"KTPLoginErrorInvalidPassword";
+NSString *const KTPLoginErrorInvalidSession     = @"KTPLoginErrorInvalidSession";
+NSString *const KTPLoginErrorTouchIDFailed      = @"KTPLoginErrorTouchIDFailed";
+NSString *const KTPLoginErrorLoginFailed        = @"KTPLoginErrorLoginFailed";

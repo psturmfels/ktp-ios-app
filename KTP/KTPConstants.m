@@ -21,6 +21,14 @@ NSString *const KTPNotificationPledgeTaskUpdateFailed       = @"KTPNotificationP
 NSString *const KTPNotificationPledgeTasksUpdateFailed      = @"KTPNotificationPledgeTasksUpdateFailed";
 NSString *const KTPNotificationPledgeMeetingUpdateFailed    = @"KTPNotificationPledgeMeetingUpdateFailed";
 
+NSString *const KTPSessionKeyLoggedInMemberID   = @"KTPSessionKeyLoggedInMemberID";
+NSString *const KTPSessionKeyLastLogin          = @"KTPSessionKeyLastLogin";
+NSString *const KTPSessionKeySessionIsValid     = @"KTPSessionKeySessionIsValid";
+
+NSString *const KTPUserSettingsKeyUseTouchID    = @"KTPUserSettingsKeyUseTouchID";
+
+NSString *const KTPSettingsKeyTouchIDPrompted   = @"KTPSettingsKeyTouchIDPrompted";
+
 CGFloat const kSlideAnimationDuration       = 0.2f;
 CGFloat const kMainViewShadowOpacity        = 0.8f;
 CGFloat const kStandardTableViewCellHeight  = 44.0f;
