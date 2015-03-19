@@ -103,12 +103,33 @@
     [self.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[username]-[password]-100-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:views]];
 }
 
+#pragma mark - UIViewController methods
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.animationTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchDownOnView:)];
     [self.scrollView addGestureRecognizer:self.animationTap];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // Attempt to login with Touch ID
+    [[KTPSUser currentUser] loginWithTouchID:^(BOOL successful, NSError *error) {
+        if (successful) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else if ([error.domain isEqualToString:KTPLoginErrorTouchIDFailed]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login Failed"
+                                                                           message:@"Touch ID authentication failed"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
+}
+
+#pragma mark - UITextFieldDelegate methods
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -125,18 +146,6 @@
     return YES;
 }
 
-- (void)touchDownOnView:(UITapGestureRecognizer *)tap
-{
-    if ([self.usernameInput isFirstResponder]) {
-        [self removeFocusFromTextField:self.usernameInput];
-    } else if ([self.passwordInput isFirstResponder]) {
-        [self removeFocusFromTextField:self.passwordInput];
-    } else {
-        CGPoint location = [tap locationInView:self.scrollView];
-        [self.ktpBlockView waveAnimationFromPoint:location];
-    }
-}
-
 - (void)removeFocusFromTextField:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -147,6 +156,20 @@
 {
     [textField becomeFirstResponder];
     //    [self.scrollView setContentOffset:CGPointMake(0, 70) animated:YES];
+}
+
+#pragma mark - UI action selectors
+
+- (void)touchDownOnView:(UITapGestureRecognizer *)tap
+{
+    if ([self.usernameInput isFirstResponder]) {
+        [self removeFocusFromTextField:self.usernameInput];
+    } else if ([self.passwordInput isFirstResponder]) {
+        [self removeFocusFromTextField:self.passwordInput];
+    } else {
+        CGPoint location = [tap locationInView:self.scrollView];
+        [self.ktpBlockView waveAnimationFromPoint:location];
+    }
 }
 
 - (void)tappedLogIn
