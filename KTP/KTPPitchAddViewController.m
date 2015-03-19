@@ -14,10 +14,10 @@
 
 @interface KTPPitchAddViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic) UITableView *tableView;
 
-@property (nonatomic, strong) UITextField *titleField;
-@property (nonatomic, strong) KTPTextView *descriptionField;
+@property (nonatomic) UITextField *titleField;
+@property (nonatomic) KTPTextView *descriptionField;
 
 @end
 

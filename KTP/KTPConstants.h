@@ -58,7 +58,6 @@ typedef NS_ENUM(NSInteger, KTPViewType) {
     KTPViewTypeSettings,
     KTPViewTypePitches
 };
-
 typedef NS_ENUM(NSInteger, KTPMembersSortType) {
     KTPMembersSortTypeFirstName,
     KTPMembersSortTypeLastName,
