@@ -753,9 +753,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Kappa Theta Pi";
 				TargetAttributes = {
-					89855F05199B2BC2006E5A14 = {
-						DevelopmentTeam = K7DT288WPK;
-					};
 					89855F20199B2BC2006E5A14 = {
 						TestTargetID = 89855F05199B2BC2006E5A14;
 					};
