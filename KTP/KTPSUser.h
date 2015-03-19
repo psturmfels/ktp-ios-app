@@ -34,6 +34,7 @@
 + (BOOL)currentUserIsDirMembership;
 + (BOOL)currentUserIsDirMarketing;
 + (BOOL)currentUserIsDirEngagement;
++ (BOOL)currentUserIsPledge;
 
 /*!
  Asynchronously logs in the user with their provided username and password. When the user is logged in or if an error occurred, block is called with the appropriate arguments.

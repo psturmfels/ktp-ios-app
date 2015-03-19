@@ -27,10 +27,6 @@
 
 @implementation KTPPledgeMeetingsViewController
 
-//get users meetings
-//throw the users of the meetings in the cell
-//have tap on cell go to other user profile
-
 #pragma mark - Initialization
 
 - (instancetype)init {
@@ -52,16 +48,6 @@
     return self;
 }
 
--(void)tappedEdit {
-    if (self.tableView.editing) {
-        [self.tableView setEditing:NO animated:YES];
-    } else {
-        [self.tableView setEditing:YES animated:YES];
-    }
-}
-
-#pragma mark - UIViewController methods
-
 -(void)loadView {
     [super loadView];
     [self.tableView registerClass:[KTPPledgeMeetingsCell class] forCellReuseIdentifier:@"Cell"];
@@ -72,37 +58,36 @@
     [super viewDidAppear:animated];
     UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(tappedEdit)];
     [self.tabBarController.navigationItem setRightBarButtonItem:edit];
-
 }
 
 #pragma mark - UITableViewDataSource
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     KTPPledgeMeetingsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    KTPPledgeMeeting *meeting;
-    if (indexPath.section == 1) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        meeting = [self.meetings objectAtIndex:[self.completedMeetingIdxes indexAtIndex:indexPath.row]];
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        meeting = [self.meetings objectAtIndex:[self.incompletedMeetingIdxes indexAtIndex:indexPath.row]];
-    }
-    if ([[KTPSUser currentMember].status isEqualToString:@"Pledge"]) {
-        [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", meeting.active.firstName, meeting.active.lastName]];
-    } else {
-        [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", meeting.pledge.firstName, meeting.pledge.lastName]];
-    }
+    cell.accessoryType = (indexPath.section == 0) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+    NSIndexSet *meetingIdxs = (indexPath.section == 0) ? self.incompletedMeetingIdxes : self.completedMeetingIdxes;
+    KTPPledgeMeeting *meeting = [self.meetings objectAtIndex:[meetingIdxs indexAtIndex:indexPath.row]];
+    KTPMember *other = [KTPSUser currentUserIsPledge] ? meeting.active : meeting.pledge;
+    [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", other.firstName, other.lastName]];
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return [KTPSMembers members].membersArray.count;
     return (section == 0) ? self.incompletedMeetingIdxes.count : self.completedMeetingIdxes.count;
-//    return [KTPSUser currentMember].meetings.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
+}
+
+#pragma mark - Interaction Handling
+
+-(void)tappedEdit {
+    if (self.tableView.editing) {
+        [self.tableView setEditing:NO animated:YES];
+    } else {
+        [self.tableView setEditing:YES animated:YES];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

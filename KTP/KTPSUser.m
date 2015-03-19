@@ -74,6 +74,10 @@
     return [[KTPSUser currentMember].role isEqualToString:@"Director of Engagement"];
 }
 
++(BOOL)currentUserIsPledge {
+    return [[KTPSUser currentMember].role isEqualToString:@"Pledge"];
+}
+
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(void (^)(BOOL successful, NSError *error))block {
     // Login is performed asynchronously
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
