@@ -36,6 +36,14 @@
     return [KTPSUser currentUser].member;
 }
 
++ (BOOL)currentUserIsActive {
+    return [[KTPSUser currentMember].status isEqualToString:@"Active"];
+}
+
++ (BOOL)currentUserIsPledge {
+    return [[KTPSUser currentMember].status isEqualToString:@"Pledge"];
+}
+
 + (BOOL)currentUserIsAdmin {
     return [[KTPSUser currentMember].status isEqualToString:@"Eboard"];
 }

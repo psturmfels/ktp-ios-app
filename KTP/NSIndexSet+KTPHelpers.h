@@ -1,9 +1,9 @@
 //
-//  NSIndexSet+IS5Helpers.h
-//  iScore5
+//  NSIndexSet+KTPHelpers.h
+//  KTP
 //
 //  Created by Greg Azevedo on 11/10/14.
-//  Copyright (c) 2014 iScore5 LLC. All rights reserved.
+//  Copyright (c) 2015 Kappa Theta Pi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

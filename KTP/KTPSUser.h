@@ -25,6 +25,9 @@
 + (KTPMember*)currentMember;
 
 + (BOOL)currentUserIsAdmin;
++ (BOOL)currentUserIsActive;
++ (BOOL)currentUserIsPledge;
+
 + (BOOL)currentUserIsPresident;
 + (BOOL)currentUserIsVicePresident;
 + (BOOL)currentUserIsSecretary;

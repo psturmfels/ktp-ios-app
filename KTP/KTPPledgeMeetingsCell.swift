@@ -34,33 +34,29 @@ class KTPPledgeMeetingsCell : UITableViewCell {
     }
 
     convenience required init(coder aDecoder: NSCoder) {
-        self.init(style: .Default, reuseIdentifier: "");
+        self.init(style: .Default, reuseIdentifier: "Cell");
     }
+    
+    // MARK: - Overridden setters/getters
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated);
+        self.completedBackground.hidden = editing || !(meeting?.complete ?? false);
+    }
+    
+    // MARK: - Loading subviews
     
     func loadLabelValues() {
-        
-        // Load a list of pledges or actives depending on current user:
-        if (KTPSUser.currentUser().member.status == "Pledge") {
-            meetingLabel.text = meeting!.active.firstName + " " + meeting!.active.lastName;
-        }
-        
-        else {
-            meetingLabel.text = meeting!.pledge.firstName + " " + meeting!.pledge.lastName;
-        }
+        // Load name of pledge or active
+        meetingLabel.text = KTPSUser.currentUserIsPledge() ? meeting!.active.firstName + " " + meeting!.active.lastName
+                                                           : meeting!.pledge.firstName + " " + meeting!.pledge.lastName;
         
         // Load some sort of boolean indicator for "have they met"
+        accessoryType = meeting!.complete ? .Checkmark : .None;
         self.completedBackground.hidden = !(meeting!.complete);
-        
-        if (meeting!.complete) {
-            accessoryType = .Checkmark;
-        }
-        
-        else {
-            accessoryType = .None;
-        }
     }
     
-    func autoLayout() {
+    private func autoLayout() {
         completedBackground.setTranslatesAutoresizingMaskIntoConstraints(false);
         meetingLabel.setTranslatesAutoresizingMaskIntoConstraints(false);
         

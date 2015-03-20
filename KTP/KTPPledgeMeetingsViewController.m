@@ -7,7 +7,8 @@
 //
 
 #import "KTPPledgeMeetingsViewController.h"
-#import "KTPPledgeMeetingsCell.h"
+//#import "KTPPledgeMeetingsCell.h"
+#import "KTP-Swift.h"
 #import "KTPSUser.h"
 
 #import "KTPSMembers.h"
@@ -20,96 +21,98 @@
 @interface KTPPledgeMeetingsViewController ()
 
 @property (nonatomic, weak) NSArray *meetings;
-@property (nonatomic) NSMutableIndexSet *completedMeetingIdxes;
-@property (nonatomic) NSMutableIndexSet *incompletedMeetingIdxes;
+@property (nonatomic, strong) NSMutableArray *selected; // array containing BOOLs whether each row is selected
 
 @end
 
 @implementation KTPPledgeMeetingsViewController
-
-//get users meetings
-//throw the users of the meetings in the cell
-//have tap on cell go to other user profile
 
 #pragma mark - Initialization
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Meetings" image:[UIImage imageNamed:@"MeetingTabBarIcon"] tag:1];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Meetings" image:[UIImage imageNamed:@"MeetingIcon"] tag:2];
         self.navigationItem.title = @"Pledge Meetings";
-        self.completedMeetingIdxes = [NSMutableIndexSet indexSet];
-        self.incompletedMeetingIdxes = [NSMutableIndexSet indexSet];
+        
+        // Initialize arrays
         self.meetings = [KTPSUser currentMember].meetings;
-        [self.meetings enumerateObjectsUsingBlock:^(KTPPledgeMeeting *meeting, NSUInteger idx, BOOL *stop) {
-            if (meeting.complete) {
-                [self.completedMeetingIdxes addIndex:idx];
-            } else {
-                [self.incompletedMeetingIdxes addIndex:idx];
-            }
+        self.selected = [NSMutableArray arrayWithCapacity:self.meetings.count];
+        [self.meetings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [self.selected insertObject:@([(KTPPledgeMeeting*)obj complete]) atIndex:idx];
         }];
+        
+        if ([KTPSUser currentUserIsAdmin] || [KTPSUser currentUserIsActive]) {
+            [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonTapped)]];
+        }
     }
     return self;
 }
 
--(void)tappedEdit {
-    if (self.tableView.editing) {
-        [self.tableView setEditing:NO animated:YES];
-    } else {
-        [self.tableView setEditing:YES animated:YES];
+#pragma mark - Overridden setters/getters
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
+    self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
+    
+    // Save the menu button
+    static UIBarButtonItem *menuButton;
+    if (!menuButton) {
+        menuButton = self.navigationItem.leftBarButtonItem;
     }
+    
+    // Create the cancel button, and set it as the left bar button item when in editing mode
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
+    self.navigationItem.leftBarButtonItem = editing ? cancelButton : menuButton;
+    
+    // If entering editing mode, record which meetings are currently complete and preselect those cells
+    // If exiting editing mode, deselect all of the cells
+    if (editing) {
+        [self.selected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj boolValue]) {
+                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+            }
+        }];
+    } else {
+        [self.meetings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:YES];
+        }];
+    }
+    
 }
 
 #pragma mark - UIViewController methods
 
--(void)loadView {
-    [super loadView];
-    [self.tableView registerClass:[KTPPledgeMeetingsCell class] forCellReuseIdentifier:@"Cell"];
-    self.tabBarController.navigationItem.title = @"Pledge Meetings";
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.tableView registerClass:[KTPPledgeMeetingsCell class] forCellReuseIdentifier:@"MeetingCell"];
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(tappedEdit)];
-    [self.tabBarController.navigationItem setRightBarButtonItem:edit];
+#pragma mark - UITableViewDataSource methods
 
-}
-
-#pragma mark - UITableViewDataSource
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    KTPPledgeMeetingsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    KTPPledgeMeeting *meeting;
-    if (indexPath.section == 1) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        meeting = [self.meetings objectAtIndex:[self.completedMeetingIdxes indexAtIndex:indexPath.row]];
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        meeting = [self.meetings objectAtIndex:[self.incompletedMeetingIdxes indexAtIndex:indexPath.row]];
-    }
-    if ([[KTPSUser currentMember].status isEqualToString:@"Pledge"]) {
-        [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", meeting.active.firstName, meeting.active.lastName]];
-    } else {
-        [cell setOtherMember:[NSString stringWithFormat:@"%@ %@", meeting.pledge.firstName, meeting.pledge.lastName]];
-    }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    KTPPledgeMeetingsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell" forIndexPath:indexPath];
+    cell.meeting = self.meetings[indexPath.row];
     return cell;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return [KTPSMembers members].membersArray.count;
-    return (section == 0) ? self.incompletedMeetingIdxes.count : self.completedMeetingIdxes.count;
-//    return [KTPSUser currentMember].meetings.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.meetings.count;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return kStandardTableViewCellHeight;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.tableView.editing) {
-        KTPPledgeMeetingsCell *cell = (KTPPledgeMeetingsCell *)[tableView cellForRowAtIndexPath:indexPath];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+#pragma mark - UITableViewDelegate methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing) {
+        self.selected[indexPath.row] = @YES;
     } else {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         KTPPledgeMeeting *meeting = [self.meetings objectAtIndex:indexPath.row];
         KTPMember *m = ([[KTPSUser currentMember].status isEqualToString:@"Pledge"]) ? meeting.active : meeting.pledge;
         KTPProfileViewController *vc = [[KTPProfileViewController alloc] initWithMember:m];
@@ -117,32 +120,48 @@
     }
 }
 
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing) {
+        self.selected[indexPath.row] = @NO;
+    }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleNone;
 }
 
--(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *moreAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"More" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // show UIActionSheet
-    }];
-    moreAction.backgroundColor = [UIColor greenColor];
+#pragma mark - UI action selectors
+
+- (void)editButtonTapped {
+    [self setEditing:!self.editing animated:YES];
     
-    UITableViewRowAction *flagAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Flag" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // flag the row
-    }];
-    flagAction.backgroundColor = [UIColor yellowColor];
-    
-    return @[moreAction, flagAction];
+    // Exiting editing mode with done
+    // Save changes, and update all meetings
+    if (!self.editing) {
+        [self.meetings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [self.meetings[idx] setComplete:[self.selected[idx] boolValue]];
+            
+            // Reload the cell's values
+            [(KTPPledgeMeetingsCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]] loadLabelValues];
+            [self.meetings[idx] update:^(BOOL successful) {
+                if (!successful) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Meeting Update Failed"
+                                                                                   message:@"Pledge meeting(s) could not be updated."
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            }];
+        }];
+    }
 }
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)cancelButtonTapped {
+    [self setEditing:NO animated:YES];
     
+    [self.meetings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        self.selected[idx] = @([obj complete]);
+    }];
 }
-
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 100;
-//}
-
-
 
 @end

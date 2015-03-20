@@ -22,7 +22,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tasks" image:[UIImage imageNamed:@"TasksTabBarIcon"] tag:0];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tasks" image:[UIImage imageNamed:@"TasksTabBarIcon"] tag:1];
         self.navigationItem.title = @"Pledge Tasks";
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTableView) name:KTPNotificationPledgeTasksUpdated object:nil];
