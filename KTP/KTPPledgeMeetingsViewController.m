@@ -7,7 +7,6 @@
 //
 
 #import "KTPPledgeMeetingsViewController.h"
-//#import "KTPPledgeMeetingsCell.h"
 #import "KTP-Swift.h"
 #import "KTPSUser.h"
 
